@@ -1,0 +1,281 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a (click)="goToProfile()">Profile</a></button>
+        <button> <a class="active" (click)="goToAssessment()">New Assessment</a></button>
+        <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+            <button>
+                <a (click)="goToViewAllAssessment()">View Assessment</a>
+            </button>
+        </ng-container>
+    </div>
+</div>
+
+
+
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Skill</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let employee of employees">
+            <tr>
+                <td colspan="4">{{ employee.firstName }}</td>
+            </tr>
+            <tr *ngFor="let skill of skills">
+                <td></td>
+                <td>{{ skill.skillName }}</td>
+                <td>
+                    <ng-container *ngFor="let assessment of assessments; let i = index">
+                        
+                            {{ assessment.rating}}
+                <td>{{assessment.assessmentDate}}</td>
+        </ng-container>
+                </td>
+        </ng-container>
+       
+        
+        
+    </tbody>
+</table>
+
+<!-- <table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Skill</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of employees">
+            <td colspan="4">{{ employee.firstName }}</td>
+        </tr>
+        <ng-container *ngFor="let skill of skills">
+            <tr>
+                <td></td>
+                <td>{{ skill.skillName }}</td>
+                <td>
+                    <ng-container *ngFor="let assessment of assessments">
+                        <ng-container
+                            *ngIf="assessment.skill?.idSkill === skill.idSkill && assessment.employee?.firstName === employee?.firstName">
+                            {{ assessment.rating }}
+                        </ng-container>
+                    </ng-container>
+                </td>
+                <td>
+                    <ng-container *ngFor="let assessment of assessments">
+                        <ng-container
+                            *ngIf="assessment.skill?.idSkill === skill.idSkill && assessment.employee?.firstName === employee?.firstName">
+                            {{ assessment.assessmentDate }}
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table> -->
+
+<!-- <table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Skill</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let employee of employees">
+            <tr>
+                <td colspan="4">{{ employee.firstName }}</td>
+            </tr>
+            <tr *ngFor="let skill of skills">
+                <td></td>
+                <td>{{ skill.skillName }}</td>
+                <td>
+                    <ng-container *ngFor="let assessment of assessments; let i = index">
+                        <ng-container
+                            *ngIf="assessment.skill.idSkill === skill.idSkill">
+                            {{ assessment.rating }}
+                        </ng-container>
+                    </ng-container>
+                </td>
+                <td>
+                    <tr *ngFor="let assessment of assessments; let i = index">
+            <td>{{ assessment.rating }}</td>
+            <td>{{assessment.assessmentDate}}</td>
+        </tr>
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table> -->
+
+<!-- <table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Skill</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of employees ">
+            <td colspan="4">{{ employee.firstName }}</td>
+        </tr>
+        <tr *ngFor="let skill of skills">
+            <td></td>
+            <td>{{ skill.skillName }}</td>
+            <td>
+        <tr *ngFor="let assessment of assessments; let i = index">
+            <td>{{ assessment.rating }}</td>
+            <td>{{assessment.assessmentDate}}</td>
+        </tr>
+        </td>
+        </tr>
+    </tbody>
+</table> -->
+
+<!-- <table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Skill</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of data">
+        <tr *ngFor ="let skill of skills">
+        <td>{{ skill.skillName }}</td>
+        <tr *ngFor="let employee of employees">
+        <td>{{ employee?.firstName }} {{ employee?.lastName }}</td>
+        <td>{{ assessment.skill.rating }}</td>
+        <td>{{ assessment.assessmentDate }}</td>
+    </tr>
+    </tbody>
+</table> -->
+
+<!-- 
+<table>
+     <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Skill</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+           
+            <tr *ngFor="let assessment of assessments">
+                            <td> {{ employee?.firstName }}</td> 
+                        
+        <td></td>
+            
+               <td colspan="4">{{ assessment.employee?.firstName }} {{employee?.lastName}}</td>
+              <td>{{ assessments[assessment.idEmployee].rating }} </td>
+            
+               <td> 
+            <tr *ngFor="let skill of skills">
+                
+                <td>{{ skill.skillName }}</td>
+                
+                </tr>
+                
+                <td>
+                </td>
+                <td>
+        <tr *ngFor="let assessment of assessments">
+              <td>{{ assessment.employee?.firstName }}</td>
+            <td>{{ assessment?.skill?.skillName }}</td>
+
+            <td >{{ assessment.rating }}</td>
+            <td>{{ assessment.assessmentDate }}</td>
+        </tr>
+        </td>
+        </tr>
+        
+    </tbody>
+</table> -->
+<!--
+<table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Skill</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of employees">
+            <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+        <tr *ngFor="let assessment of assessments">
+<td>{{ assessment.skill.skillName }}</td>
+<td>{{assessment.rating}}</td>
+
+
+        </tr>
+       
+    </tbody>
+    
+</table>
+
+-->
+<!-- <table>
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Skill </th>
+            <th>Rating</th>
+            <th>Assessment Date</th>
+        </tr>
+    </thead>
+    <tbody><tr *ngFor=" let assessment of assessments">
+            <td>{{ employees[assessment.idEmployee].firstName }}  {{employees[assessment.idEmployee].lastName}}</td>
+            <td >{{ skills[assessment.idSkill].skillName }} </td>
+            <td>{{ assessment.rating }}</td>
+            <td>{{ assessment.assessmentDate }}</td>
+       
+    </tr>
+        
+    </tbody>
+</table> -->
+
+
+
+
+<!-- <table>
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Skill Name</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let assessment of assessments">
+            <td>{{ assessment.employee?.firstName }}</td>
+            <td>{{ assessment.skill.skillName }}</td>
+            <td>{{ assessment.rating }}</td>
+            <td>{{ assessment.assessmentDate }}</td>
+        </tr>
+    </tbody>
+</table> -->

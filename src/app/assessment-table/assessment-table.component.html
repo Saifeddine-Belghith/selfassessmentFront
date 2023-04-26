@@ -1,0 +1,96 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a class="active" (click)="goToProfile()">Profile</a></button>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">My Assessment</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+            </div>
+        </div>
+        <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+            <button>
+                <a (click)="goToPeople()">People</a>
+            </button>
+        </ng-container>
+    </div>
+</div>
+<h2 class="welcome-message ">Assessment Table</h2>
+<div>
+<form (ngSubmit)="createAssessment"></form>
+<!--<ng-container *ngIf="categories && skills.length > 0">-->
+    <!-- <button (click)="logSkill(skill.rating, skills,  skill)">Log Skill</button> -->
+    <table >
+        
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Skill</th>
+                    <th>Rating</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+        <tbody>
+            <ng-container *ngFor="let category of categories">
+                <ng-container *ngIf="category.skills.length > 0">
+                    <tr>
+                        <td [attr.rowspan]="category.skills.length">{{ category.categoryName }}</td>
+                        <td>{{ category.skills[0].skillName }}</td>
+                        <td><select  *ngIf="category.skills[0]" [value]="category.skills[0].rating"
+                                (input)="onRatingChange(category.skills[0], $any($event.target).value)">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                        </select>
+                            </td>
+                        <td>{{ category.skills[0].description }}</td>
+                    </tr>
+                    <tr *ngFor="let skill of category.skills.slice(1)">
+                        <td>{{ skill.skillName }}</td>
+                        <td>
+                            <select [value]="skill.rating"
+                                (input)="onRatingChange(skill, $any($event.target).value)" >
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                            </select>
+                            </td>
+                        <td>{{ skill.description }}</td>
+                    </tr>
+                </ng-container>
+            </ng-container>
+        </tbody>
+        
+        
+        </table>
+        <div class="Sub">
+            <button><a (click)="createAssessment(idEmployee)">Submit</a></button>
+        </div>
+        
+            <!-- <tr *ngFor="let category of categories">
+                
+                <td colspan="4">{{ category.categoryName }}</td>
+            <td>
+                
+            <tr *ngFor=" let skill of response.skills">
+               <td> {{ skill.skillName }}</td>
+            <td> <input type="number" min="0" max="3" *ngIf="skill" [value]="skill.rating"
+                    (input)="onRatingChange(skill, $any($event.target).value)" /></td>
+                <td>{{ skill.description }}</td>
+               
+            
+            </tr>
+            
+</tr> -->
+ 
+
+       
+       
+<!--</ng-container>-->

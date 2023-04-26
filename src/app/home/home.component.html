@@ -1,0 +1,54 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a class="active" (click)="goToProfile()">Profile</a></button>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">My Assessment</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+            </div>
+        </div>
+        <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+            <button>
+                <a (click)="goToPeople()">People</a>
+            </button>
+        </ng-container>
+    </div>
+</div>
+
+<div class="banner">
+    <div class="banner-child"></div>
+    <img class="logo-color-1-icon" alt="" src="../assets/images/Logo-color.png" />
+</div>
+
+<h1 class="welcome-message">Welcome {{employee?.firstName}} {{employee?.lastName}} in your home page</h1>
+
+
+<!-- 
+<div class="header">
+    <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png"/>
+    <div class="btn-group">
+    <button> <a class="active" (click)="goToProfile()">Profile</a></button>
+    <button> <a (click)="goToAssessment()">New Assessment</a></button>
+    <ng-container *ngIf="employee && employee.isCoach == true || employee.isManager ==true">
+        <button (click)="goToViewAllAssessment()">View Assessment</button>
+    </ng-container>
+     <button> <a href="#about">View Assessment</a></button> 
+    </div>
+</div>
+ <div class="banner">
+    <div class="banner-child"></div>
+    <img class="logo-color-1-icon" alt="" src="../assets/images/Logo-color.png" />
+</div> 
+
+<h1 class="welcome-message">Welcome  {{employee?.firstName}} to the Your Home Page</h1> -->
+<!-- <button (click)="goToProfile()">Profile</button>
+<button (click)="goToAssessment()">New Assessment</button>
+<ng-container *ngIf="employee.isCoach ==true">
+<button (click)="goToViewAllAssessment()" >View Assessment</button>
+</ng-container> --> 

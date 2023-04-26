@@ -1,0 +1,40 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a class="active" (click)="goToProfile()">Profile</a></button>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">My Assessment</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+            </div>
+        </div>
+        <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
+            <button>
+                <a (click)="goToPeople()">People</a>
+            </button>
+        </ng-container>
+    </div>
+</div>
+<h2 class="welcome-message ">Assessment Table</h2>
+<div>
+<table>
+    <thead>
+        <tr>
+            <th>Skill</th>
+            <th>Rating</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let assessment of assessments">
+            <td>{{ skillService.getSkillName(assessment.idSkill) }}</td>
+            <td>{{ assessment.rating }}</td>
+            <td>{{ assessment.assessmentDate }}</td>
+        </tr>
+    </tbody>
+</table>
