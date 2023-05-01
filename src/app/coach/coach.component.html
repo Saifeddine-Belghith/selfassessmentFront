@@ -21,9 +21,9 @@
     </div>
 </div>
 <div class="coachee-list">
-    <h2>Coachees:</h2>
+    <h2>My employees:</h2>
     <ul>
-        <li *ngFor="let coachee of coacheeList">
+        <li *ngFor="let coachee of coacheeList || employee of employeeList">
             <span class="coachee-name">{{ coachee.firstName }} {{ coachee.lastName }}</span>
             <button class="btn" (click)="onCoacheeSelect(coachee.idEmployee)">Assessments</button>
         </li>
@@ -32,23 +32,28 @@
 
 <div class="assessment-table">
     <h2>Assessments:</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Skill</th>
-                <th>Rating</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let assessment of assessments">
-                <td class="skill-name">{{ skillService.getSkillName(assessment.idSkill) }}</td>
-                <td class="rating">{{ assessment.rating }}</td>
-                <td class="date">{{ assessment.assessmentDate }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    
+        <table *ngIf="!errorMessage">
+            <thead>
+                <tr>
+                    <th>Skill</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let assessment of assessments">
+                    <td class="skill-name">{{ skillService.getSkillName(assessment.idSkill) }}</td>
+                    <td class="rating">{{ assessment.rating }}</td>
+                    <td class="date">{{ assessment.assessmentDate }}</td>
+                </tr>
+            </tbody>
+        </table>
+   
 </div>
+
+
 
 <!-- <ul>
     <li *ngFor="let coachee of coacheeList; let i = index">

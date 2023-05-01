@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { Employee } from './employee.model';
 import { Assessment } from '../assessment/assessment.model';
 
@@ -12,6 +12,7 @@ export class EmployeeService {
 
   private apiUrl = 'http://localhost:8081/employees';
   private coachUrl = 'http://localhost:8081/coach';
+  private managerUrl = 'http://localhost:8081/managers';
   private assessmentUrl = 'http://localhost:8081/assessments';
 
   constructor(private http: HttpClient) { }
@@ -48,11 +49,34 @@ export class EmployeeService {
   }
 
   getCoacheesByCoachId(id: number): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.coachUrl}/${id}/coachees`);
     
+      return this.http.get<Employee[]>(`${this.coachUrl}/${id}/coachees`);
+
+  }
+  getEmployeesByManagerId(id: number): Observable<Employee[]> {
+
+    return this.http.get<Employee[]>(`${this.managerUrl}/${id}/employees-managed`);
+
   }
   getAssessmentsByEmployeeId(id: number): Observable<Assessment[]> {
-    return this.http.get<Assessment[]>(`${this.assessmentUrl}/employee/${id}`);
+    return this.http.get<Assessment[]>(`${this.assessmentUrl}/employee/${id}`).pipe(
+      map((assessments: Assessment[]) => {
+        if (assessments && assessments.length > 0) {
+          return assessments;
+        } else {
+          throw new Error('No assessments found.');
+        }
+      }),
+      catchError((error: any) => {
+        if (error.status === 404) {
+          throw new Error('No assessments found.');
+        } else {
+          console.error(error);
+          throw new Error('Error fetching assessments.');
+        }
+      })
+    );
   }
+
 
 }

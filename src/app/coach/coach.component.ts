@@ -18,6 +18,8 @@ import { SkillService } from '../skill/skill.service';
 export class CoachComponent implements OnInit {
   coach!: Employee;
   coacheeList!: Employee[];
+  manager!: Employee;
+  employeeList!: Employee[];
   selectedCoacheeId: number | null = null;
   assessments: Assessment[] = [];
   skillNames: string[] = [];
@@ -35,7 +37,8 @@ export class CoachComponent implements OnInit {
   isCoach: boolean = false;
   isManager: boolean = false;
 
- skillName: string[] | undefined;
+  skillName: string[] | undefined;
+  errorMessage!: string;
 
   
 
@@ -44,12 +47,20 @@ export class CoachComponent implements OnInit {
   ngOnInit(): void {
     const idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
     this.employeeService.getEmployeeById(idEmployee).subscribe(coach => {
+      
       this.coach = coach;
-      this.getCoachees();
       this.isCoach = this.coach?.isCoach;
       this.isManager = this.coach?.isManager;
-      console.log("is coch", this.isCoach);
+      console.log("is coach", this.isCoach);
       console.log("is manager", this.isManager);
+      if (this.isCoach === true) {
+        this.getCoachees();
+      }
+      else if (this.isManager=== true) {
+        this.getEmployees();
+      }
+      // console.log("is coach", this.isCoach);
+      // console.log("is manager", this.isManager);
     });
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
@@ -86,6 +97,14 @@ export class CoachComponent implements OnInit {
       this.coacheeList = coachees;
     });
   }
+  getEmployees(): void {
+    // this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
+    this.employeeService.getEmployeesByManagerId(this.coach.idEmployee).subscribe(employees => {
+      console.log("id employee", this.coach.idEmployee)
+      this.employeeList = employees;
+      console.log("list employee", this.employeeList)
+    });
+  }
 
   onCoacheeSelect(coacheeId: number): void {
     this.selectedCoacheeId = coacheeId;
@@ -93,6 +112,7 @@ export class CoachComponent implements OnInit {
 
       this.employeeService.getAssessmentsByEmployeeId(coacheeId).subscribe(assessments => {
         this.assessments = assessments;
+        this.errorMessage = '';
         const skillObservables = assessments.map(assessment => {
           return this.skillService.getSkillById(assessment.idSkill);
         });
@@ -103,8 +123,13 @@ export class CoachComponent implements OnInit {
 
         
         
-      });
-    } else {
+      
+    }, error => {
+      this.errorMessage = error.message; // set the error message here
+      this.assessments = []; // clear the assessments array
+    }
+    );
+  } else {
       this.assessments = [];
     }
     const url = `http://localhost:8081/assessments/employee/${this.selectedCoacheeId}`;
