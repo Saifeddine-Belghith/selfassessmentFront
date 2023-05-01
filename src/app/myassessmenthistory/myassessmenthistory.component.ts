@@ -19,13 +19,13 @@ export class MyassessmenthistoryComponent implements OnInit {
   skills: Skill[] = [];
   skill!: Skill;
   idEmployee!: number;
-  private apiUrl = 'http://localhost:8081';
+  private apiUrl = 'http://10.66.12.54:8081';
   employee!: Employee;
   idSkill!: number;
   name!: string;
   coach!: Employee;
   id!: number;
-  
+
   skillName: string[] | undefined;
   isCoach: boolean = false;
   isManager: boolean = false;
@@ -40,7 +40,7 @@ export class MyassessmenthistoryComponent implements OnInit {
     //   this.skill = skillName;
     //   console.log('Skill found:', this.skill);
     // }
-   
+
     // this.skills.forEach(skill => {
     //   this.skill.skillName = skill.skillName;
     // });
@@ -59,8 +59,8 @@ export class MyassessmenthistoryComponent implements OnInit {
       console.log("is coch", this.isCoach);
       console.log("is manager", this.isManager);
     });
-    
-    
+
+
     // this.skillName = this.skill.skillName;
     // console.log('Skill Name =', this.skill.skillName);
     // console.log('employee id is =', this.idEmployee);
@@ -72,9 +72,9 @@ export class MyassessmenthistoryComponent implements OnInit {
     // } else {
     //   console.log(`Skill with id ${this.idSkill} not found`);
     // }
-    
-    
-    const url = `http://localhost:8081/assessments/employee/${this.idEmployee}`;
+
+
+    const url = `http://10.66.12.54:8081/assessments/employee/${this.idEmployee}`;
     this.http.get<Assessment[]>(url).subscribe(data => {
       this.assessments = data;
       console.log('Our DATA IS', data);
@@ -88,17 +88,17 @@ export class MyassessmenthistoryComponent implements OnInit {
         console.log('Skill names:', skillNames);
       });
       const id = this.skillService.getSkillName(this.assessment.idSkill)
-      
+
     });
-    
-      
+
+
     // console.log('id skill', this.assessments.find(skill => skill.skillName === this.skillName));
     //   const skillNames = data.map(assessment => {
     //     const skill = this.assessments.find(skill => assessment.idSkill === skill.idSkill);
     //     return skill ? skill.skillName : 'Unknown skill';
     //   });
     //   // console.log(`Skill with id  are:`, skillNames)
-    
+
     //   this.skillService.getSkills()
     //     .subscribe((skills: any[]) => {
     //       this.skills = skills;
@@ -109,7 +109,7 @@ export class MyassessmenthistoryComponent implements OnInit {
     // };
     this.name = this.getSkillName(this.assessment.idSkill);
     console.log('skilllll name', this.name);
-  
+
   }
   getSkillName(idSkill: number): string {
     const skill = this.skills.find(skill => skill.idSkill === idSkill);

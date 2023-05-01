@@ -17,7 +17,7 @@ import { AssessmentDTO } from '../assessmentdto/assessmentdto.model';
   styleUrls: ['./viewallassessment.component.css']
 })
 export class ViewallassessmentComponent implements OnInit {
-  private apiUrl = 'http://localhost:8081';
+  private apiUrl = 'http://10.66.12.54:8081';
   employees: Employee[] = [];
   id!: number;
   assessments: Assessment[] = [];
@@ -41,7 +41,7 @@ export class ViewallassessmentComponent implements OnInit {
     private router: Router
   ) { }
 
-  async ngOnInit(){
+  async ngOnInit() {
     this.assessmentService.getAssessmentsByEmployeeId(this.idEmployee).subscribe((data: any[]) => {
       this.assessments = data.map((assessmentData) => {
         const skill: Skill = {
@@ -53,7 +53,7 @@ export class ViewallassessmentComponent implements OnInit {
         };
 
         const assessment: Assessment = {
-          idSkill:assessmentData.idSkill,
+          idSkill: assessmentData.idSkill,
           idEmployee: assessmentData.idEmployee,
           idAssessment: assessmentData.idAssessment,
           skill: skill,
@@ -66,7 +66,7 @@ export class ViewallassessmentComponent implements OnInit {
       });
     });
 
-  
+
 
     if (this.idEmployee !== undefined) {
       localStorage.setItem('idEmployee', this.idEmployee.toString());
@@ -76,33 +76,33 @@ export class ViewallassessmentComponent implements OnInit {
     this.skills = await this.getAllSkills().toPromise() ?? [];
     this.skill = this.skills[0];
     //console.log('this rating =', this.skills);
-    
-      this.assessments = await this.assessmentService.getAssessments(this.idEmployee).toPromise() ?? [];
-     // console.log('this rating =', this.assessments);
+
+    this.assessments = await this.assessmentService.getAssessments(this.idEmployee).toPromise() ?? [];
+    // console.log('this rating =', this.assessments);
     console.log(this.skills);
     // this.ratings = this.skill.idSkill;
     console.log('Assessment', this.assessments);
-  
-    
+
+
     this.getData().subscribe((data: AssessmentDTO[]) => {
       this.data = data;
     });
-   // console.log('this rating =', this.rating);
+    // console.log('this rating =', this.rating);
 
   }
-  
-  
+
+
   getEmployees(): void {
     this.employeeService.getEmployees()
       .subscribe(employees => this.employees = employees);
   }
-  getAssessments(): Observable<Assessment[]>{
-    
-    
-      this.assessmentService.getAssessments(this.idEmployee)
-        .subscribe(assessments => this.assessments = this.assessments);
-    
-      return this.assessmentService.getAssessments(this.idEmployee);
+  getAssessments(): Observable<Assessment[]> {
+
+
+    this.assessmentService.getAssessments(this.idEmployee)
+      .subscribe(assessments => this.assessments = this.assessments);
+
+    return this.assessmentService.getAssessments(this.idEmployee);
     console.log('Assessment', this.assessment);
   }
   getAssessmentsRating1(skillId: number): number {
@@ -127,12 +127,12 @@ export class ViewallassessmentComponent implements OnInit {
   }
   getSkills(): void {
     this.skillService.getSkills()
-    .subscribe(skills => this.skills = skills);
+      .subscribe(skills => this.skills = skills);
   }
   getAllSkills(): Observable<Skill[]> {
     return this.skillService.getSkills();
   }
-  getAssessmentRating(assessmentId:number): number{
+  getAssessmentRating(assessmentId: number): number {
     const assessment = this.assessments.find(a => a.idAssessment === assessmentId);
     return assessment ? assessment.rating : 0;
   }
@@ -150,12 +150,12 @@ export class ViewallassessmentComponent implements OnInit {
 
 
 
-  logSkill(rating: number , skills : Skill[], skill : Skill) {
-    const AssessmentDTO : any = {
+  logSkill(rating: number, skills: Skill[], skill: Skill) {
+    const AssessmentDTO: any = {
       idSkill: this.getIdSkill,
       rating: this.skill.rating
     }
-  
+
     if (skill) {
       const id = this.getIdSkill(skill.idSkill);
       console.log(id);

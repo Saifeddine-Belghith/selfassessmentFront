@@ -13,6 +13,7 @@ export class LoginComponent {
   password: string = '';
   idEmployee!: number;
 
+
   constructor(private router: Router, private http: HttpClient) { }
 
   Login() {
@@ -21,13 +22,13 @@ export class LoginComponent {
       password: this.password,
     };
 
-    this.http.post('http://localhost:8081/login', bodyData).subscribe((resultData: any) => {
-      console.log('result:',resultData);
+    this.http.post('http://10.66.12.54:8081/login', bodyData).subscribe((resultData: any) => {
+      console.log('result:', resultData);
       if (resultData.message === 'Email does not exist') {
         alert('Email does not exist');
       } else if (resultData.message === 'password Not Match') {
         alert('Incorrect email or password');
-      } else if (resultData.message === 'Login Success')    {
+      } else if (resultData.message === 'Login Success') {
         // Set the idEmployee property of the component
         this.idEmployee = resultData.idEmployee;
         // Store the idEmployee in local storage

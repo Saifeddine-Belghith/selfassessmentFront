@@ -7,7 +7,7 @@ import { Skill } from '../skill/skill.model';
     providedIn: 'root'
 })
 export class SkillService {
-    private apiUrl = 'http://localhost:8081/skill';
+    private apiUrl = 'http://10.66.12.54:8081/skill';
     skills: Skill[] = [];
     idSkill!: number;
 

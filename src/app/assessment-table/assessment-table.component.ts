@@ -23,7 +23,7 @@ interface AssessmentDTO {
   styleUrls: ['./assessment-table.component.css']
 })
 
-  
+
 export class AssessmentTableComponent implements OnInit {
   assessments: Assessment[] = [];
   categories: Category[] = [];
@@ -31,17 +31,17 @@ export class AssessmentTableComponent implements OnInit {
   assessmentsdto: AssessmentDTO[] = [];
   id!: number;
   idEmployee!: number;
-  employee!: Employee ;
+  employee!: Employee;
   skill!: Skill;
   rating: number = 0
   currentRating: number = 0;
-  private apiUrl = 'http://localhost:8081';
+  private apiUrl = 'http://10.66.12.54:8081';
   isCoach: boolean = false;
   isManager: boolean = false;
   response: any;
   categories$: Observable<Category[]> = of([]);
   errorMessage!: string;
-  
+
 
   constructor(
     private http: HttpClient,
@@ -65,11 +65,11 @@ export class AssessmentTableComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     const idEmployee = localStorage.getItem('idEmployee') || '';
     this.idEmployee = parseInt(idEmployee);
-    this.http.get('http://localhost:8081/categories').subscribe(data => {
+    this.http.get('http://10.66.12.54:8081/categories').subscribe(data => {
       this.categories = (data as Category[]);
       this.categories.forEach(category => {
-        
-        this.http.get<Skill[]>(`http://localhost:8081/skill/category/${category.idCategory}`).subscribe(skills => {
+
+        this.http.get<Skill[]>(`http://10.66.12.54:8081/skill/category/${category.idCategory}`).subscribe(skills => {
           category.skills = skills;
           skills.forEach(skill => {
             skill.rating = 0; // Set default rating value
@@ -111,10 +111,10 @@ export class AssessmentTableComponent implements OnInit {
   //   this.isCoach = this.employee?.isCoach;
   //   this.isManager = this.employee?.isManager;
   // }
-  
+
 
   // async ngOnInit(){
-    
+
   //   // this.getAssessments();
   //   this.getCategories();
   //   await this.getSkills();
@@ -158,14 +158,14 @@ export class AssessmentTableComponent implements OnInit {
   }
 
   getSkillName(skillId: number): string {
-    
+
     const skill = this.skills.find(s => s.idSkill === skillId);
     return skill ? skill.skillName : '';
   }
   getIdSkill(skillId: number): number {
     const skill = this.skills.find(s => s.idSkill === skillId);
     return skill ? skill.idSkill : 0;
-    
+
   }
 
   getSkillDescription(skillId: number): string {
@@ -194,15 +194,15 @@ export class AssessmentTableComponent implements OnInit {
     const assessment = this.assessments.find(a => a.skill.idSkill === skill.idSkill && a.idEmployee === this.employee!.idEmployee);
     return assessment ? assessment.rating : 0;
   }
-  
+
   // saveAssessments(employeeId: number, assessmentsdto: AssessmentDTO[], skill: Skill): any {
-    
+
   //     const assessments = this.skills.map(s => ({
   //       idSkill: s.idSkill,
   //       rating: this.rating,
   //       comment: "",
   //     }));
-      
+
   //   const employeeAssessmentDTO: any = {
   //     idEmployee: employeeId,
   //     assessments: this.assessments,
@@ -211,15 +211,15 @@ export class AssessmentTableComponent implements OnInit {
   //   console.log(employeeAssessmentDTO);
   //   return this.http.post<Assessment[]>(`http://localhost:8081/assessments/saveAssessments`, employeeAssessmentDTO);
   // }
-  
-  createAssessment(idEmployee: number):void {
-    
+
+  createAssessment(idEmployee: number): void {
+
     const assessments = [];
 
-    for(const category of this.categories) {
+    for (const category of this.categories) {
       for (const skill of category.skills) {
         const rating = skill.rating || 0; // default to 0 if rating is undefined
-        
+
         const assessment = {
           idSkill: skill.idSkill,
           rating: rating
@@ -228,13 +228,13 @@ export class AssessmentTableComponent implements OnInit {
         console.log('current rating = ', this.currentRating);
         assessments.push(assessment);
       }
-}
-const data = {
-  idEmployee,
-  assessments
-};
-    console.log("Our data is" , data)
-        this.http.post("http://localhost:8081/assessments/saveAssessments", data)
+    }
+    const data = {
+      idEmployee,
+      assessments
+    };
+    console.log("Our data is", data)
+    this.http.post("http://10.66.12.54:8081/assessments/saveAssessments", data)
       .subscribe(
         response => {
           console.log(response);
@@ -245,12 +245,12 @@ const data = {
           console.log(error);
           this.errorMessage = 'Failed to submit the assessment. Please try again later.';
         }
-    );
+      );
     console.log("Our Finally data is", data)
-    
+
   }
   onRatingChange(skill: Skill, score: number) {
-    
+
     this.currentRating = score;
     skill.rating = score;
     console.log(`The New Rating for ${skill.skillName} updated to ${skill.rating}`);
@@ -299,12 +299,12 @@ const data = {
   //   console.log('skill:', skillId);
   //   console.log('rating:', rating);
   // }
-  logSkill(rating: number , skills : Skill[], skill : Skill) {
-    const AssessmentDTO : any = {
+  logSkill(rating: number, skills: Skill[], skill: Skill) {
+    const AssessmentDTO: any = {
       idSkill: this.getIdSkill,
       rating: this.skill.rating
     }
-  
+
     if (skill) {
       const id = this.getIdSkill(skill.idSkill);
       console.log(id);
@@ -340,17 +340,17 @@ const data = {
 
 
 
-  /* saveAssessment(assessment: Assessment) {
-    // Save the assessment to the database using an HTTP POST request
-    this.assessmentService.saveAssessment(assessment)
-      .subscribe(
-        (response) => {
-          console.log('Assessment saved successfully');
-        },
-        (error) => {
-          console.error('Error while saving assessment', error);
-        }
-      );
-  } */
-  
+/* saveAssessment(assessment: Assessment) {
+  // Save the assessment to the database using an HTTP POST request
+  this.assessmentService.saveAssessment(assessment)
+    .subscribe(
+      (response) => {
+        console.log('Assessment saved successfully');
+      },
+      (error) => {
+        console.error('Error while saving assessment', error);
+      }
+    );
+} */
+
 

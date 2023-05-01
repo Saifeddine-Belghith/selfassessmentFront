@@ -15,8 +15,8 @@ export class HomeComponent implements OnInit {
   isCoach: boolean = false;
   isManager: boolean = false;
   id!: number;
-  private apiUrl = 'http://localhost:8081';
-  constructor(private router: Router, private http: HttpClient, private employeeService:EmployeeService) { }
+  private apiUrl = 'http://10.66.12.54:8081';
+  constructor(private router: Router, private http: HttpClient, private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     console.log("is coach", this.isCoach)
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     console.log("id emp", this.id)
   }
   goToProfile() {
-    console.log('id before'+this.idEmployee)
+    console.log('id before' + this.idEmployee)
     this.router.navigate(['/employees', this.idEmployee]);
   }
 
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
   }
   goToPeople() {
     console.log('id notre emplyee' + this.idEmployee)
-   // console.log('notre url :' + `${this.apiUrl}/assessments/all/${this.idEmployee}`)
+    // console.log('notre url :' + `${this.apiUrl}/assessments/all/${this.idEmployee}`)
     this.router.navigate(['/people']);
     // this.http.get(`${this.apiUrl}/assessments/all/${this.idEmployee}`);
     // console.log('notre url :' + `${this.router}`)

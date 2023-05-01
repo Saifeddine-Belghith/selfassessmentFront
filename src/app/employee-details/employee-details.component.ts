@@ -19,7 +19,7 @@ export class EmployeeDetailsComponent implements OnInit {
   errorMessage!: string;
   isCoach: boolean = false;
   isManager: boolean = false;
-  private apiUrl = 'http://localhost:8081';
+  private apiUrl = 'http://10.66.12.54:8081';
 
   constructor(private route: ActivatedRoute, private employeeService: EmployeeService, private fb: FormBuilder, private router: Router, private http: HttpClient) { }
 
@@ -50,28 +50,28 @@ export class EmployeeDetailsComponent implements OnInit {
     });
 
   }
-    loadEmployee(): void {
-      this.employeeService.getEmployeeById(this.id).subscribe(employee => {
-        this.employee = employee;
-        this.employeeForm.patchValue({
-          firstName: employee.firstName,
-          lastName: employee.lastName,
-          email: employee.email,
-          phone: employee.phone,
-          experienceLevel: employee.experienceLevel,
-          role: employee.role,
-          isCoach: employee.isCoach,
-          isManager: employee.isManager,
-          isCoachee: employee.isCoachee,
+  loadEmployee(): void {
+    this.employeeService.getEmployeeById(this.id).subscribe(employee => {
+      this.employee = employee;
+      this.employeeForm.patchValue({
+        firstName: employee.firstName,
+        lastName: employee.lastName,
+        email: employee.email,
+        phone: employee.phone,
+        experienceLevel: employee.experienceLevel,
+        role: employee.role,
+        isCoach: employee.isCoach,
+        isManager: employee.isManager,
+        isCoachee: employee.isCoachee,
 
-        });
       });
+    });
 
 
 
 
-    }
-  
+  }
+
 
   onSubmit(): void {
     if (this.employeeForm.valid) {

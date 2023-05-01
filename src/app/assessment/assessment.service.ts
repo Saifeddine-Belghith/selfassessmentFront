@@ -12,14 +12,14 @@ interface AssessmentDTO {
 })
 export class AssessmentService {
 
-    private apiUrl = 'http://localhost:8081/assessments';
+    private apiUrl = 'http://10.66.12.54:8081/assessments';
 
     constructor(private http: HttpClient) { }
 
     getAssessments(id: number): Observable<Assessment[]> {
-        id = parseInt(localStorage.getItem('idEmployee') || ''); 
-         return this.http.get<Assessment[]>(`${this.apiUrl}/all/${id}`);
-     }
+        id = parseInt(localStorage.getItem('idEmployee') || '');
+        return this.http.get<Assessment[]>(`${this.apiUrl}/all/${id}`);
+    }
 
     // saveAssessment(assessment: Assessment): Observable<Assessment> {
     //     return this.http.post<Assessment>(this.apiUrl +'/create', assessment);
@@ -39,5 +39,5 @@ export class AssessmentService {
     getAssessmentsByEmployeeId(id: number): Observable<Assessment[]> {
         return this.http.get<Assessment[]>(`${this.apiUrl}/employee/${id}`);
     }
-    
+
 }
