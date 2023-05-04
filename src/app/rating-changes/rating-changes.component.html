@@ -14,28 +14,32 @@
                 <a (click)="goToMyRating()">Skill Rating</a>
             </div>
         </div>
-        <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
+        <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
             <button>
                 <a (click)="goToPeople()">People</a>
             </button>
         </ng-container>
     </div>
 </div>
-<h2 class="welcome-message ">Assessment Table</h2>
-<div>
-<table>
-    <thead>
-        <tr>
-            <th>Skill</th>
-            <th>Rating</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let assessment of assessments">
-            <td>{{ skillService.getSkillName(assessment.idSkill) }}</td>
-            <td>{{ assessment.rating }}</td>
-            <td>{{ assessment.assessmentDate }}</td>
-        </tr>
-    </tbody>
-</table>
+<h2>Rating Changes</h2>
+
+<form [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="skillSelect">Skill</label>
+        <select formControlName="skill" id="skill" class="form-control">
+            <option *ngFor="let skill of skills" [ngValue]="skill">{{ skill.skillName }}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input formControlName="startDate" type="date" id="startDate" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input formControlName="endDate" type="date" id="endDate" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<canvas id="ratingChart"></canvas>

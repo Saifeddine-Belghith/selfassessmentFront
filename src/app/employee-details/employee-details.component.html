@@ -11,6 +11,7 @@
             <div class="dropdown-content">
                 <a (click)="goToAssessment()">New Assessment</a>
                 <a (click)="goToMyAssessmentHistory()">History</a>
+                <a (click)="goToMyRating()">Skill Rating</a>
             </div>
         </div>
         <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">

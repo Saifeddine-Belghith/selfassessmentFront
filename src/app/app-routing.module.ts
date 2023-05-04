@@ -7,6 +7,7 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MyassessmenthistoryComponent } from './myassessmenthistory/myassessmenthistory.component';
+import { RatingChangesComponent } from './rating-changes/rating-changes.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'viewallassessment', component: ViewallassessmentComponent },
   { path: 'myassessmenthistory', component: MyassessmenthistoryComponent },
-  {path:'people', component: CoachComponent}
+  { path: 'people', component: CoachComponent },
+  { path: 'rating-changes/:id', component: RatingChangesComponent},
 ];
 
 @NgModule({

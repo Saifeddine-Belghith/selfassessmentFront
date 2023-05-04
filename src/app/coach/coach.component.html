@@ -26,6 +26,7 @@
         <li *ngFor="let coachee of coacheeList || employee of employeeList">
             <span class="coachee-name">{{ coachee.firstName }} {{ coachee.lastName }}</span>
             <button class="btn" (click)="onCoacheeSelect(coachee.idEmployee)">Assessments</button>
+            <button class="btn" (click)="onRatingSelect(coachee.idEmployee)">Rating</button>
         </li>
     </ul>
 </div>

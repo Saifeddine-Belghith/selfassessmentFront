@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { ViewallassessmentComponent } from './assessment/viewallassessment/viewallassessment.component';
 import { MyassessmenthistoryComponent } from './myassessmenthistory/myassessmenthistory.component';
 import { CoachComponent } from './coach/coach.component';
+import { RatingChangesComponent } from './rating-changes/rating-changes.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CoachComponent } from './coach/coach.component';
     ViewallassessmentComponent,
     MyassessmenthistoryComponent,
     CoachComponent,
+    RatingChangesComponent,
 
     
   ],

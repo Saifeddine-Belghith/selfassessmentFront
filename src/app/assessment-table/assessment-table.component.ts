@@ -94,7 +94,7 @@ export class AssessmentTableComponent implements OnInit {
   //   this.id = +this.route.snapshot.paramMap.get('id')!;
   //   const idEmployee = localStorage.getItem('idEmployee') || '';
   //   this.idEmployee = parseInt(idEmployee);
-  //   this.http.get('http://localhost:8081/categories').subscribe(data => {
+  //   this.http.get('http://10.66.12.54:8081/categories').subscribe(data => {
   //     this.response = data;
   //   });
 
@@ -209,7 +209,7 @@ export class AssessmentTableComponent implements OnInit {
   //   };
 
   //   console.log(employeeAssessmentDTO);
-  //   return this.http.post<Assessment[]>(`http://localhost:8081/assessments/saveAssessments`, employeeAssessmentDTO);
+  //   return this.http.post<Assessment[]>(`http://10.66.12.54:8081/assessments/saveAssessments`, employeeAssessmentDTO);
   // }
 
   createAssessment(idEmployee: number): void {
@@ -333,6 +333,10 @@ export class AssessmentTableComponent implements OnInit {
 
   goToMyAssessmentHistory() {
     this.router.navigate(['/myassessmenthistory']);
+  }
+  goToMyRating() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/rating-changes', this.idEmployee]);
   }
 
 }

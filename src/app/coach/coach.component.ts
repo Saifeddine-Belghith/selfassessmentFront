@@ -30,7 +30,7 @@ export class CoachComponent implements OnInit {
   skills: Skill[] = [];
   skill!: Skill;
   idEmployee!: number;
-  // private apiUrl = 'http://localhost:8081';
+  // private apiUrl = 'http://10.66.12.54:8081';
   employee!: Employee;
   idSkill!: number;
   name!: string;
@@ -109,7 +109,6 @@ export class CoachComponent implements OnInit {
   onCoacheeSelect(coacheeId: number): void {
     this.selectedCoacheeId = coacheeId;
     if (coacheeId) {
-
       this.employeeService.getAssessmentsByEmployeeId(coacheeId).subscribe(assessments => {
         this.assessments = assessments;
         this.errorMessage = '';
@@ -120,10 +119,6 @@ export class CoachComponent implements OnInit {
           const skillNames = skills.map(skill => skill.skillName);
           console.log('Skill names:', skillNames);
         });
-
-
-
-
       }, error => {
         this.errorMessage = error.message; // set the error message here
         this.assessments = []; // clear the assessments array
@@ -135,6 +130,11 @@ export class CoachComponent implements OnInit {
     const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
     console.log("id selected :", coacheeId)
     console.log("url", url)
+  }
+  onRatingSelect(coacheeId: number): void {
+    this.selectedCoacheeId = coacheeId;
+    console.log("id selected :", coacheeId)
+    this.router.navigate(['/rating-changes/' + this.selectedCoacheeId]);
   }
   // getAssessments(id: number): Observable<Assessment[]> {
   //   this.id=this.selectedCoacheeId

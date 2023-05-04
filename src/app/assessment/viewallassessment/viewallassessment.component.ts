@@ -183,7 +183,10 @@ export class ViewallassessmentComponent implements OnInit {
     console.log('notre url :' + `${this.router}`)
   }
 
-
+  goToMyRating() {
+    console.log('id before' + this.id)
+    this.router.navigate(['/rating-changes', this.idEmployee]);
+  }
 
 
 }

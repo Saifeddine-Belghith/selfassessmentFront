@@ -114,5 +114,9 @@ export class EmployeeDetailsComponent implements OnInit {
   goToMyAssessmentHistory() {
     this.router.navigate(['/myassessmenthistory']);
   }
+  goToMyRating() {
+    console.log('id before' + this.id)
+    this.router.navigate(['/rating-changes', this.id]);
+  }
 
 }

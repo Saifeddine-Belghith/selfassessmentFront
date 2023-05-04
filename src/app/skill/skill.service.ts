@@ -14,7 +14,7 @@ export class SkillService {
     constructor(private http: HttpClient) { }
 
     getSkills(): Observable<Skill[]> {
-        return this.http.get<Skill[]>(this.apiUrl + '/viewAll');
+        return this.http.get<Skill[]>('http://10.66.12.54:8081/skill/viewAll');
     }
     getSkillById(idSkill: number): Observable<Skill> {
         const url = `${this.apiUrl}/view/${idSkill}`;
