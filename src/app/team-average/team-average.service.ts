@@ -12,6 +12,6 @@ export class TeamAverageService {
 
 
   getTeamAverage(idEmployee: number): Observable<any> {
-    return this.http.get(`${this.managerUrl}/3/team-average-for-skills`);
+    return this.http.get(`${this.managerUrl}/${idEmployee}/team-average-for-skills`);
   }
 }
