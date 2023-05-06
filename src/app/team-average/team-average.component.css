@@ -108,6 +108,8 @@ label {
     z-index: 1;
     min-width: 160px;
     background-color: rgba(217, 217, 217, 0.801);
+
+
 }
 
 .dropdown-content a {
@@ -129,65 +131,9 @@ label {
 .dropdown:hover .dropbtn {
     background-color: rgb(242, 167, 120);
 }
-/* .coachee-list {
-    margin-bottom: 20px;
-} */
 
-/* .assessment-table table {
-    border-collapse: collapse;
-    width: 100%;
-} */
-
-/* .assessment-table table th,
-.assessment-table table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-} */
-
-/* .assessment-table table th {
-    background-color: #f2f2f2;
-    text-align: left;
-} */
-
-.btn {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.btn:hover {
-    background-color: #3e8e41;
-}
-
-td.skill-name {
-
-    text-transform: uppercase;
-}
-
-td.rating {
-    color: blue;
-}
-
-td.date {
-    font-style: italic;
-}
-
- .errorMessage {
-    font-weight: bold;
-    color: #333;
-} 
 #ratingChart {
     width: 100%;
     height: 400px;
     margin-top: 0px;
-    margin-left: 10px;
-    margin-bottom: 10px;
 }

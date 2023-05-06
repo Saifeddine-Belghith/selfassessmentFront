@@ -4,7 +4,7 @@
     align-items: center;
     padding: 10px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-    /* background-color: rgb(186, 184, 184); */
+    background-color: rgba(172, 172, 172, 0.801);
 }
 
 .logo-container {
@@ -12,8 +12,9 @@
 }
 
 .button-container {
-    display: flex;
+    /* display: flex; */
     align-items: center;
+    margin-right: auto;
 }
 
 .button-container button {
@@ -77,9 +78,11 @@ button {
     text-decoration: none;
     cursor: pointer;
 }
+
 label {
     margin-bottom: 5px;
 }
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -104,8 +107,8 @@ label {
     position: absolute;
     z-index: 1;
     min-width: 160px;
+    background-color: rgba(217, 217, 217, 0.801);
 }
-
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -127,16 +130,16 @@ label {
 }
 
 
-.banner {
+/* .banner {
     height: 200px;
     position: relative;
     background-color: #ccc;
     margin-top: 80px;
-}
+} */
 
 .banner-child {
     position: absolute;
-    top: 0;
+    top: auto;
     left: 0;
     width: 100%;
     height: 100%;
@@ -147,19 +150,20 @@ label {
     opacity: 0.3;
 }
 
-.logo-color-1-icon {
+/* .logo-color-1-icon {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: 80px;
     width: auto;
-}
+} */
 
 .welcome-message {
     text-align: center;
+    color: #000;
     margin-top: 50px;
-    font-size: 24px;
+    font-size: 45px;
     font-weight: bold;
 }
 
@@ -190,19 +194,19 @@ label {
 .btn-group button {
     background-color: #f17025;
     /* Green background */
- /*   border: white;
+/*   border: white;
     /* Green border */
-  /*  color: white;
+/*  color: white;
     /* White text */
- /*   margin: 5px;
+/*   margin: 5px;
     float: right;
     /* Some padding */
- /*   cursor: pointer;
+/*   cursor: pointer;
     /* Pointer/hand icon */
-    
-    /* Float the buttons side by side */
-    
-    
+
+/* Float the buttons side by side */
+
+
 /*}
 .welcome-message {
     text-align: center;
@@ -267,7 +271,7 @@ label {
         text-align: left;
     } */
 
-    /* .header-right {
+/* .header-right {
         float: none;
     }
 } */

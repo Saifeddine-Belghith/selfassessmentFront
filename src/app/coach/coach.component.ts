@@ -179,5 +179,12 @@ export class CoachComponent implements OnInit {
   goToMyAssessmentHistory() {
     this.router.navigate(['/myassessmenthistory']);
   }
+  goToMyRating() {
+    console.log('id before' + this.id)
+    this.router.navigate(['/rating-changes', this.idEmployee]);
+  }
+  goToSkillsOverview() {
+    this.router.navigate(['/team-levels'])
+  }
 
 }

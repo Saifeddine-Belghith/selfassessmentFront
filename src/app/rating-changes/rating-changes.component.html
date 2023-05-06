@@ -4,21 +4,25 @@
     </div>
     <div class="button-container">
         <button><a type="button" (click)="goToHome()">Home</a></button>
-        <button> <a class="active" (click)="goToProfile()">Profile</a></button>
+        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
-            <button class="dropbtn">My Assessment</button>
+            <button class="dropbtn" class="active">My Assessments</button>
             <div class="dropdown-content">
                 <a (click)="goToAssessment()">New Assessment</a>
-                <a (click)="goToMyAssessmentHistory()">History</a>
-                <a (click)="goToMyRating()">Skill Rating</a>
+                <a  (click)="goToMyAssessmentHistory()">History</a>
+                <a class="active" (click)="goToMyRating()">Ratings Over Time</a>
             </div>
         </div>
-        <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-            <button>
-                <a (click)="goToPeople()">People</a>
-            </button>
-        </ng-container>
+        <div class="dropdown">
+            <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+                <button class="dropbtn">People</button>
+                <div class="dropdown-content">
+                    <a (click)="goToPeople()">My Team</a>
+                    <a (click)="goToSkillsOverview()">Skills Overview</a>
+                </div>
+            </ng-container>
+        </div>
     </div>
 </div>
 <h2>Rating Changes</h2>
@@ -41,5 +45,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-
+<div class="errorMessage" *ngIf="errorMessage; else chartContainer">{{ errorMessage }}</div>
+<ng-template #chartContainer>
 <canvas id="ratingChart"></canvas>
+</ng-template>

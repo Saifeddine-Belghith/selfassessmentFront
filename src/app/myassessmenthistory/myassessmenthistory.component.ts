@@ -141,5 +141,8 @@ export class MyassessmenthistoryComponent implements OnInit {
     console.log('id before' + this.id)
     this.router.navigate(['/rating-changes', this.idEmployee]);
   }
+  goToSkillsOverview() {
+    this.router.navigate(['/team-levels'])
+  }
 }
 

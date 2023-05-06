@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MyassessmenthistoryComponent } from './myassessmenthistory/myassessmenthistory.component';
 import { RatingChangesComponent } from './rating-changes/rating-changes.component';
+import { TeamAverageComponent } from './team-average/team-average.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'viewallassessment', component: ViewallassessmentComponent },
   { path: 'myassessmenthistory', component: MyassessmenthistoryComponent },
   { path: 'people', component: CoachComponent },
-  { path: 'rating-changes/:id', component: RatingChangesComponent},
+  { path: 'rating-changes/:id', component: RatingChangesComponent },
+  {path: 'team-levels', component:TeamAverageComponent},
 ];
 
 @NgModule({

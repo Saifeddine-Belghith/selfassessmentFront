@@ -1,0 +1,30 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">My Assessments</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <ng-container *ngIf="manager && (manager.isCoach || manager.isManager)">
+                <button class="dropbtn" class="active">People</button>
+                <div class="dropdown-content">
+                    <a  (click)="goToPeople()">My Team</a>
+                    <a class="active" (click)="goToSkillsOverview()">Skills Overview</a>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<div>
+<canvas id="ratingChart"></canvas>
+</div>

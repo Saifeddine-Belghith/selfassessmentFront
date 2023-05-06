@@ -81,33 +81,43 @@ export class RatingChangesComponent implements OnInit {
   getRatingChanges(): void {
     this.assessmentService.getRatingChangesForEmployeeAndSkill(this.coacheeId, this.selectedSkill.skillName, this.startDate, this.endDate)
       .pipe(
-        map(assessments => assessments.filter((assessment: any) => {
-          return new Date(assessment.assessmentDate) >= this.startDate &&
-            new Date(assessment.assessmentDate) <= this.endDate;
-        }))
-      )
-      .subscribe(assessments => {
-        if (!assessments.length) {
-          this.ratingChanges = new Map<string, number[]>();
-          this.errorMessage = `There are no assessments for ${this.selectedSkill.skillName}`;
-          return;
-        }
-        const ratingChanges = new Map<string, number[]>();
-        assessments.forEach((assessment: any) => {
-          const dateString: string = new Date(assessment.assessmentDate).toLocaleDateString();
-          if (ratingChanges.has(dateString)) {
-            ratingChanges.get(dateString)!.push(assessment.rating);
-          } else {
-            ratingChanges.set(dateString, [assessment.rating]);
-
+        map(assessments => {
+          if (!assessments || assessments.length === 0) {
+            throw new Error('No assessments found.');
           }
-        });
-        this.ratingChanges = ratingChanges;
-        console.log('hello from getRatingChanges1 ');
-        this.errorMessage = '';
-        this.createChart();
-      });
+          return assessments.filter((assessment: any) => {
+            return new Date(assessment.assessmentDate) >= this.startDate &&
+              new Date(assessment.assessmentDate) <= this.endDate;
+          })
+        })
+      )
+      .subscribe(
+        assessments => {
+          const ratingChanges = new Map<string, number[]>();
+          assessments.forEach((assessment: any) => {
+            const dateString: string = new Date(assessment.assessmentDate).toLocaleDateString();
+            if (ratingChanges.has(dateString)) {
+              ratingChanges.get(dateString)!.push(assessment.rating);
+            } else {
+              ratingChanges.set(dateString, [assessment.rating]);
+            }
+          });
+          this.ratingChanges = ratingChanges;
+          this.errorMessage = '';
+          if (this.chart) {
+            this.chart.destroy();
+          }
+          this.createChart();
+        },
+        error => {
+          console.error(error);
+          this.ratingChanges = new Map<string, number[]>();
+          this.errorMessage = 'Nothing to display.';
+        }
+      );
   }
+
+
 
 
 
@@ -115,9 +125,9 @@ export class RatingChangesComponent implements OnInit {
   createChart(): void {
     const canvas = document.getElementById('ratingChart') as HTMLCanvasElement;
     if (!canvas) return;
-    var previousChart = Chart.instances[0];
-    if (previousChart) {
-      previousChart.destroy();
+    
+    for (const chart of Object.values(Chart.instances)) {
+      chart.destroy();
     }
 
     // Check if chart already exists and destroy it before rendering a new chart
@@ -243,8 +253,11 @@ export class RatingChangesComponent implements OnInit {
     this.router.navigate(['/myassessmenthistory']);
   }
   goToMyRating() {
-    console.log('id before' + this.id)
-    this.router.navigate(['/rating-changes', this.id]);
+    console.log('id before' + this.employee.idEmployee)
+    this.router.navigate(['/rating-changes', this.idEmployee]);
+  }
+  goToSkillsOverview() {
+    this.router.navigate(['/team-levels'])
   }
 
 }

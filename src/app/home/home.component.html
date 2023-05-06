@@ -3,28 +3,32 @@
         <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
     </div>
     <div class="button-container">
-        <button><a type="button" (click)="goToHome()">Home</a></button>
-        <button> <a class="active" (click)="goToProfile()">Profile</a></button>
+        <button><a class="active" (click)="goToHome()">Home</a></button>
+        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
-            <button class="dropbtn">My Assessment</button>
+            <button class="dropbtn">My Assessments</button>
             <div class="dropdown-content">
                 <a (click)="goToAssessment()">New Assessment</a>
                 <a (click)="goToMyAssessmentHistory()">History</a>
-                <a (click)="goToMyRating()">Skill Rating</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
             </div>
         </div>
+        <div class="dropdown">
         <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-            <button>
-                <a (click)="goToPeople()">People</a>
-            </button>
+            <button class="dropbtn">People</button>
+                <div class="dropdown-content">
+                <a (click)="goToPeople()">My Team</a>
+                <a (click)="goToSkillsOverview()">Skills Overview</a>
+            </div>
         </ng-container>
+        </div>
     </div>
 </div>
 
 <div class="banner">
     <div class="banner-child"></div>
-    <img class="logo-color-1-icon" alt="" src="../assets/images/Logo-color.png" />
+    <!-- <img class="logo-color-1-icon"  /> -->
 </div>
 
 <h1 class="welcome-message">Welcome {{employee?.firstName}} {{employee?.lastName}} in your home page</h1>
