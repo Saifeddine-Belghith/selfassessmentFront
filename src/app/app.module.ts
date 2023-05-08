@@ -17,6 +17,7 @@ import { MyassessmenthistoryComponent } from './myassessmenthistory/myassessment
 import { CoachComponent } from './coach/coach.component';
 import { RatingChangesComponent } from './rating-changes/rating-changes.component';
 import { TeamAverageComponent } from './team-average/team-average.component';
+import { PersonalTargetComponent } from './personal-target/personal-target.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TeamAverageComponent } from './team-average/team-average.component';
     CoachComponent,
     RatingChangesComponent,
     TeamAverageComponent,
+    PersonalTargetComponent,
 
     
   ],

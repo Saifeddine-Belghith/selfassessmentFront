@@ -9,6 +9,9 @@
         <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
             <button>
                 <a (click)="goToViewAllAssessment()">View Assessment</a>
+                <ng-container *ngIf="employee && employee.isManager">
+                    <a (click)="goToSkillsOverview()">Skills Overview</a>
+                </ng-container>
             </button>
         </ng-container>
     </div>

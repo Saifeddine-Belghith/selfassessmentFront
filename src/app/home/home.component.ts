@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   isCoach: boolean = false;
   isManager: boolean = false;
   id!: number;
-  private apiUrl = 'http://10.66.12.54:8081';
+  private apiUrl = 'http://:8081';
   constructor(private router: Router, private http: HttpClient, private employeeService: EmployeeService) { }
 
   ngOnInit(): void {

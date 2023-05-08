@@ -19,7 +19,9 @@
                 <button class="dropbtn" class="active">People</button>
                 <div class="dropdown-content">
                     <a class="active" (click)="goToPeople()">My Team</a>
-                    <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    <ng-container *ngIf="employee && employee.isManager">
+                        <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    </ng-container>
                 </div>
             </ng-container>
         </div>
