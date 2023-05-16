@@ -41,6 +41,10 @@ export class AssessmentTableComponent implements OnInit {
   response: any;
   categories$: Observable<Category[]> = of([]);
   errorMessage!: string;
+  lastRating!: number;
+  lastRatingForTest: number = 2;
+  lastRatings: Record<number, number> = {};
+
 
 
   constructor(
@@ -54,11 +58,50 @@ export class AssessmentTableComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    // Retrieve the ID of the employee from localStorage
     this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
-    this.rating = 0;
-    this.skills.forEach(skill => {
-      skill.rating = 0;
+    // this.lastRatingForTest = 2;
+    // Retrieve the skills and set the stored ratings as default values
+    this.skillService.getSkills().subscribe((skills) => {
+      this.skills = skills;
+
+      // Retrieve the stored ratings for each skill
+      this.skills.forEach((skill) => {
+        const storedRating = localStorage.getItem(`lastRating_${skill.idSkill}`);
+        if (storedRating) {
+          skill.rating = parseInt(storedRating);
+          this.lastRating = skill.rating;
+        }
+      });
+
+      // Retrieve the assessments for the employee and update the skills with the last ratings
+      this.assessmentService.getAssessmentsByEmployeeId(this.idEmployee).subscribe((assessments) => {
+        // const lastRatings: Record<number, number> = {};
+
+        assessments.forEach((assessment) => {
+          this.lastRatings[assessment.idSkill] = assessment.rating;
+        });
+
+        // Update the skills with the last ratings
+        this.skills.forEach((skill) => {
+          const lastRating = this.lastRatings[skill.idSkill];
+          if (lastRating !== undefined) {
+            skill.rating = lastRating;
+            this.lastRating = lastRating;
+            localStorage.setItem(`lastRating_${skill.idSkill}`, lastRating.toString());
+            console.log("last rating for", skill.skillName, " is :", skill.rating)
+          }
+        });
+      });
+
+      // Set default rating values for skills without stored ratings
+      this.skills.forEach((skill) => {
+        if (skill.rating === undefined) {
+          skill.rating = 0; // Set the default rating value here
+        }
+      });
     });
+
     this.getCategories();
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
@@ -72,7 +115,7 @@ export class AssessmentTableComponent implements OnInit {
         this.http.get<Skill[]>(`http://10.66.12.54:8081/skill/category/${category.idCategory}`).subscribe(skills => {
           category.skills = skills;
           skills.forEach(skill => {
-            skill.rating = 0; // Set default rating value
+            skill.rating = this.getRatingForSkill(skill) // Set default rating value
           });
         });
       });
@@ -84,73 +127,26 @@ export class AssessmentTableComponent implements OnInit {
       this.isManager = this.employee?.isManager;
     });
     this.categories$ = this.categoryService.getCategoriesWithSkills();
+    // Retrieve the last ratings for each skill and set them as the default values
+    // Retrieve the last ratings for each skill and set them as the default values
+
+
+
   }
-  // async ngOnInit() {
-  //   this.getCategories();
-  //   this.skills = await this.getSkills().toPromise() ?? [];
-  //   console.log('Skill IDs:', this.skills.map(skill => skill.idSkill));
-  //   this.id = parseInt(localStorage.getItem('idEmployee') || '');
-  //   console.log('id of this employee' + this.id);
-  //   this.id = +this.route.snapshot.paramMap.get('id')!;
-  //   const idEmployee = localStorage.getItem('idEmployee') || '';
-  //   this.idEmployee = parseInt(idEmployee);
-  //   this.http.get('http://10.66.12.54:8081/categories').subscribe(data => {
-  //     this.response = data;
-  //   });
 
-  //   if (this.employee !== undefined) {
-  //     console.log('Employee ID:', this.employee.idEmployee);
-  //   }
-
-  //   if (this.skills.length > 0) {
-  //     console.log('Skill IDs:', this.skills.map(skill => skill.idSkill));
-  //   }
-  //   this.employeeService.getEmployeeById(this.idEmployee).subscribe(employee => {
-  //     this.employee = employee;
-  //   });
-  //   this.isCoach = this.employee?.isCoach;
-  //   this.isManager = this.employee?.isManager;
-  // }
-
-
-  // async ngOnInit(){
-
-  //   // this.getAssessments();
-  //   this.getCategories();
-  //   await this.getSkills();
-  //   console.log('Skill IDs:', this.skills.map(skill => skill.idSkill));
-
-  //   this.id = +this.route.snapshot.paramMap.get('id')!;
-  //   console.log('id:', this.id);
-
-  //   if (this.skills.length > 0) {
-  //     console.log('Skill IDs:', this.skills.map(skill => skill.idSkill));
-  //   }
-  // }
-
-  // getAssessments(): void {
-  //   this.assessmentService.getAssessments()
-  //     .subscribe(assessments => this.assessments = assessments);
-  // }
   getAssessmentRating(skillId: number): number {
     const skill = this.skills.find(s => s.idSkill === skillId);
     const assessment = this.assessments.find(a => skill && a.skill.idSkill === skillId);
-    return assessment ? assessment.rating : 0;
+    return assessment ? assessment.rating : this.lastRating;
   }
 
 
   getCategories(): void {
     this.categoryService.getCategories()
-      .subscribe(categories => this.categories = categories);
+    .subscribe(categories => this.categories = categories);
   }
 
-  getSkills(): Observable<Skill[]> {
-    return this.skillService.getSkills();
-  }
-  // getSkills(): void {
-  //   this.skillService.getSkills()
-  //     .subscribe(skills => this.skills = skills);
-  // }
+  getSkills(): Observable<Skill[]> { return this.skillService.getSkills(); }
 
   getCategoryName(categoryId: number): string {
     const category = this.categories.find(c => c.idCategory === categoryId);
@@ -158,14 +154,12 @@ export class AssessmentTableComponent implements OnInit {
   }
 
   getSkillName(skillId: number): string {
-
     const skill = this.skills.find(s => s.idSkill === skillId);
     return skill ? skill.skillName : '';
   }
   getIdSkill(skillId: number): number {
     const skill = this.skills.find(s => s.idSkill === skillId);
     return skill ? skill.idSkill : 0;
-
   }
 
   getSkillDescription(skillId: number): string {
@@ -173,53 +167,16 @@ export class AssessmentTableComponent implements OnInit {
     return skill ? skill.description : '';
   }
 
-  // saveAssessmentValue(skillId: number, rating: number) {
-  //   const skill = this.skills.find(s => s.idSkill === skillId);
-  //   const assessment = this.assessments.find(a =>  a.skill.idSkill === skillId);
-  //   if (assessment) {
-  //     assessment.rating = rating;
-  //   } else {
-  //     const newAssessment: Assessment = {
-  //       idAssessment: 0,  
-  //       employee: undefined,
-  //       skill: skill!,
-  //       rating: rating,
-  //       comment: '',
-  //       assessmentDate: new Date()
-  //     };
-  //     this.assessments.push(newAssessment);
-  //   }
-  // }
   getRatingForSkill(skill: Skill): number {
     const assessment = this.assessments.find(a => a.skill.idSkill === skill.idSkill && a.idEmployee === this.employee!.idEmployee);
-    return assessment ? assessment.rating : 0;
+    return assessment ? assessment.rating : this.lastRatings[skill.idSkill];
   }
 
-  // saveAssessments(employeeId: number, assessmentsdto: AssessmentDTO[], skill: Skill): any {
-
-  //     const assessments = this.skills.map(s => ({
-  //       idSkill: s.idSkill,
-  //       rating: this.rating,
-  //       comment: "",
-  //     }));
-
-  //   const employeeAssessmentDTO: any = {
-  //     idEmployee: employeeId,
-  //     assessments: this.assessments,
-  //   };
-
-  //   console.log(employeeAssessmentDTO);
-  //   return this.http.post<Assessment[]>(`http://10.66.12.54:8081/assessments/saveAssessments`, employeeAssessmentDTO);
-  // }
-
   createAssessment(idEmployee: number): void {
-
     const assessments = [];
-
     for (const category of this.categories) {
       for (const skill of category.skills) {
         const rating = skill.rating || 0; // default to 0 if rating is undefined
-
         const assessment = {
           idSkill: skill.idSkill,
           rating: rating
@@ -229,110 +186,55 @@ export class AssessmentTableComponent implements OnInit {
         assessments.push(assessment);
       }
     }
-    const data = {
-      idEmployee,
-      assessments
-    };
+    const data = { idEmployee, assessments };
     console.log("Our data is", data)
     this.http.post("http://10.66.12.54:8081/assessments/saveAssessments", data)
       .subscribe(
         response => {
           console.log(response);
           alert('Assessment submitted successfully');
-          this.router.navigate(['/myassessmenthistory']);
+          this.router.navigate(['/myassessmenthistory', this.idEmployee]);
         },
         error => {
           console.log(error);
           this.errorMessage = 'Failed to submit the assessment. Please try again later.';
-        }
-      );
+        });
     console.log("Our Finally data is", data)
-
   }
   onRatingChange(skill: Skill, score: number) {
-
     this.currentRating = score;
     skill.rating = score;
     console.log(`The New Rating for ${skill.skillName} updated to ${skill.rating}`);
   }
-  goToHome() {
-    this.router.navigateByUrl('/home');
-  }
 
-
-
-
-
-  // saveAssessment(idEmployee: number, skillId: number, rating: number) {
-  //   console.log('idEmployee:', idEmployee);
-  //   console.log('skill:', skillId);
-  //   console.log('rating:', rating);
-
-  //   const skill = this.skills.find(s => s.idSkill === skillId);
-  //   if (skill) {
-  //     const assessmentDTO: any = {
-  //       idSkill: skill.idSkill,
-  //       rating: rating,
-  //       comment: '',
-  //     };
-  //     console.log('skill:', assessmentDTO.skillId);
-  //     const employeeAssessmentDTO: any = {
-  //       idEmployee: idEmployee,
-  //       assessments: [assessmentDTO],
-  //     };
-  //     this.assessmentService.saveAssessments(idEmployee, [assessmentDTO])
-  //       .subscribe(
-  //         (response) => {
-  //           console.log('Assessment saved successfully');
-  //           console.log('idEmployee:', idEmployee);
-  //           console.log('skill:', assessmentDTO.skillId);
-  //           console.log('rating:', rating);
-  //         },
-  //         (error) => {
-  //           console.error('Error while saving assessment', error);
-  //         }
-  //       );
-  //   } else {
-  //     console.error(`Skill not found`);
-  //   }
-  //   console.log('idEmployee:', idEmployee);
-  //   console.log('skill:', skillId);
-  //   console.log('rating:', rating);
-  // }
   logSkill(rating: number, skills: Skill[], skill: Skill) {
     const AssessmentDTO: any = {
       idSkill: this.getIdSkill,
       rating: this.skill.rating
     }
-
     if (skill) {
       const id = this.getIdSkill(skill.idSkill);
       console.log(id);
       return id;
     }
-    return 0;
+    return this.lastRating;
   }
 
 
-
+  goToHome() { this.router.navigateByUrl('/home'); }
   goToProfile() {
     console.log('id before' + this.id)
     this.router.navigate(['/employees', this.id]);
   }
 
-  goToAssessment() {
-    this.router.navigate(['/assessment']);
-  }
+  goToAssessment() { this.router.navigate(['/assessment']); }
   goToPeople() {
     console.log('id notre emplyee' + this.id)
-    // console.log('notre url :' + `${this.apiUrl}/assessments/all/${this.idEmployee}`)
     this.router.navigate(['/people']);
-    // this.http.get(`${this.apiUrl}/assessments/all/${this.id}`);
-    // console.log('notre url :' + `${this.router}`)
   }
 
   goToMyAssessmentHistory() {
-    this.router.navigate(['/myassessmenthistory']);
+    this.router.navigate(['/myassessmenthistory', this.idEmployee]);
   }
   goToMyRating() {
     console.log('id before ' + this.id)
@@ -343,21 +245,5 @@ export class AssessmentTableComponent implements OnInit {
   }
 
 }
-
-
-
-
-/* saveAssessment(assessment: Assessment) {
-  // Save the assessment to the database using an HTTP POST request
-  this.assessmentService.saveAssessment(assessment)
-    .subscribe(
-      (response) => {
-        console.log('Assessment saved successfully');
-      },
-      (error) => {
-        console.error('Error while saving assessment', error);
-      }
-    );
-} */
 
 

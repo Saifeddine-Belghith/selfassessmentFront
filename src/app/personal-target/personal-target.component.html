@@ -1,1 +1,58 @@
-<p>personal-target works!</p>
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" >Home</a></button>
+        <button> <a type="button" >Profile</a></button>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn" class="active">My Assessments</button>
+            <div class="dropdown-content">
+                <a >New Assessment</a>
+                <a >History</a>
+                <a >Ratings Over Time</a>
+            </div>
+        </div>
+        <button><a type="button">My Targets</a></button>
+        <div class="dropdown">
+            <!-- <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)"> -->
+                <button class="dropbtn">People</button>
+                <div class="dropdown-content">
+                    <a >My Team</a>
+                    <!-- <ng-container *ngIf="employee && employee.isManager"> -->
+                        <a >Skills Overview</a>
+                    <!-- </ng-container> -->
+                </div>
+            <!-- </ng-container> -->
+        </div>
+    </div>
+</div>
+
+  <h1 class="welcome-message">Welcome Employee in your target page</h1>
+
+
+
+<div class="content">
+    <label for="year" class="year">Select Year:</label>
+    <select id="year" name="year">
+        <option value="">--Select Year--</option>
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+</div>
+
+<div class="content">
+    <label for="current-role" class="role">Current role:</label>
+    <input type="text" id="current-role" name="current-role">
+</div>
+
+<div class="content">
+    <label for="target-role" class="role">Target role:</label>
+    <input type="text" id="target-role" name="target-role">
+</div>
+
+
+
+
+
+

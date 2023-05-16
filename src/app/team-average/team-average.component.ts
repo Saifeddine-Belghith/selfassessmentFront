@@ -20,8 +20,8 @@ export class TeamAverageComponent implements OnInit {
   private apiUrl = 'http://10.66.12.54:8081';
 
   constructor(private route: ActivatedRoute, private router: Router, private activatedRoute: ActivatedRoute, private employeeService: EmployeeService, private teamAverageService: TeamAverageService, private http: HttpClient) {
-    
-   }
+
+  }
 
   ngOnInit(): void {
     this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
@@ -63,10 +63,10 @@ export class TeamAverageComponent implements OnInit {
         }]
       },
       options: {
-        
+
         indexAxis: 'y',
-          
-        
+
+
       }
     };
 
@@ -93,7 +93,7 @@ export class TeamAverageComponent implements OnInit {
     // console.log('notre url :' + `${this.router}`)
   }
   goToMyAssessmentHistory() {
-    this.router.navigate(['/myassessmenthistory']);
+    this.router.navigate(['/myassessmenthistory', this.idEmployee]);
   }
   goToMyRating() {
     console.log('id before' + this.idEmployee)

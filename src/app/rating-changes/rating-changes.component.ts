@@ -116,16 +116,10 @@ export class RatingChangesComponent implements OnInit {
         }
       );
   }
-
-
-
-
-
-
   createChart(): void {
     const canvas = document.getElementById('ratingChart') as HTMLCanvasElement;
     if (!canvas) return;
-    
+
     for (const chart of Object.values(Chart.instances)) {
       chart.destroy();
     }
@@ -213,7 +207,6 @@ export class RatingChangesComponent implements OnInit {
 
 
   onSubmit(): void {
-
     const skillName = this.ratingForm.get('skill')!.value.skillName;
     const selectedSkill = this.skills.find(skill => skill.skillName === skillName);
     if (selectedSkill) {
@@ -236,7 +229,7 @@ export class RatingChangesComponent implements OnInit {
 
   goToProfile() {
     console.log('id before' + this.id)
-    this.router.navigate(['/employees', this.id]);
+    this.router.navigate(['/employees', this.employee.idEmployee]);
   }
 
   goToAssessment() {
@@ -250,7 +243,7 @@ export class RatingChangesComponent implements OnInit {
     // console.log('notre url :' + `${this.router}`)
   }
   goToMyAssessmentHistory() {
-    this.router.navigate(['/myassessmenthistory']);
+    this.router.navigate(['/myassessmenthistory', this.employee.idEmployee]);
   }
   goToMyRating() {
     console.log('id before' + this.employee.idEmployee)

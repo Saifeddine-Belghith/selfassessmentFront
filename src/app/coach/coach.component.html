@@ -19,7 +19,7 @@
                 <button class="dropbtn" class="active">People</button>
                 <div class="dropdown-content">
                     <a class="active" (click)="goToPeople()">My Team</a>
-                    <ng-container *ngIf="employee && employee.isManager">
+                    <ng-container *ngIf="coach && coach.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
                     </ng-container>
                 </div>
@@ -27,6 +27,7 @@
         </div>
     </div>
 </div>
+<ng-container *ngIf="coach && coach.isCoach">
 <div class="coachee-table">
     <h2>My Team</h2>
 <table >
@@ -39,7 +40,7 @@
     <tbody>
 <!-- <div class="coachee-list"> -->
     
-    
+    <ng-container *ngIf="coach && coach.isCoach">
         <tr *ngFor="let coachee of coacheeList || employee of employeeList">
             <td class="coachee-name">{{ coachee.firstName }} {{ coachee.lastName }}</td>
            <td>
@@ -47,9 +48,11 @@
             <button class="btn" (click)="onRatingSelect(coachee.idEmployee)">Rating</button>
         </td>
     </tr>
+    </ng-container>
     </tbody>
     </table>
 </div>
+<ng-container *ngIf="coach && coach.isCoach">
 <div class="assessment-table">
     <h2>Assessments</h2>
     <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
@@ -72,6 +75,34 @@
         </table>
    
 </div>
+</ng-container>
+</ng-container>
+<ng-container *ngIf="coach && coach.isManager">
+<div class="coachee-table">
+    <h2>Employee List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <div class="coachee-list"> -->
+
+            
+                <tr *ngFor="let employee of employeeList">
+                    <td class="coachee-name">{{ employee.firstName }} {{ employee.lastName }}</td>
+                    <td>
+                        <button class="btn" (click)="onAssessmentSelect(this.employee.idEmployee)">Assessments</button>
+                        <button class="btn" (click)="onRatingSelect(employee.idEmployee)">Rating</button>
+                    </td>
+                </tr>
+            
+        </tbody>
+    </table>
+</div>
+</ng-container>
 
 
 

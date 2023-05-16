@@ -112,7 +112,7 @@ export class EmployeeDetailsComponent implements OnInit {
     // console.log('notre url :' + `${this.router}`)
   }
   goToMyAssessmentHistory() {
-    this.router.navigate(['/myassessmenthistory']);
+    this.router.navigate(['/myassessmenthistory', this.id]);
   }
   goToMyRating() {
     console.log('id before' + this.id)

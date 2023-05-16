@@ -36,6 +36,7 @@ export class CoachComponent implements OnInit {
   name!: string;
   isCoach: boolean = false;
   isManager: boolean = false;
+  coacheeId!: number;
 
   skillName: string[] | undefined;
   errorMessage!: string;
@@ -47,7 +48,6 @@ export class CoachComponent implements OnInit {
   ngOnInit(): void {
     const idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
     this.employeeService.getEmployeeById(idEmployee).subscribe(coach => {
-
       this.coach = coach;
       this.isCoach = this.coach?.isCoach;
       this.isManager = this.coach?.isManager;
@@ -57,17 +57,17 @@ export class CoachComponent implements OnInit {
         this.getCoachees();
       }
       else if (this.isManager === true) {
-        this.getEmployees();
+        this.getOtherEmployees(idEmployee);
       }
       // console.log("is coach", this.isCoach);
       // console.log("is manager", this.isManager);
     });
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
-    const selectedCoacheeId = this.onCoacheeSelect;
+    // const selectedCoacheeId = this.onEmployeeSelect;
     // this.name = this.getSkillName(this.assessment.idSkill);
     // console.log('skilllll name', this.name);
-    const id = this.onCoacheeSelect;
+    // const id = this.onEmployeeSelect;
     const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
     // this.http.get<Assessment[]>(url).subscribe(data => {
     //   this.assessments = data;
@@ -97,9 +97,17 @@ export class CoachComponent implements OnInit {
       this.coacheeList = coachees;
     });
   }
-  getEmployees(): void {
-    // this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
-    this.employeeService.getEmployeesByManagerId(this.coach.idEmployee).subscribe(employees => {
+  // getEmployees(): void {
+  //   // this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
+  //   this.employeeService.getEmployeesByManagerId(this.coach.idEmployee).subscribe(employees => {
+  //     console.log("id employee", this.coach.idEmployee)
+  //     this.employeeList = employees;
+  //     console.log("list employee", this.employeeList)
+  //   });
+  //}
+  getOtherEmployees(idEmployee: number): void {
+    this.idEmployee = idEmployee;
+    this.employeeService.getOtherEmployees(idEmployee).subscribe(employees => {
       console.log("id employee", this.coach.idEmployee)
       this.employeeList = employees;
       console.log("list employee", this.employeeList)
@@ -131,10 +139,40 @@ export class CoachComponent implements OnInit {
     console.log("id selected :", coacheeId)
     console.log("url", url)
   }
+  // onEmployeesSelect(coacheeId: number): void {
+  //   this.selectedCoacheeId = coacheeId;
+  //   if (coacheeId) {
+  //     this.employeeService.getAssessmentsByEmployeeId(coacheeId).subscribe(assessments => {
+  //       this.assessments = assessments;
+  //       this.errorMessage = '';
+  //       const skillObservables = assessments.map(assessment => {
+  //         return this.skillService.getSkillById(assessment.idSkill);
+  //       });
+  //       forkJoin(skillObservables).subscribe(skills => {
+  //         const skillNames = skills.map(skill => skill.skillName);
+  //         console.log('Skill names:', skillNames);
+  //       });
+  //     }, error => {
+  //       this.errorMessage = error.message; // set the error message here
+  //       this.assessments = []; // clear the assessments array
+  //     }
+  //     );
+  //   } else {
+  //     this.assessments = [];
+  //   }
+  //   const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
+  //   console.log("id selected :", coacheeId)
+  //   console.log("url", url)
+  // }
   onRatingSelect(coacheeId: number): void {
     this.selectedCoacheeId = coacheeId;
-    console.log("id selected :", coacheeId)
+    console.log("id selected onRatingSelect :", coacheeId)
     this.router.navigate(['/rating-changes/' + this.selectedCoacheeId]);
+  }
+  onAssessmentSelect(coacheeId: number): void {
+    this.selectedCoacheeId = coacheeId;
+    console.log("id selected onAssessmentSelect :", coacheeId)
+    this.router.navigate(['/myassessmenthistory/' + coacheeId]);
   }
   // getAssessments(id: number): Observable<Assessment[]> {
   //   this.id=this.selectedCoacheeId
@@ -145,6 +183,11 @@ export class CoachComponent implements OnInit {
     const skill = this.skills.find(skill => skill.idSkill === idSkill);
     return skill ? skill.skillName : 'Unknown skill';
   }
+  // onEmployeeSelect(coacheeId: number):void {
+  //   this.selectedCoacheeId = coacheeId;
+  //   console.log("idEmployee Selected is :" , coacheeId)
+  //   this.router.navigate(['/myassessmenthistory/', this.selectedCoacheeId]);
+  // }
   // getAssessments(idEmployee: number): void {
   //   this.assessmentService.getAssessmentsByEmployeeId(idEmployee).subscribe(assessments => {
   //     this.assessments = assessments;
@@ -177,7 +220,7 @@ export class CoachComponent implements OnInit {
     // console.log('notre url :' + `${this.router}`)
   }
   goToMyAssessmentHistory() {
-    this.router.navigate(['/myassessmenthistory']);
+    this.router.navigate(['/myassessmenthistory', this.id]);
   }
   goToMyRating() {
     console.log('id before' + this.id)
@@ -186,5 +229,7 @@ export class CoachComponent implements OnInit {
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])
   }
+
+
 
 }

@@ -15,11 +15,11 @@
             </div>
         </div>
         <div class="dropdown">
-            <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
+            <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
                 <button class="dropbtn">People</button>
                 <div class="dropdown-content">
                     <a (click)="goToPeople()">My Team</a>
-                    <ng-container *ngIf="coach && coach.isManager">
+                    <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
                     </ng-container>
                 </div>

@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonalTargetComponent implements OnInit {
 
-  constructor() { }
+  years: number[] = [];
+  constructor() {
+    for (let i = 2023; i <= 2040; i++) {
+      this.years.push(i);
+    }
+   }
 
   ngOnInit(): void {
   }

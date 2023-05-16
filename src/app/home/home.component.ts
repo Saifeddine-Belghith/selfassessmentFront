@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/home');
   }
   goToMyAssessmentHistory() {
-    this.router.navigate(['/myassessmenthistory']);
+    this.router.navigate(['/myassessmenthistory', this.idEmployee]);
   }
   goToMyRating() {
     console.log('id before' + this.id)
