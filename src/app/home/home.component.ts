@@ -58,6 +58,10 @@ export class HomeComponent implements OnInit {
     console.log('id before' + this.id)
     this.router.navigate(['/rating-changes', this.idEmployee]);
   }
+  goToTarget() {
+    console.log('id before' + this.id)
+    this.router.navigate(['/personal-target', this.idEmployee]);
+  }
 
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

@@ -59,35 +59,13 @@ export class CoachComponent implements OnInit {
       else if (this.isManager === true) {
         this.getOtherEmployees(idEmployee);
       }
-      // console.log("is coach", this.isCoach);
-      // console.log("is manager", this.isManager);
     });
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
-    // const selectedCoacheeId = this.onEmployeeSelect;
-    // this.name = this.getSkillName(this.assessment.idSkill);
-    // console.log('skilllll name', this.name);
-    // const id = this.onEmployeeSelect;
     const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
-    // this.http.get<Assessment[]>(url).subscribe(data => {
-    //   this.assessments = data;
-    //   console.log('Our DATA IS', data);
-
-    //   const skillObservables = data.map(assessment => {
-    //     return this.skillService.getSkillById(assessment.idSkill);
-    //   });
-
-    //   forkJoin(skillObservables).subscribe(skills => {
-    //     const skillNames = skills.map(skill => skill.skillName);
-    //     console.log('Skill names:', skillNames);
-    //   });
-    //   const id = this.skillService.getSkillName(this.assessment.idSkill)
-
-    // });
     this.name = this.getSkillName(this.assessment.idSkill);
     console.log('skilllll name', this.name);
     console.log("id selected :", this.assessment.idSkill);
-
   }
 
 
@@ -97,14 +75,6 @@ export class CoachComponent implements OnInit {
       this.coacheeList = coachees;
     });
   }
-  // getEmployees(): void {
-  //   // this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
-  //   this.employeeService.getEmployeesByManagerId(this.coach.idEmployee).subscribe(employees => {
-  //     console.log("id employee", this.coach.idEmployee)
-  //     this.employeeList = employees;
-  //     console.log("list employee", this.employeeList)
-  //   });
-  //}
   getOtherEmployees(idEmployee: number): void {
     this.idEmployee = idEmployee;
     this.employeeService.getOtherEmployees(idEmployee).subscribe(employees => {
@@ -139,67 +109,28 @@ export class CoachComponent implements OnInit {
     console.log("id selected :", coacheeId)
     console.log("url", url)
   }
-  // onEmployeesSelect(coacheeId: number): void {
-  //   this.selectedCoacheeId = coacheeId;
-  //   if (coacheeId) {
-  //     this.employeeService.getAssessmentsByEmployeeId(coacheeId).subscribe(assessments => {
-  //       this.assessments = assessments;
-  //       this.errorMessage = '';
-  //       const skillObservables = assessments.map(assessment => {
-  //         return this.skillService.getSkillById(assessment.idSkill);
-  //       });
-  //       forkJoin(skillObservables).subscribe(skills => {
-  //         const skillNames = skills.map(skill => skill.skillName);
-  //         console.log('Skill names:', skillNames);
-  //       });
-  //     }, error => {
-  //       this.errorMessage = error.message; // set the error message here
-  //       this.assessments = []; // clear the assessments array
-  //     }
-  //     );
-  //   } else {
-  //     this.assessments = [];
-  //   }
-  //   const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
-  //   console.log("id selected :", coacheeId)
-  //   console.log("url", url)
-  // }
+
   onRatingSelect(coacheeId: number): void {
     this.selectedCoacheeId = coacheeId;
     console.log("id selected onRatingSelect :", coacheeId)
     this.router.navigate(['/rating-changes/' + this.selectedCoacheeId]);
+  }
+  onPersonalTargetSelect(coacheeId: number): void {
+    this.selectedCoacheeId = coacheeId;
+    console.log("id selected onPersonalTargetSelect :", coacheeId)
+    this.router.navigate(['/personal-target/' + this.selectedCoacheeId]);
   }
   onAssessmentSelect(coacheeId: number): void {
     this.selectedCoacheeId = coacheeId;
     console.log("id selected onAssessmentSelect :", coacheeId)
     this.router.navigate(['/myassessmenthistory/' + coacheeId]);
   }
-  // getAssessments(id: number): Observable<Assessment[]> {
-  //   this.id=this.selectedCoacheeId
-  //   return this.http.get<Assessment[]>(`${this.apiUrl}/all/${id}`);
-  // }
 
   getSkillName(idSkill: number): string {
     const skill = this.skills.find(skill => skill.idSkill === idSkill);
     return skill ? skill.skillName : 'Unknown skill';
   }
-  // onEmployeeSelect(coacheeId: number):void {
-  //   this.selectedCoacheeId = coacheeId;
-  //   console.log("idEmployee Selected is :" , coacheeId)
-  //   this.router.navigate(['/myassessmenthistory/', this.selectedCoacheeId]);
-  // }
-  // getAssessments(idEmployee: number): void {
-  //   this.assessmentService.getAssessmentsByEmployeeId(idEmployee).subscribe(assessments => {
-  //     this.assessments = assessments;
-  //     this.skillNames = [];
 
-  //     for (let i = 0; i < this.assessments.length; i++) {
-  //       this.skillService.getSkillById(this.assessments[i].idSkill).subscribe(skill => {
-  //         this.skillNames.push(skill.skillName);
-  //       });
-  //     }
-  //   });
-  // }
   goToHome() {
     this.router.navigateByUrl('/home');
   }
@@ -214,22 +145,20 @@ export class CoachComponent implements OnInit {
   }
   goToPeople() {
     console.log('id notre emplyee' + this.id)
-    // console.log('notre url :' + `${this.apiUrl}/assessments/all/${this.idEmployee}`)
     this.router.navigate(['/people']);
-    // this.http.get(`${this.apiUrl}/assessments/all/${this.id}`);
-    // console.log('notre url :' + `${this.router}`)
   }
   goToMyAssessmentHistory() {
     this.router.navigate(['/myassessmenthistory', this.id]);
   }
   goToMyRating() {
     console.log('id before' + this.id)
-    this.router.navigate(['/rating-changes', this.idEmployee]);
+    this.router.navigate(['/rating-changes', this.id]);
+  }
+  goToTarget() {
+    console.log('id before' + this.id)
+    this.router.navigate(['/personal-target', this.id]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])
   }
-
-
-
 }

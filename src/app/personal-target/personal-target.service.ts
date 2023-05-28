@@ -8,24 +8,28 @@ import { PersonalTarget } from './personal-target.model';
 })
 export class PersonalTargetService {
 
-    private baseUrl = 'http://10.66.12.54:8080/personal-targets';
+    private baseUrl = 'http://10.66.12.54:8081/personal-targets';
 
     constructor(private http: HttpClient) { }
 
-    createPersonalTarget(idEmployee: number, idTarget: number, year: number): Observable<PersonalTarget> {
-        const url = `${this.baseUrl}/create/employees/${idEmployee}`;
-        const body = { idTarget, year };
-        return this.http.post<PersonalTarget>(url, body);
+    createPersonalTarget(idEmployee: number, personalTarget: PersonalTarget): Observable<PersonalTarget> {
+        const url = `${this.baseUrl}/create/${idEmployee}`;
+        return this.http.post<PersonalTarget>(url, personalTarget);
     }
 
-    updatePersonalTargetStatus(idPersonalTarget: number, status: string): Observable<PersonalTarget> {
-        const url = `${this.baseUrl}/${idPersonalTarget}/status`;
-        const body = { status };
+    assignPersonalTarget(personalTarget: PersonalTarget, idEmployee: number, originId: number): Observable<PersonalTarget> {
+        const url = `${this.baseUrl}/assign/${idEmployee}/origins/${originId}`;
+        return this.http.post<PersonalTarget>(url, personalTarget);
+    }
+
+    updatePersonalTargetStatus(personalTargetId: number, status: string): Observable<PersonalTarget> {
+        const url = `${this.baseUrl}/${personalTargetId}/status`;
+        const body = { status: status };
         return this.http.put<PersonalTarget>(url, body);
     }
 
-    deletePersonalTarget(idPersonalTarget: number): Observable<void> {
-        const url = `${this.baseUrl}/${idPersonalTarget}`;
+    deletePersonalTarget(personalTargetId: number): Observable<void> {
+        const url = `${this.baseUrl}/${personalTargetId}`;
         return this.http.delete<void>(url);
     }
 

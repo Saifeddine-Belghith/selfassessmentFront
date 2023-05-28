@@ -3,56 +3,119 @@
         <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
     </div>
     <div class="button-container">
-        <button><a type="button" >Home</a></button>
-        <button> <a type="button" >Profile</a></button>
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
-            <button class="dropbtn" class="active">My Assessments</button>
+            <button class="dropbtn">My Assessments</button>
             <div class="dropdown-content">
-                <a >New Assessment</a>
-                <a >History</a>
-                <a >Ratings Over Time</a>
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
             </div>
         </div>
-        <button><a type="button">My Targets</a></button>
         <div class="dropdown">
-            <!-- <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)"> -->
+            <button class="dropbtn"  class="active">My Personal Targets</button>
+            <div class="dropdown-content">
+                <a class="active" (click)="goToTarget()">New Personal Target</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
                 <button class="dropbtn">People</button>
                 <div class="dropdown-content">
-                    <a >My Team</a>
-                    <!-- <ng-container *ngIf="employee && employee.isManager"> -->
-                        <a >Skills Overview</a>
-                    <!-- </ng-container> -->
+                    <a (click)="goToPeople()">My Team</a>
+                    <ng-container *ngIf="employee && employee.isManager">
+                        <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    </ng-container>
                 </div>
-            <!-- </ng-container> -->
+            </ng-container>
         </div>
     </div>
 </div>
 
-  <h1 class="welcome-message">Welcome Employee in your target page</h1>
 
+    <h1 class="title">My Personal Targets</h1>
+    <p class="slogan">This space is to define your personal targets</p>
 
+    <div class="input-list">
+        <div class="form-group">
+            <label>Description:</label>
+            <input type="text" [(ngModel)]="personalTarget.description">
+        </div>
+        <div class="form-group">
+            <label for="targetArea">Target Area:</label>
+            <select id="targetArea" name="targetArea" [(ngModel)]="personalTarget.targetArea">
+                <option value="TRAINING">Training</option>
+                <option value="CDT">Client Delivery Target</option>
+                <option value="BD">Business Development</option>
+                <option value="BA">Blog - Article</option>
+                <option value="Others">Others</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="supportedValue">Supported Value:</label>
+            <select id="supportedValue" name="supportedValue" [(ngModel)]="personalTarget.supportedValue">
+                <option value="CL" [selected]>CL - Continuous Learning</option>
+                <option value="FEEDBACK">Feedback</option>
+                <option value="TRUST">Trust</option>
+                <option value="HONESTY">Honesty</option>
+                <option value="OPC">OPC - Openness Towards Change</option>
+                <option value="PPDI">PPDI - Passion & Process Driven Innovation</option>
+                <option value="PCC">PCC - Proactive & Conscious Collaboration</option>
+                <option value="SOLIDARITY">Solidarity</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Year:</label>
+            <input type="number" [(ngModel)]="personalTarget.year" min="2023" max="2030" />
+        </div>
+    </div>
+    <div class="add">
+        <button (click)="createPersonalTarget(personalTarget)" *ngIf="idEmployee === coacheeId">Add target</button>
+        <button (click)="assignPersonalTarget(personalTarget)" *ngIf="idEmployee !== coacheeId">Assign Target</button>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th id="desc">Description</th>
+                <th>Target Area</th>
+                <th>Status</th>
+                <th>Supported Value</th>
+                <th>Defined By</th>
+                <th>Year</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let target of personalTargets">
+                
+                <td>{{ target.description }}</td>
+                <td>{{ target.targetArea }}</td>
+                <td>
+                    <select [(ngModel)]="target.status" [disabled]="target === targetToUpdate">
+                        <option *ngFor="let status of targetStatus" [value]="status">{{ status }}</option>
+                    </select>
+                </td>
+                <td>{{ target.supportedValue }}</td>
+                <td>{{ target.definedBy }}</td>
+                <td>{{ target.year }}</td>
+                <td class="add">
+                    <button (click)="confirmUpdate(target)" [disabled]="target === targetToUpdate">Update</button>
+                    <button (click)="confirmDelete(target)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<div class="content">
-    <label for="year" class="year">Select Year:</label>
-    <select id="year" name="year">
-        <option value="">--Select Year--</option>
-        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-    </select>
-</div>
-
-<div class="content">
-    <label for="current-role" class="role">Current role:</label>
-    <input type="text" id="current-role" name="current-role">
-</div>
-
-<div class="content">
-    <label for="target-role" class="role">Target role:</label>
-    <input type="text" id="target-role" name="target-role">
-</div>
-
-
-
-
-
+    <div class="overlay" *ngIf="showAlert">
+        <div class="alert-box">
+            <h2>Confirmation</h2>
+            <p>Are you sure you want to continue?</p>
+            <div class="button-container">
+                <button (click)="continue()">Continue</button>
+                <button (click)="cancel()">Cancel</button>
+            </div>
+        </div>
 

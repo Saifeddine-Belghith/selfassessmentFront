@@ -9,9 +9,15 @@
         <div class="dropdown">
             <button class="dropbtn" class="active">My Assessments</button>
             <div class="dropdown-content">
-                <a class="active" (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToAssessment()" class="active">New Assessment</a>
                 <a (click)="goToMyAssessmentHistory()">History</a>
                 <a (click)="goToMyRating()">Ratings Over Time</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" >My Personal Targets</button>
+            <div class="dropdown-content">
+                <a (click)="goToTarget()">New Personal Target</a>
             </div>
         </div>
         <div class="dropdown">
@@ -82,23 +88,3 @@
         <button><a (click)="createAssessment(idEmployee)">Submit</a></button>
     </div>
 </div>
-<!-- <tr *ngFor="let category of categories">
-                
-                <td colspan="4">{{ category.categoryName }}</td>
-            <td>
-                
-            <tr *ngFor=" let skill of response.skills">
-               <td> {{ skill.skillName }}</td>
-            <td> <input type="number" min="0" max="3" *ngIf="skill" [value]="skill.rating"
-                    (input)="onRatingChange(skill, $any($event.target).value)" /></td>
-                <td>{{ skill.description }}</td>
-               
-            
-            </tr>
-            
-</tr> -->
- 
-
-       
-       
-<!--</ng-container>-->

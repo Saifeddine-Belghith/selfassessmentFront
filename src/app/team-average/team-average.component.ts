@@ -102,6 +102,10 @@ export class TeamAverageComponent implements OnInit {
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])
   }
+  goToTarget() {
+    console.log('id before' + this.idEmployee)
+    this.router.navigate(['/personal-target', this.idEmployee]);
+  }
 
 
 }

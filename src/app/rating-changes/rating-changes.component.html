@@ -15,6 +15,12 @@
             </div>
         </div>
         <div class="dropdown">
+            <button class="dropbtn">My Personal Targets</button>
+            <div class="dropdown-content">
+                <a (click)="goToTarget()">New Personal Target</a>
+            </div>
+        </div>
+        <div class="dropdown">
             <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
                 <button class="dropbtn">People</button>
                 <div class="dropdown-content">

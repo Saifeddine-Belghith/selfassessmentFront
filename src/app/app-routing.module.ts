@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'people', component: CoachComponent },
   { path: 'rating-changes/:id', component: RatingChangesComponent },
   { path: 'team-levels', component: TeamAverageComponent },
-  { path: 'personal-target', component:PersonalTargetComponent},
+  { path: 'personal-target/:id', component:PersonalTargetComponent},
 ];
 
 @NgModule({

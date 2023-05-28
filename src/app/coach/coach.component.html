@@ -15,6 +15,12 @@
             </div>
         </div>
         <div class="dropdown">
+            <button class="dropbtn">My Personal Targets</button>
+            <div class="dropdown-content">
+                <a (click)="goToTarget()">New Personal Target</a>
+            </div>
+        </div>
+        <div class="dropdown">
             <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
                 <button class="dropbtn" class="active">People</button>
                 <div class="dropdown-content">
@@ -44,10 +50,11 @@
         <tr *ngFor="let coachee of coacheeList || employee of employeeList">
             <td class="coachee-name">{{ coachee.firstName }} {{ coachee.lastName }}</td>
            <td>
-            <button class="btn" (click)="onCoacheeSelect(coachee.idEmployee)">Assessments</button>
-            <button class="btn" (click)="onRatingSelect(coachee.idEmployee)">Rating</button>
-        </td>
-    </tr>
+                <button class="btn" (click)="onCoacheeSelect(coachee.idEmployee)">Assessments</button>
+                <button class="btn" (click)="onRatingSelect(coachee.idEmployee)">Rating</button>
+                <button class="btn" (click)="onPersonalTargetSelect(coachee.idEmployee)">Personal Target</button>
+            </td>
+        </tr>
     </ng-container>
     </tbody>
     </table>
@@ -96,6 +103,7 @@
                     <td>
                         <button class="btn" (click)="onAssessmentSelect(this.employee.idEmployee)">Assessments</button>
                         <button class="btn" (click)="onRatingSelect(employee.idEmployee)">Rating</button>
+                        <button class="btn" (click)="onPersonalTargetSelect(employee.idEmployee)">Personal Targets</button>
                     </td>
                 </tr>
             

@@ -84,6 +84,10 @@ export class MyassessmenthistoryComponent implements OnInit {
     console.log('id before' + this.id)
     this.router.navigate(['/rating-changes', this.id]);
   }
+  goToTarget() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/personal-target', this.id]);
+  }
   goToSkillsOverview() { this.router.navigate(['/team-levels']) }
 }
 

@@ -143,7 +143,7 @@ export class AssessmentTableComponent implements OnInit {
 
   getCategories(): void {
     this.categoryService.getCategories()
-    .subscribe(categories => this.categories = categories);
+      .subscribe(categories => this.categories = categories);
   }
 
   getSkills(): Observable<Skill[]> { return this.skillService.getSkills(); }
@@ -239,6 +239,10 @@ export class AssessmentTableComponent implements OnInit {
   goToMyRating() {
     console.log('id before ' + this.id)
     this.router.navigate(['/rating-changes', this.idEmployee]);
+  }
+  goToTarget() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/personal-target', this.idEmployee]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

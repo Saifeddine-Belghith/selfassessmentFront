@@ -68,9 +68,11 @@ button {
 }
 
 .form-group {
+    margin-top:10px ;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    width: 50%;
 }
 
 .nav-container a {
@@ -129,12 +131,19 @@ label {
 .dropdown:hover .dropbtn {
     background-color: rgb(242, 167, 120);
 }
-.welcome-message {
+h1.title {
     text-align: center;
     color: #000;
     margin-top: 50px;
     font-size: 45px;
     font-weight: bold;
+}
+p.slogan {
+    text-align: center;
+    color: #000;
+    
+    font-size: 30px;
+    font-weight: medium;
 }
 .content{
     position:relative ;
@@ -155,12 +164,119 @@ label {
     width: 267px;
 }
 
-#year {
-    margin: 20px;
-}
+
 #current-role {
         margin: 20px;
     }
 #target-role{
         margin: 20px;
     }
+.input-list {
+            display: flex;
+            margin-top: 50px;
+            margin-left: 50px;
+            margin: 5px;
+        }
+input,
+optgroup,
+select,
+textarea {
+            margin: 5px;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            text-align: center;
+         }
+    
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin: 10px;
+            /* width: 90%; */
+            margin-left: 10px;
+            margin-right:20px;
+        
+
+}
+
+ .table td,
+.table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+} 
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgb(247, 106, 19);
+    color: white;
+    
+}
+.table #desc{
+    width:1px;
+}
+
+.input-group {
+            margin-right: 10px;
+        }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.alert-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.alert-box h2 {
+    margin-top: 0;
+}
+/* .add{display: flex;
+border: 0px;}  */
+.add button{
+        margin-bottom: 10px;
+        margin-left: 10px;
+        /* margin: 10px; */
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #4CAF50;;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+    }
+.add button:hover {
+            background-color: #3e8e41;
+        }
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.button-container button {
+    margin-left: 10px;
+}

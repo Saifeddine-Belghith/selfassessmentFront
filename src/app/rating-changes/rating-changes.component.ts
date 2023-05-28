@@ -249,6 +249,10 @@ export class RatingChangesComponent implements OnInit {
     console.log('id before' + this.employee.idEmployee)
     this.router.navigate(['/rating-changes', this.idEmployee]);
   }
+  goToTarget() {
+    console.log('id before' + this.employee.idEmployee)
+    this.router.navigate(['/personal-target', this.employee.idEmployee]);
+  }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])
   }
