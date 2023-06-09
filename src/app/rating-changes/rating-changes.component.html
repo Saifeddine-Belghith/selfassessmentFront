@@ -11,7 +11,8 @@
             <div class="dropdown-content">
                 <a (click)="goToAssessment()">New Assessment</a>
                 <a  (click)="goToMyAssessmentHistory()">History</a>
-                <a class="active" (click)="goToMyRating()">Ratings Over Time</a>
+                
+                <a class="active" (click)="goToMyRating(employee.idEmployee)">Ratings Over Time</a>
             </div>
         </div>
         <div class="dropdown">
@@ -33,9 +34,16 @@
         </div>
     </div>
 </div>
-<h2>Rating Changes</h2>
 
-<form [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
+<ng-container *ngIf="idEmployee !== coacheeId">
+    <h1 class="title">
+        Welcome in <span class="coachee-name">{{ coacheeFirstName }} </span> <span
+            class="coachee-name">{{ coacheeLastName }}</span>'s Rating changes page
+    </h1>
+    <p class="slogan">This space displays the changes in the scores over time</p>
+</ng-container>
+
+<form [formGroup]="ratingForm" (ngSubmit)="onSubmit()" class="form-container">
     <div class="form-group">
         <label for="skillSelect">Skill</label>
         <select formControlName="skill" id="skill" class="form-control">

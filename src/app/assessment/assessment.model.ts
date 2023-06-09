@@ -10,5 +10,6 @@ export interface Assessment {
     assessmentDate: Date;
     idSkill: number;
     skillName: string;
+    
    
 }

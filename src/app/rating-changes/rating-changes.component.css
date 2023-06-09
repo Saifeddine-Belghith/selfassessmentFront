@@ -61,7 +61,7 @@ button {
     width: auto;
 }
 
-.form-container {
+/* .form-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -71,8 +71,65 @@ button {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+} */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.form-group {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    width: 50%;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px;
+    
+    box-sizing: border-box;
+}
+.form-group input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
 .nav-container a {
     color: rgb(234, 226, 226);
     text-decoration: none;
@@ -129,6 +186,30 @@ label {
 .dropdown:hover .dropbtn {
     background-color: rgb(242, 167, 120);
 }
+.title {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.slogan {
+    text-align: center;
+    color: #000;
+    font-size: 30px;
+    font-weight: medium;
+}
+
+.employee-name {
+    color: #ff6600;
+    /* Change the color for the employee's name */
+}
+
+.coachee-name {
+    color: #3366ff;
+    /* Change the color for the coachee's name */
+}
 /* .coachee-list {
     margin-bottom: 20px;
 } */
@@ -149,18 +230,20 @@ label {
     text-align: left;
 } */
 
-.btn {
+.btn-primary {
     background-color: #4CAF50;
     border: none;
     color: white;
     padding: 8px 16px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    /* display: inline-block; */
     font-size: 14px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
+    height: fit-content;
+        margin-top: 40px;
 }
 
 .btn:hover {
@@ -186,7 +269,8 @@ td.date {
 } 
 #ratingChart {
     width: 100%;
-    height: 400px;
+    height: 500px;
+    /* Increase the height value */
     margin-top: 0px;
     margin-left: 10px;
     margin-bottom: 10px;

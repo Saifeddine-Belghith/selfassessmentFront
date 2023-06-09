@@ -7,6 +7,7 @@
     background-color: rgba(172, 172, 172, 0.801);
 }
 
+
 .logo-container {
     margin-right: auto;
 }
@@ -131,26 +132,161 @@ label {
 .dropdown:hover .dropbtn {
     background-color: rgb(242, 167, 120);
 }
+
+
+/* .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
 h1.title {
     text-align: center;
     color: #000;
     margin-top: 50px;
     font-size: 45px;
     font-weight: bold;
+    
+        margin-bottom: 20px;
 }
 p.slogan {
     text-align: center;
     color: #000;
     
+        margin-bottom: 40px;
     font-size: 30px;
     font-weight: medium;
+}
+.form-desc {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
 }
 .content{
     position:relative ;
     left: 200px;
     margin-top: 50px;
     font-size: 25px;
+} 
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+} */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
 }
+
+/* .title {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.slogan {
+    text-align: center;
+    color: #000;
+    font-size: 30px;
+    font-weight: medium;
+} */
+.title {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.slogan {
+    text-align: center;
+    color: #000;
+    font-size: 30px;
+    font-weight: medium;
+}
+
+.employee-name {
+    color: #ff6600;
+    /* Change the color for the employee's name */
+}
+
+.coachee-name {
+    color: #3366ff;
+    /* Change the color for the coachee's name */
+}
+
+.input-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.add {
+    margin-top: 20px;
+}
+
+.add button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+
+
+
+
 .select {
     top: 9px;
     left: 63px;
@@ -188,11 +324,11 @@ textarea {
             text-align: center;
          }
     
-.table {
+/* .table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     margin: 10px;
-            /* width: 90%; */
+           
             margin-left: 10px;
             margin-right:20px;
         
@@ -240,7 +376,61 @@ textarea {
     align-items: center;
     justify-content: center;
     z-index: 999;
+} */
+
+.table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  margin: 10px;
+  margin-left: 10px;
+  margin-right: 20px;
 }
+
+.table td,
+.table th {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tr:hover {
+  background-color: #ddd;
+}
+
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: rgb(247, 106, 19);
+  color: white;
+}
+
+.table #desc {
+  width: 1px;
+}
+
+.input-group {
+  margin-right: 10px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+
 
 .alert-box {
     background-color: #fff;

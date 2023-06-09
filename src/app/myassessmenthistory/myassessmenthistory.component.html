@@ -33,21 +33,86 @@
         </div>
     </div>
 </div>
-<h2 class="welcome-message ">Assessment Table</h2>
+<ng-container *ngIf="employee && employee.idEmployee === this.coachee.idEmployee">
+    <h1 class="title">
+        Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
+            employee.lastName }}</span> in Your assessment history
+    </h1>
+    <p class="slogan">Explore your complete assessment history</p>
+</ng-container>
+<ng-container *ngIf="employee && employee.idEmployee !== this.coachee.idEmployee && employee">
+    <h1 class="title">
+        Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
+            employee.lastName }}</span> in <span class="coachee-name">{{ this.coacheeFirstName }} </span> <span
+            class="coachee-name">{{ coacheeLastName }}</span>'s assessment history
+    </h1>
+    <p class="slogan">This space is to display the complete assessment history of your employee</p>
+</ng-container>
+
+
+<!-- <h1 class="title" >{{coach.firstName}} Assessment History</h1>
+<p class="slogan">Explore your complete assessment history</p> -->
 <div>
-<table>
+<table class="table">
     <thead>
         <tr>
+
+            <th>Category</th>
             <th>Skill</th>
             <th>Rating</th>
             <th>Date</th>
         </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let assessment of assessments">
-            <td class="skill-name">{{ skillService.getSkillName(assessment.idSkill) }}</td>
-            <td class="rating">{{ assessment.rating }}</td>
-            <td class="date">{{ assessment.assessmentDate }}</td>
+    <!-- <tbody class="assessment-table"></tbody> -->
+
+<tbody class="assessment-table">
+    <ng-container *ngFor="let group of groupedAssessments.reverse(); let i = index">
+        <tr>
+            <td class="category-name" [attr.rowspan]="group.assessments.length"
+                [ngClass]="getCategoryColor(group.category)">
+                {{ group.category }}
+            </td>
+            <td class="skill-name">{{ group.assessments[0].skill.skillName }}</td>
+            <td class="rating">{{ group.assessments[0].rating }}</td>
+            <td class="date">{{ group.assessments[0].assessmentDate }}</td>
         </tr>
-    </tbody>
-</table>
+        
+    </ng-container>
+</tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -18,6 +18,7 @@ import { CoachComponent } from './coach/coach.component';
 import { RatingChangesComponent } from './rating-changes/rating-changes.component';
 import { TeamAverageComponent } from './team-average/team-average.component';
 import { PersonalTargetComponent } from './personal-target/personal-target.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PersonalTargetComponent } from './personal-target/personal-target.compo
     RatingChangesComponent,
     TeamAverageComponent,
     PersonalTargetComponent,
+    SearchComponent,
 
     
   ],

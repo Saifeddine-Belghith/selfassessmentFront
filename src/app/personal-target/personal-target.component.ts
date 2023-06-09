@@ -27,6 +27,8 @@ export class PersonalTargetComponent implements OnInit {
   isManager: boolean = false;
   id!: number;
   coacheeId!: number;
+  coacheeFirstName: string = '';
+  coacheeLastName: string = '';
 
   constructor(private personalTargetService: PersonalTargetService, private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute,) { }
 
@@ -35,6 +37,7 @@ export class PersonalTargetComponent implements OnInit {
     this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
     this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('coachee ID:', this.coacheeId);
+    this.getCoacheeDetails(this.coacheeId);
     this.targetAreas = Object.values(TargetArea);
     this.targetStatus = Object.values(TargetStatus);
     this.supportedValues = Object.values(SupportedValue);
@@ -56,12 +59,14 @@ export class PersonalTargetComponent implements OnInit {
     this.personalTarget = {
       idPersonalTarget: 0,
       description: '',
+      acceptanceCriteria:'',
       targetArea: TargetArea.TRAINING,
       status: TargetStatus.IN_PROGRESS,
       origin: {} as Employee,
       definedBy: '',
       employee: {} as Employee,
-      year: new Date().getFullYear(),
+      targetDate: new Date(),
+      quarter: 'First Quarter',
       supportedValue: SupportedValue.FEEDBACK
     };
   }
@@ -100,7 +105,17 @@ export class PersonalTargetComponent implements OnInit {
         }
       );
   }
-
+  getCoacheeDetails(coacheeId: number): void {
+    this.employeeService.getEmployeeById(coacheeId).subscribe(
+      (coachee: Employee) => {
+        this.coacheeFirstName = coachee.firstName;
+        this.coacheeLastName = coachee.lastName;
+      },
+      (error) => {
+        console.log('Error retrieving coachee details:', error);
+      }
+    );
+  }
 
   updatePersonalTargetStatus(personalTarget: PersonalTarget): void {
     this.tempStatus = personalTarget.status;

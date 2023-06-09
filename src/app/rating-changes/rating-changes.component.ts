@@ -31,13 +31,15 @@ export class RatingChangesComponent implements OnInit {
   selectedSkill!: Skill;
   coacheeId!: number;
   assessments!: Assessment[];
-  private apiUrl = 'http://10.66.12.54:8081';
+  private apiUrl = 'http://localhost:8081';
   id: number | null = null;
   employee!: Employee;
   errorMessage!: string;
   isCoach: boolean = false;
   isManager: boolean = false;
   idEmployee!: number;
+  coacheeFirstName: string = '';
+  coacheeLastName: string = '';
 
 
   constructor(private route: ActivatedRoute, private activatedRoute: ActivatedRoute, private assessmentService: AssessmentService, private router: Router, private skillService: SkillService, private employeeService: EmployeeService) { }
@@ -45,8 +47,11 @@ export class RatingChangesComponent implements OnInit {
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
+    
     this.coacheeId = this.activatedRoute.snapshot.params['id'];
+    
     console.log('coachee ID:', this.coacheeId);
+    this.getCoacheeDetails(this.coacheeId);
     Chart.register(...registerables);
     this.employeeService.getEmployeeById(this.id).subscribe(employee => {
       this.employee = employee;
@@ -71,6 +76,17 @@ export class RatingChangesComponent implements OnInit {
       this.endDate = new Date(params.get('endDate')!);
       this.getRatingChanges();
     });
+  }
+  getCoacheeDetails(coacheeId: number): void {
+    this.employeeService.getEmployeeById(coacheeId).subscribe(
+      (coachee: Employee) => {
+        this.coacheeFirstName = coachee.firstName;
+        this.coacheeLastName = coachee.lastName;
+      },
+      (error) => {
+        console.log('Error retrieving coachee details:', error);
+      }
+    );
   }
   getSkills(): void {
     this.skillService.getSkills()
@@ -143,19 +159,19 @@ export class RatingChangesComponent implements OnInit {
         label: 'Rating Changes',
         data: [],
         fill: false,
-        backgroundColor: 'red',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
         pointRadius: 5,
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgba(255, 99, 132, 1)'
         // tension: 0.5
       }]
     };
     const ratingChangesArray = Array.from(this.ratingChanges.entries());
     ratingChangesArray.forEach(([dateString, ratings]) => {
       ratings.forEach(rating => {
-        (data.datasets[0].data as { x: string, y: number, r: number }[]).push({
+        (data.datasets[0].data as { x: string, y: number }[]).push({
           x: dateString,
-          y: rating,
-          r: 0
+          y: rating
+          // r: 0
         });
 
       });
@@ -165,16 +181,29 @@ export class RatingChangesComponent implements OnInit {
       type: 'line',
       data,
       options: {
+        maintainAspectRatio: false,
         scales: {
           x: {
             // type: 'time',
             time: {
               unit: 'day',
+              displayFormats: {
+                day: 'MMM D'
+              }
 
             },
             title: {
               display: true,
-              text: 'Assessment Date'
+              text: 'Assessment Date',
+              font: {
+                size: 20
+              }
+              
+            },
+            ticks: {
+              font: {
+                size: 15
+              }
             }
           },
           y: {
@@ -182,10 +211,27 @@ export class RatingChangesComponent implements OnInit {
             max: 3,
             title: {
               display: true,
-              text: 'Rating'
+              text: 'Rating',
+              font: {
+                size: 20
+              }
+            },
+            ticks: {
+              font: {
+                size: 12
+              }
             }
           }
-        }
+        },
+        // plugins: {
+        //   legend: {
+        //     labels: {
+        //       font: {
+        //         size: 14
+        //       }
+        //     }
+        //   }
+        // }
       }
     };
 
@@ -214,7 +260,7 @@ export class RatingChangesComponent implements OnInit {
     }
     this.startDate = new Date(this.ratingForm.get('startDate')!.value);
     this.endDate = new Date(this.ratingForm.get('endDate')!.value);
-    console.log("coacheeId:", this.id);
+    console.log("coacheeId:", this.coacheeId);
     console.log("skillName:", skillName);
     console.log("startDate:", this.startDate);
     console.log("endDate:", this.endDate)
@@ -245,9 +291,9 @@ export class RatingChangesComponent implements OnInit {
   goToMyAssessmentHistory() {
     this.router.navigate(['/myassessmenthistory', this.employee.idEmployee]);
   }
-  goToMyRating() {
+  goToMyRating(idEmployee: number) {
     console.log('id before' + this.employee.idEmployee)
-    this.router.navigate(['/rating-changes', this.idEmployee]);
+    this.router.navigate(['/rating-changes', this.employee.idEmployee]);
   }
   goToTarget() {
     console.log('id before' + this.employee.idEmployee)

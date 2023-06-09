@@ -8,7 +8,7 @@ import { Skill } from '../skill/skill.model';
     providedIn: 'root'
 })
 export class CategoryService {
-    private apiUrl = 'http://10.66.12.54:8081/categories';
+    private apiUrl = 'http://localhost:8081/categories';
 
     constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class CategoryService {
         return this.http.get<Category[]>(`${this.apiUrl}`).pipe(
             switchMap(categories => {
                 const observables = categories.map(category =>
-                    this.http.get<Skill[]>(`${this.apiUrl}/categories/${category.idCategory}/skills`).pipe(
+                    this.http.get<Skill[]>(`${this.apiUrl}/${category.idCategory}`).pipe(
                         map(skills => {
                             category.skills = skills;
                             return category;

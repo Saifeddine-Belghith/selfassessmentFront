@@ -3,19 +3,22 @@ import { Employee } from "../employee-details/employee.model";
 export interface PersonalTarget {
     idPersonalTarget: number;
     description: string;
+    acceptanceCriteria: string;
     targetArea: TargetArea;
     status: TargetStatus;
     origin: Employee;
     definedBy: string;
     employee: Employee;
-    year: number;
+    targetDate: Date;
+    quarter: string;
     supportedValue: SupportedValue;
 }
 export enum TargetArea {
     TRAINING='TRAINING',
     CDT = 'Client Delivery Target',
     BD = 'Business Development',
-    BA = 'Blog - Article',
+    SME = 'SME Task',
+    SF ='Soft Skill',
     Others = 'Others'
 }
 

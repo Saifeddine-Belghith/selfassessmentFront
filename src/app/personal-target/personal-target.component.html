@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="dropdown">
-            <button class="dropbtn"  class="active">My Personal Targets</button>
+            <button class="dropbtn" class="active">My Personal Targets</button>
             <div class="dropdown-content">
                 <a class="active" (click)="goToTarget()">New Personal Target</a>
             </div>
@@ -33,15 +33,33 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <ng-container *ngIf="idEmployee === coacheeId">
+        <h1 class="title">
+            Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name">{{
+                employee.lastName }}</span> in Your Personal Targets
+        </h1>
+        <p class="slogan">This space is to define your personal targets</p>
+    </ng-container>
+    <ng-container *ngIf="idEmployee !== coacheeId">
+        <h1 class="title">
+            Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
+                employee.lastName }}</span> in <span class="coachee-name">{{ coacheeFirstName }} </span> <span
+                class="coachee-name">{{ coacheeLastName }}</span>'s Personal Targets
+        </h1>
+        <p class="slogan">This space is to define personal targets for your employee</p>
+    </ng-container>
 
 
-    <h1 class="title">My Personal Targets</h1>
-    <p class="slogan">This space is to define your personal targets</p>
 
     <div class="input-list">
         <div class="form-group">
             <label>Description:</label>
-            <input type="text" [(ngModel)]="personalTarget.description">
+            <input type="text" [(ngModel)]="personalTarget.description" class="form-desc">
+        </div>
+        <div class="form-group">
+            <label>Acceptance Criteria:</label>
+            <input type="text" [(ngModel)]="personalTarget.acceptanceCriteria" class="form-desc">
         </div>
         <div class="form-group">
             <label for="targetArea">Target Area:</label>
@@ -49,7 +67,8 @@
                 <option value="TRAINING">Training</option>
                 <option value="CDT">Client Delivery Target</option>
                 <option value="BD">Business Development</option>
-                <option value="BA">Blog - Article</option>
+                <option value="SME">SME Task</option>
+                <option value="SF">Soft Skill</option>
                 <option value="Others">Others</option>
             </select>
         </div>
@@ -67,55 +86,68 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Year:</label>
-            <input type="number" [(ngModel)]="personalTarget.year" min="2023" max="2030" />
+            <label>Target Date:</label>
+            <input [(ngModel)]="personalTarget.targetDate" type="date" id="targetDate" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="quarter">Quarter:</label>
+            <select id="quarter" name="quarter" [(ngModel)]="personalTarget.quarter">
+                <option [selected]>First Quarter</option>
+                <option >Second Quarter</option>
+                <option >Third Quarter</option>
+                <option >Fourth Quarter</option>
+            </select>
         </div>
     </div>
+
     <div class="add">
         <button (click)="createPersonalTarget(personalTarget)" *ngIf="idEmployee === coacheeId">Add target</button>
         <button (click)="assignPersonalTarget(personalTarget)" *ngIf="idEmployee !== coacheeId">Assign Target</button>
     </div>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th id="desc">Description</th>
-                <th>Target Area</th>
-                <th>Status</th>
-                <th>Supported Value</th>
-                <th>Defined By</th>
-                <th>Year</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let target of personalTargets">
-                
-                <td>{{ target.description }}</td>
-                <td>{{ target.targetArea }}</td>
-                <td>
-                    <select [(ngModel)]="target.status" [disabled]="target === targetToUpdate">
-                        <option *ngFor="let status of targetStatus" [value]="status">{{ status }}</option>
-                    </select>
-                </td>
-                <td>{{ target.supportedValue }}</td>
-                <td>{{ target.definedBy }}</td>
-                <td>{{ target.year }}</td>
-                <td class="add">
-                    <button (click)="confirmUpdate(target)" [disabled]="target === targetToUpdate">Update</button>
-                    <button (click)="confirmDelete(target)">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th id="desc">Description</th>
+            <th>Acceptance Criteria</th>
+            <th>Target Area</th>
+            <th>Status</th>
+            <th>Supported Value</th>
+            <th>Defined By</th>
+            <th>Target Date</th>
+            <th>Quarter</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let target of personalTargets">
 
-    <div class="overlay" *ngIf="showAlert">
-        <div class="alert-box">
-            <h2>Confirmation</h2>
-            <p>Are you sure you want to continue?</p>
-            <div class="button-container">
-                <button (click)="continue()">Continue</button>
-                <button (click)="cancel()">Cancel</button>
-            </div>
+            <td>{{ target.description }}</td>
+            <td>{{ target.acceptanceCriteria }}</td>
+            <td>{{ target.targetArea }}</td>
+            <td>
+                <select [(ngModel)]="target.status" [disabled]="target === targetToUpdate">
+                    <option *ngFor="let status of targetStatus" [value]="status">{{ status }}</option>
+                </select>
+            </td>
+            <td>{{ target.supportedValue }}</td>
+            <td>{{ target.definedBy }}</td>
+            <td>{{ target.targetDate }}</td>
+            <td>{{ target.quarter }}</td>
+            <td class="add">
+                <button (click)="confirmUpdate(target)" [disabled]="target === targetToUpdate">Update</button>
+                <button (click)="confirmDelete(target)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="overlay" *ngIf="showAlert">
+    <div class="alert-box">
+        <h2>Confirmation</h2>
+        <p>Are you sure you want to continue?</p>
+        <div class="button-container">
+            <button (click)="continue()">Continue</button>
+            <button (click)="cancel()">Cancel</button>
         </div>
-
+    </div>

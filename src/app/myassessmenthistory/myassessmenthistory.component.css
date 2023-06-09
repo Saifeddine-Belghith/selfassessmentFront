@@ -132,7 +132,89 @@ label {
 label {
     margin-bottom: 5px;
 }
-table {
+
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin: 10px;
+    /* width: 90%; */
+    margin-left: 10px;
+    margin-right: 20px;
+
+
+}
+
+.title {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.slogan {
+    text-align: center;
+    color: #000;
+    font-size: 30px;
+    font-weight: medium;
+}
+
+.employee-name {
+    color: #ff6600;
+    /* Change the color for the employee's name */
+}
+
+.coachee-name {
+    color: #3366ff;
+    /* Change the color for the coachee's name */
+}
+
+/* .table td,
+.table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+} */
+
+/* .table tr:nth-child(even) {
+    background-color: #f2f2f2;
+} */
+
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.table td,
+.table th {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgb(247, 106, 19);
+    color: white;
+}
+.assessment-separator td {
+    background-color: rgba(237, 125, 55, 0.861);
+}
+
+/* table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -153,11 +235,39 @@ td.skill-name {
 
     text-transform: uppercase;
 }
-
+*/
 td.rating {
     color: blue;
 }
 
 td.date {
     font-style: italic;
+} 
+.category-color1 {
+    background-color: #FFCCCC;
+    /* Replace with your desired color */
+}
+
+.category-color2 {
+    background-color: #CCFFCC;
+    /* Replace with your desired color */
+}
+
+.category-color3 {
+    background-color: #adadf5;
+    /* Replace with your desired color */
+}
+
+.category-row {
+    background-color: #F2F2F2;
+    /* Replace with your desired color */
+}
+
+.first-row {
+    font-weight: bold;
+}
+.newest-assessment {
+    font-weight: bold;
+    background-color: #00FF00;
+    /* Replace with your desired color */
 }

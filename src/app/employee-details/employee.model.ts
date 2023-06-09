@@ -11,4 +11,5 @@ export interface Employee {
     isCoach: boolean;
     isCoachee: boolean;
     isManager: boolean;
+    employeeDetails?: Employee;
 }

@@ -35,8 +35,11 @@
 </div>
 <ng-container *ngIf="coach && coach.isCoach">
 <div class="coachee-table">
-    <h2>My Team</h2>
-<table >
+    <h1 class="title">Team Overview</h1>
+    <p class="slogan">Explore the list of employees in your team.</p>
+
+
+<table class="table">
     <thead>
         <tr>
             <th>Employee Name</th>
@@ -50,7 +53,7 @@
         <tr *ngFor="let coachee of coacheeList || employee of employeeList">
             <td class="coachee-name">{{ coachee.firstName }} {{ coachee.lastName }}</td>
            <td>
-                <button class="btn" (click)="onCoacheeSelect(coachee.idEmployee)">Assessments</button>
+                <button class="btn" (click)="onAssessmentSelect(coachee.idEmployee)">Assessments</button>
                 <button class="btn" (click)="onRatingSelect(coachee.idEmployee)">Rating</button>
                 <button class="btn" (click)="onPersonalTargetSelect(coachee.idEmployee)">Personal Target</button>
             </td>
@@ -60,7 +63,7 @@
     </table>
 </div>
 <ng-container *ngIf="coach && coach.isCoach">
-<div class="assessment-table">
+<!-- <div class="assessment-table">
     <h2>Assessments</h2>
     <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
     
@@ -81,7 +84,7 @@
             </tbody>
         </table>
    
-</div>
+</div> -->
 </ng-container>
 </ng-container>
 <ng-container *ngIf="coach && coach.isManager">

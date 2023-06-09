@@ -10,6 +10,7 @@ import { MyassessmenthistoryComponent } from './myassessmenthistory/myassessment
 import { PersonalTargetComponent } from './personal-target/personal-target.component';
 import { RatingChangesComponent } from './rating-changes/rating-changes.component';
 import { TeamAverageComponent } from './team-average/team-average.component';
+import { SearchComponent } from './search/search.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'people', component: CoachComponent },
   { path: 'rating-changes/:id', component: RatingChangesComponent },
   { path: 'team-levels', component: TeamAverageComponent },
-  { path: 'personal-target/:id', component:PersonalTargetComponent},
+  { path: 'personal-target/:id', component: PersonalTargetComponent },
+  {path: 'search', component:SearchComponent}
 ];
 
 @NgModule({

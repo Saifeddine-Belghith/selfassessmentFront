@@ -135,7 +135,52 @@ label {
     margin-bottom: 20px;
 }
 
-.assessment-table table {
+.title {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.slogan {
+    text-align: center;
+    color: #000;
+    font-size: 30px;
+    font-weight: medium;
+}
+
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.table td,
+.table th {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgb(247, 106, 19);
+    color: white;
+}
+/* .assessment-table table {
     border-collapse: collapse;
     width: 100%;
 }
@@ -154,7 +199,7 @@ label {
 .assessment-table table th {
     background-color: #f2f2f2;
     text-align: left;
-}
+} */
 
 .btn {
     background-color: #4CAF50;
@@ -185,7 +230,7 @@ td.rating {
 td.date {
     font-style: italic;
 }
-.coachee-name {
+/* .coachee-name {
     font-weight: bold;
     color: #333;
 }
@@ -210,4 +255,4 @@ td {
 
 th {
     background-color: #ccc;
-}
+} */

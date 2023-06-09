@@ -67,4 +67,5 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/team-levels'])
   }
 
+  goToSearch() { this.router.navigate(['/search']) }
 }

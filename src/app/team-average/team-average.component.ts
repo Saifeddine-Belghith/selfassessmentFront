@@ -17,7 +17,7 @@ export class TeamAverageComponent implements OnInit {
   teamAverageData: any;
   chart!: Chart;
   idEmployee!: number;
-  private apiUrl = 'http://10.66.12.54:8081';
+  private apiUrl = 'http://localhost:8081';
 
   constructor(private route: ActivatedRoute, private router: Router, private activatedRoute: ActivatedRoute, private employeeService: EmployeeService, private teamAverageService: TeamAverageService, private http: HttpClient) {
 

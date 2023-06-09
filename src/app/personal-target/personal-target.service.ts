@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PersonalTarget } from './personal-target.model';
+import { Employee } from '../employee-details/employee.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PersonalTargetService {
 
-    private baseUrl = 'http://10.66.12.54:8081/personal-targets';
+    private baseUrl = 'http://localhost:8081/personal-targets';
 
     constructor(private http: HttpClient) { }
 
@@ -36,5 +37,9 @@ export class PersonalTargetService {
     getPersonalTargetsByEmployee(idEmployee: number): Observable<PersonalTarget[]> {
         const url = `${this.baseUrl}/employee/${idEmployee}`;
         return this.http.get<PersonalTarget[]>(url);
+    }
+
+    searchConsultantsByTarget(payload: any): Observable<Employee[]> {
+        return this.http.get<Employee[]>(`${this.baseUrl}/search`, { params: payload });
     }
 }
