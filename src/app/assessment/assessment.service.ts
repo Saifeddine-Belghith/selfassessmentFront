@@ -53,6 +53,14 @@ export class AssessmentService {
         return this.http.get<any>(url);
 
     }
+    calculateAverageRatingsByCategoryAndEmployee(employeeId: number): Observable<Map<number, number>> {
+        const url = `${this.apiUrl}/average-ratings/employee/${employeeId}`;
+        return this.http.get<Map<number, number>>(url);
+    }
+    calculateAverageRatingsByCategoryAndExperience(experienceLevel: string): Observable<Map<number, number>> {
+        const url = `${this.apiUrl}/average-ratings/experience/${experienceLevel}`;
+        return this.http.get<Map<number, number>>(url);
+    }
 
 
 }

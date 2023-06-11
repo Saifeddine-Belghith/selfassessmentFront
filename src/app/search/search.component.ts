@@ -6,6 +6,10 @@ import { SkillService } from '../skill/skill.service';
 import { Skill } from '../skill/skill.model';
 import { SupportedValue, TargetArea, TargetStatus } from '../personal-target/personal-target.model';
 import { PersonalTargetService } from '../personal-target/personal-target.service';
+import { Chart, ChartConfiguration, registerables } from 'chart.js';
+import { CategoryService } from '../category/category.service';
+import { Observable, catchError, defaultIfEmpty, forkJoin, map, switchMap, throwError } from 'rxjs';
+import { AssessmentService } from '../assessment/assessment.service';
 
 @Component({
   selector: 'app-search',
@@ -13,6 +17,7 @@ import { PersonalTargetService } from '../personal-target/personal-target.servic
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  
 
   employee!: Employee;
   id!: number;
@@ -23,17 +28,25 @@ export class SearchComponent implements OnInit {
   selectedSkills: Skill[] = [];
   selectedRatings: number[] = [];
   consultants: Employee[] = [];
+  consultantList: Employee[] = [];
   selectedTargetAreas: TargetArea[] = [];
   selectedSupportedValues: SupportedValue[] = [];
   selectedStatuses: TargetStatus[] = [];
   selectedTargetArea!: TargetArea;
   selectedSupportedValue!: SupportedValue;
   selectedStatus!: TargetStatus;
+  chart!: Chart;
+  experience!: string;
+  averageRatingsByCategoryAndEmployee!: { [idCategory: string]: any };
+  categoryNames: string[] = [];
+  categoryIds: string[] = [];
+  ratings: number[] = [];
 
 
 
-
-  constructor(private employeeService: EmployeeService, private router: Router, private skillService: SkillService, private personalTargetService:PersonalTargetService) { }
+  constructor(private employeeService: EmployeeService, private router: Router,
+    private skillService: SkillService, private personalTargetService: PersonalTargetService,
+    private categoryService: CategoryService, private assessmentService: AssessmentService) { }
 
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
@@ -45,11 +58,27 @@ export class SearchComponent implements OnInit {
       this.employee = employee;
       this.isCoach = this.employee?.isCoach;
       this.isManager = this.employee?.isManager;
-      console.log("is coach", this.isCoach)
-    });
+      this.experience = this.employee?.experienceLevel;
+      console.log("the experience is :", this.experience)
+    
+      this.experience = this.employee.experienceLevel;
+      this.getConsultantWithSimilarExperience();
+    console.log("is exp", this.experience)
     console.log("id emp", this.id)
     this.getSkills();
-  
+      
+      
+    this.getAverageRatingsByCategoryAndEmployee(this.id);
+     this.getAverageRatingsByCategoryAndExperience();
+      this.getCategoryNameFromAverageMethods();
+      
+      this.getAverageRating(this.id).subscribe(ratings => {
+        console.log('Ratings:', ratings);
+      });
+      Chart.register(...registerables);
+      this.createChart();
+      
+    });
   }
 
   getSkills(): void {
@@ -151,8 +180,174 @@ export class SearchComponent implements OnInit {
         }
       );
   }
+  getCategoryName(categoryId: number): Observable<string> {
+    return this.categoryService.getCategoryByIdCategory(categoryId).pipe(
+      defaultIfEmpty('Unknown Category') // Provide a default value when category is not found
+    );
+  }
 
 
+  getAverageRatingsByCategoryAndEmployee(idEmployee:number): void {
+    this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(idEmployee).subscribe(
+      (employeeRatings: Map<number, number>) => {
+        // Process the employeeRatings data as needed
+        console.log("hello",employeeRatings);
+      },
+      (error: any) => {
+        console.error('Error retrieving average ratings by category and employee:', error);
+      }
+    );
+  }
+
+  
+  getAverageRatingsByCategoryAndExperience(): void {
+    this.assessmentService.calculateAverageRatingsByCategoryAndExperience(this.experience).subscribe(
+      (similarExperienceRatings: Map<number, number>) => {
+        // Process the similarExperienceRatings data as needed
+        // console.log(similarExperienceRatings);
+      },
+      (error: any) => {
+        console.error('Error retrieving average ratings by category and experience:', error);
+      }
+    );
+  }
+
+  
+  getCategoryNameFromAverageMethods(): Observable<string[]> {
+    return this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(this.id).pipe(
+      switchMap((employeeRatings: { [idCategory: string]: any }) => {
+        const categoryIds = Object.keys(employeeRatings);
+        // console.log('categoryIds:', categoryIds); // Log category IDs
+
+        const categoryNames$ = categoryIds.map(categoryId => {
+          // console.log('categoryId:', categoryId); // Log category ID before calling getCategoryName()
+          return this.getCategoryName(parseInt(categoryId));
+        });
+
+        // Wait for all category names to be fetched
+        return forkJoin(categoryNames$);
+      }),
+      catchError((error: any) => {
+        console.error('Error retrieving category names:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  getConsultantWithSimilarExperience(): void{
+    this.employeeService.getEmployeesByExperience(this.experience).subscribe(
+      consultants => {
+        this.consultantList = consultants;
+        console.log('people:', this.consultantList);
+      }
+  )
+  }
+  getAverageRating(idEmployee: number): Observable<number[]> {
+    return this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(idEmployee).pipe(
+      map((employeeRatings: { [idCategory: number]: number } | Map<number, number>) => {
+        const ratings: number[] = Object.values(employeeRatings);
+        console.log('Ratings:', ratings); // Log the extracted ratings
+        this.ratings = ratings;
+        return this.ratings;
+      }),
+      catchError((error: any) => {
+        console.error('Error retrieving average ratings by category and employee:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  createChart(): void {
+    const canvas = document.getElementById('ratingChart') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    for (const chart of Object.values(Chart.instances)) {
+      chart.destroy();
+    }
+
+    // Check if chart already exists and destroy it before rendering a new chart
+    console.log("creating chart ...");
+    if (this.chart) {
+      this.chart.destroy();
+      console.log("Destroyed");
+    }
+
+    // Check if category names are available
+    if (!this.categoryNames) {
+      console.error('Category names are not available.');
+      return;
+    }
+
+    this.getCategoryNameFromAverageMethods().subscribe(
+      (categoryNames: string[]) => {
+        this.categoryNames = categoryNames;
+        console.log(categoryNames);
+
+        const data = {
+          labels: this.categoryNames,
+          datasets: [
+        {
+          label: 'My Average',
+              data: this.ratings,
+          fill: true,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgb(255, 99, 132)',
+          pointBackgroundColor: 'rgb(255, 99, 132)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(255, 99, 132)',
+        },
+        {
+          label: 'The similar experience average',
+          data: [28, 48, 40],
+          fill: true,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointBackgroundColor: 'rgb(54, 162, 235)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(54, 162, 235)',
+        },
+      ],
+    };
+
+    const config: ChartConfiguration<'radar'> = {
+      type: 'radar',
+      data: data,
+      options: {
+        elements: {
+          line: {
+            borderWidth: 3,
+          },
+        },
+      },
+    };
+
+        if (this.chart) {
+          this.chart.destroy();
+          console.log("Destroyed");
+        }
+
+        this.chart = new Chart<'radar'>(canvas, config);
+        console.log("Chart created");
+      },
+      (error: any) => {
+        console.error('Error retrieving category names:', error);
+      }
+    );
+  }
 
 
 

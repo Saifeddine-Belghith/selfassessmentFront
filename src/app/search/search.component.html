@@ -64,11 +64,11 @@
     
      -->
 
-<div class="container">
-    <h1 class="title">Search Consultants and Employees</h1>
-    <p class="slogan">Find the Perfect Match for Your Needs</p>
+ <div class="container">
+    <h1 class="title">Compare Page</h1>
+    <p class="slogan">Here you can compare your qualification level to the average level of people with a similiar experience</p>
 
-    <div class="input-list">
+<!-- <div class="input-list">
         <div class="form-group">
     <h4 class="inline-heading">Search by Skills and Ratings</h4>
         </div>
@@ -130,12 +130,37 @@
     <div class="search">
         <button (click)="searchConsultantsbyTarget()">Search</button>
     </div>
-</div>
+</div>-->
    
+</div> 
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Role</th>
+                <th>Experience Level</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr *ngFor="let consultant of consultantList">
+                    <ng-container *ngIf="employee.idEmployee!==consultant.idEmployee">
+                    <td class="coachee-name">{{ consultant.firstName }} {{
+                        consultant.lastName }}</td>
+                    <td class="coachee-name">{{ consultant.role }}</td>
+                    <td class="coachee-name">{{ consultant.experienceLevel }}</td>
+                    <td class="search">
+                        <button >Compare with</button>
+                    </td>
+                    </ng-container>
+                </tr>
+            
+        </tbody>
+    </table>
 </div>
-
+<div>
+<canvas id="ratingChart"></canvas>
+</div>
 <!-- Display search results -->
-<div *ngFor="let consultant of consultants">
-    <p>{{ consultant.employeeDetails?.firstName }} {{ consultant.employeeDetails?.lastName }}</p>
-    <p>Role: {{ consultant.employeeDetails?.role }}</p>
-</div>

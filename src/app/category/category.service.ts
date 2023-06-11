@@ -30,4 +30,15 @@ export class CategoryService {
             })
         );
     }
+
+    getCategoryByIdCategory(idCategory: number): Observable<string> {
+        const url = `${this.apiUrl}/${idCategory}`;
+
+        return this.http.get<Category>(url).pipe(
+            map((category: Category) => category.categoryName)
+        );
+    }
+
+
+
 }

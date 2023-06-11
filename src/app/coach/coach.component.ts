@@ -27,7 +27,7 @@ export class CoachComponent implements OnInit {
   id: number | null = null;
 
   assessment!: Assessment;
-  skills: Skill[] = [];
+  skills!: Skill[];
   skill!: Skill;
   idEmployee!: number;
   // private apiUrl = 'http://localhost:8081';
@@ -40,10 +40,16 @@ export class CoachComponent implements OnInit {
 
   skillName: string[] | undefined;
   errorMessage!: string;
+  searchSkills!: string;
+  searchRatings!: string;
+  searchCriteria: { skill: string; rating: number }[] = [];
+  consultants: Employee[] = [];
+  consultant!: Employee;
+  searchPerformed: boolean = false;
 
-
-
-  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router, public skillService: SkillService, private assessmentService: AssessmentService, private http: HttpClient) { }
+  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router, public skillService: SkillService, private assessmentService: AssessmentService, private http: HttpClient) {
+    this.searchCriteria = [{ skill: '', rating: 0 }];
+   }
 
   ngOnInit(): void {
     const idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
@@ -56,18 +62,73 @@ export class CoachComponent implements OnInit {
       if (this.isCoach === true) {
         this.getCoachees();
       }
+      
       else if (this.isManager === true) {
         this.getOtherEmployees(idEmployee);
       }
     });
+    this.getSkills();
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
     const url = `http://localhost:8081/assessments/employee/${this.selectedCoacheeId}`;
     this.name = this.getSkillName(this.assessment.idSkill);
     console.log('skilllll name', this.name);
     console.log("id selected :", this.assessment.idSkill);
+    
   }
 
+  getSkills(): void {
+    this.skillService.getSkills().subscribe(
+      (response) => {
+        this.skills = response;
+        console.log('Skills:', this.skills); // Check if the skills are logged correctly
+      },
+      (error) => {
+        console.error('Error fetching skills:', error);
+      }
+    );
+  }
+
+
+  addCriteria() {
+    this.searchCriteria.push({ skill: '', rating: 0 });
+  }
+  searchConsultantsBySkillsAndRatings(): void {
+    // Perform the search using searchCriteria
+    const payload = this.searchCriteria.reduce(
+      (result, criteria) => {
+        result.skills.push(criteria.skill);
+        result.ratings.push(criteria.rating);
+        return result;
+      },
+      { skills: [] as string[], ratings: [] as number[] } // Explicitly define the types
+    );
+
+    this.employeeService.searchConsultantsBySkillsAndRatings(payload).subscribe(
+      (consultants) => {
+        consultants.forEach((consultant) => {
+          this.employeeService.getEmployeeById(consultant.idEmployee).subscribe(
+            (employee) => {
+              consultant.employeeDetails = employee;
+            },
+            (error) => {
+              console.error('Error fetching employee details:', error);
+            }
+          );
+        });
+
+        console.log('Consultants:', consultants);
+        this.consultants = consultants;
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+    this.searchPerformed = true;
+  }
+  deleteCriteria(index: number): void {
+    this.searchCriteria.splice(index, 1);
+  }
 
 
   getCoachees(): void {
@@ -109,6 +170,10 @@ export class CoachComponent implements OnInit {
     console.log("id selected :", coacheeId)
     console.log("url", url)
   }
+  getFilteredConsultants(): Employee[] {
+    return this.consultants.filter(consultant => this.coacheeList.some(coachee => coachee.idEmployee === consultant.idEmployee));
+  }
+
 
   onRatingSelect(coacheeId: number): void {
     this.selectedCoacheeId = coacheeId;
@@ -130,6 +195,7 @@ export class CoachComponent implements OnInit {
     const skill = this.skills.find(skill => skill.idSkill === idSkill);
     return skill ? skill.skillName : 'Unknown skill';
   }
+  
 
   goToHome() {
     this.router.navigateByUrl('/home');

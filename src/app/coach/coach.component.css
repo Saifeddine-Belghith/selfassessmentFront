@@ -150,6 +150,57 @@ label {
     font-weight: medium;
 }
 
+.form-group {
+    display: contents;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.inline-heading {
+    display: inline;
+    margin-right: 10px;
+    /* Adjust the spacing as needed */
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.search {
+    margin-top: 20px;
+}
+
+.search button {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    /* margin: 10px; */
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    ;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.search button:hover {
+    background-color: #3e8e41;
+}
+
 .table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -180,6 +231,7 @@ label {
     background-color: rgb(247, 106, 19);
     color: white;
 }
+
 /* .assessment-table table {
     border-collapse: collapse;
     width: 100%;
@@ -215,11 +267,26 @@ label {
     border-radius: 4px;
 }
 
+.btn-danger {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
 .btn:hover {
     background-color: #3e8e41;
 }
+
 td.skill-name {
-    
+
     text-transform: uppercase;
 }
 
@@ -230,6 +297,7 @@ td.rating {
 td.date {
     font-style: italic;
 }
+
 /* .coachee-name {
     font-weight: bold;
     color: #333;

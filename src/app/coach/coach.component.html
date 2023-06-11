@@ -11,7 +11,7 @@
             <div class="dropdown-content">
                 <a (click)="goToAssessment()">New Assessment</a>
                 <a (click)="goToMyAssessmentHistory()">History</a>
-                <a  (click)="goToMyRating()">Ratings Over Time</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
             </div>
         </div>
         <div class="dropdown">
@@ -34,11 +34,43 @@
     </div>
 </div>
 <ng-container *ngIf="coach && coach.isCoach">
-<div class="coachee-table">
-    <h1 class="title">Team Overview</h1>
-    <p class="slogan">Explore the list of employees in your team.</p>
+    <div class="coachee-table">
+        <h1 class="title">Team Overview</h1>
+        <p class="slogan">Explore the list of employees in your team.</p>
+
+        <div class="form-group">
+            <div *ngFor="let criteria of searchCriteria; let i = index">
+                <div class="form-group">
+                    <label for="skills{{i}}">Skill:</label>
+                    <select id="skills{{i}}" name="skills" [(ngModel)]="criteria.skill">
+                        <option *ngFor="let skill of skills" [value]="skill.skillName">{{ skill.skillName }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ratings{{i}}">Rating:</label>
+                    <select id="ratings{{i}}" name="ratings" [(ngModel)]="criteria.rating">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn" (click)="addCriteria()">Add Another Criteria</button>
+                </div>
+                <div class="form-group">
+                    <button class="btn-danger" *ngIf=" i > 0" (click)="deleteCriteria(i)">Delete Criteria</button>
+                </div>
+            </div>
+            <button class="btn" (click)="searchConsultantsBySkillsAndRatings()">Search</button>
+        </div>
+</div>
 
 
+
+
+
+<div>
 <table class="table">
     <thead>
         <tr>
@@ -123,3 +155,26 @@
         <button (click)="getAssessments(coachee.idEmployee)">View Assessments</button>
     </li>
 </ul> -->
+<div *ngIf="searchPerformed"> <h2>The Result of your search</h2></div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Role</th>
+                <th>Experience Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="coach && coach.isCoach">
+                <tr *ngFor="let consultant of getFilteredConsultants()">
+                    <td class="coachee-name">{{ consultant.employeeDetails?.firstName }} {{
+                        consultant.employeeDetails?.lastName }}</td>
+                    <td class="coachee-name">{{ consultant.employeeDetails?.role }}</td>
+                    <td class="coachee-name">{{ consultant.employeeDetails?.experienceLevel }}</td>
+            
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
