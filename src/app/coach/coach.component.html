@@ -11,13 +11,19 @@
             <div class="dropdown-content">
                 <a (click)="goToAssessment()">New Assessment</a>
                 <a (click)="goToMyAssessmentHistory()">History</a>
-                <a (click)="goToMyRating()">Ratings Over Time</a>
+
             </div>
         </div>
         <div class="dropdown">
             <button class="dropbtn">My Personal Targets</button>
             <div class="dropdown-content">
                 <a (click)="goToTarget()">New Personal Target</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">My Qualification</button>
+            <div class="dropdown-content">
+                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" type="button" (click)="goToCompare()">Compare</a>                <a (click)="goToMyRating()">Ratings Over Time</a>
             </div>
         </div>
         <div class="dropdown">
@@ -31,6 +37,7 @@
                 </div>
             </ng-container>
         </div>
+
     </div>
 </div>
 <ng-container *ngIf="coach && coach.isCoach || coach.isManager ">

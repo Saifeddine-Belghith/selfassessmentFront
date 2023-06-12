@@ -230,4 +230,6 @@ export class CoachComponent implements OnInit {
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])
   }
+  goToCompare() { this.router.navigate(['/qualification-comparison']) }
+
 }

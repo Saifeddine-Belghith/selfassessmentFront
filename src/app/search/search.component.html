@@ -23,8 +23,11 @@
         <div class="dropdown">
             <button class="dropbtn" class="active">My Qualification</button>
             <div class="dropdown-content">
-                <a class="active" type="button" (click)="goToCompare()">Compare</a>
-                <a (click)="goToMyRating()">Ratings Over Time</a>
+                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" class="active" type="button" (click)="goToCompare()">Compare</a>
+
+                
+                <a  (click)="goToMyRating()">Ratings Over Time</a>
+             
             </div>
         </div>
         <div class="dropdown">

@@ -302,5 +302,5 @@ export class RatingChangesComponent implements OnInit {
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])
   }
-
+  goToCompare() { this.router.navigate(['/qualification-comparison']) }
 }
