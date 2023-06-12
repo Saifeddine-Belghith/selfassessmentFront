@@ -442,7 +442,7 @@ export class MyassessmenthistoryComponent implements OnInit {
     for (const category of uniqueCategories) {
       if (!this.categoryColors[category]) {
         this.categoryColors[category] = `category-color${colorIndex + 1}`;
-        colorIndex = (colorIndex + 1) % 3; // Ensure cycling through available colors
+        colorIndex = (colorIndex + 1) % 6; // Ensure cycling through available colors
       }
     }
   }
