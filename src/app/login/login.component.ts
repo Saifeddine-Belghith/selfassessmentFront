@@ -22,7 +22,7 @@ export class LoginComponent {
       password: this.password,
     };
 
-    this.http.post('http://localhost:8081/login', bodyData).subscribe((resultData: any) => {
+    this.http.post('http://10.66.12.54:8081/login', bodyData).subscribe((resultData: any) => {
       console.log('result:', resultData);
       if (resultData.message === 'Email does not exist') {
         alert('Email does not exist');

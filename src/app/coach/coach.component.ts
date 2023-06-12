@@ -23,14 +23,14 @@ export class CoachComponent implements OnInit {
   selectedCoacheeId: number | null = null;
   assessments: Assessment[] = [];
   skillNames: string[] = [];
-  private apiUrl = 'http://localhost:8081/assessments';
+  private apiUrl = 'http://10.66.12.54:8081/assessments';
   id: number | null = null;
 
   assessment!: Assessment;
   skills!: Skill[];
   skill!: Skill;
   idEmployee!: number;
-  // private apiUrl = 'http://localhost:8081';
+  // private apiUrl = 'http://10.66.12.54:8081';
   employee!: Employee;
   idSkill!: number;
   name!: string;
@@ -49,7 +49,7 @@ export class CoachComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router, public skillService: SkillService, private assessmentService: AssessmentService, private http: HttpClient) {
     this.searchCriteria = [{ skill: '', rating: 0 }];
-   }
+  }
 
   ngOnInit(): void {
     const idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
@@ -62,7 +62,7 @@ export class CoachComponent implements OnInit {
       if (this.isCoach === true) {
         this.getCoachees();
       }
-      
+
       else if (this.isManager === true) {
         this.getOtherEmployees(idEmployee);
       }
@@ -70,11 +70,11 @@ export class CoachComponent implements OnInit {
     this.getSkills();
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
-    const url = `http://localhost:8081/assessments/employee/${this.selectedCoacheeId}`;
+    const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
     this.name = this.getSkillName(this.assessment.idSkill);
     console.log('skilllll name', this.name);
     console.log("id selected :", this.assessment.idSkill);
-    
+
   }
 
   getSkills(): void {
@@ -166,7 +166,7 @@ export class CoachComponent implements OnInit {
     } else {
       this.assessments = [];
     }
-    const url = `http://localhost:8081/assessments/employee/${this.selectedCoacheeId}`;
+    const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
     console.log("id selected :", coacheeId)
     console.log("url", url)
   }
@@ -198,7 +198,7 @@ export class CoachComponent implements OnInit {
     const skill = this.skills.find(skill => skill.idSkill === idSkill);
     return skill ? skill.skillName : 'Unknown skill';
   }
-  
+
 
   goToHome() {
     this.router.navigateByUrl('/home');

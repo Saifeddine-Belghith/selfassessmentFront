@@ -78,8 +78,8 @@ export class MyassessmenthistoryComponent implements OnInit {
       this.coachee = coachee;
     });
 
-    const assessmentsUrl = `http://localhost:8081/assessments/employee/${this.coacheeId}`;
-    const categoriesUrl = 'http://localhost:8081/categories';
+    const assessmentsUrl = `http://10.66.12.54:8081/assessments/employee/${this.coacheeId}`;
+    const categoriesUrl = 'http://10.66.12.54:8081/categories';
 
     forkJoin({
       assessments: this.http.get<Assessment[]>(assessmentsUrl),
@@ -92,11 +92,11 @@ export class MyassessmenthistoryComponent implements OnInit {
     });
   }
 
-   
-  
-      // Retrieve the categories with skills
-      // this.categoryService.getCategoriesWithSkills().subscribe(categories => {
-      //   this.categories = this.getSortedCategories(categories);
+
+
+  // Retrieve the categories with skills
+  // this.categoryService.getCategoriesWithSkills().subscribe(categories => {
+  //   this.categories = this.getSortedCategories(categories);
 
   getCategoryName(skillId: number): string {
     let categoryName = '';
@@ -107,12 +107,12 @@ export class MyassessmenthistoryComponent implements OnInit {
         if (skill) {
           categoryName = category.categoryName;
           break; // Exit the loop if a matching skill is found
-          
+
         }
       }
     }
 
-    
+
     return categoryName;
   }
 
@@ -182,10 +182,10 @@ export class MyassessmenthistoryComponent implements OnInit {
   }
 
   getDate(skill: Skill): string {
-  const assessment = this.assessments.find(a => a.idSkill === skill.idSkill);
+    const assessment = this.assessments.find(a => a.idSkill === skill.idSkill);
 
     return assessment ? (assessment.assessmentDate instanceof Date ? assessment.assessmentDate.toLocaleDateString('en-GB') : '') : '';
-  
+
 
   }
 
@@ -231,11 +231,11 @@ export class MyassessmenthistoryComponent implements OnInit {
       console.log('Assessment:', assessment);
       console.log('Original assessmentDate:', this.getDate(skill));
       return assessment ? assessment.assessmentDate : '';
-      
+
     }
     return '';
   }
-  
+
   // getCategoryColor(category: string): string {
   //   const colors = ['category-color1', 'category-color2', 'category-color3']; // Define different CSS classes for colors
   //   const categoryColorMap = new Map<string, string>();
@@ -266,7 +266,7 @@ export class MyassessmenthistoryComponent implements OnInit {
     );
   }
 
-  
+
 
 
 
@@ -279,7 +279,7 @@ export class MyassessmenthistoryComponent implements OnInit {
     return category.assessments.filter((assessment: any) => assessment.skill.idSkill === skill.idSkill).length;
   }
 
-  
+
 
   // Function to handle sorting
   sort(column: string): void {
@@ -322,39 +322,39 @@ export class MyassessmenthistoryComponent implements OnInit {
   }
 
 
-    // const skillObservables = this.assessments.map(assessment => {
-    //   return this.skillService.getSkillById(assessment.idSkill);
-    
+  // const skillObservables = this.assessments.map(assessment => {
+  //   return this.skillService.getSkillById(assessment.idSkill);
 
-    // forkJoin(skillObservables).subscribe(skills => {
-    //   this.skillName = skills.map(skill => skill.skillName);
-    //   console.log('Skill names:', this.skillName);
-    //   this.groupAssessmentsByCategory(); // Group the assessments by category
-    // });
- 
-  
+
+  // forkJoin(skillObservables).subscribe(skills => {
+  //   this.skillName = skills.map(skill => skill.skillName);
+  //   console.log('Skill names:', this.skillName);
+  //   this.groupAssessmentsByCategory(); // Group the assessments by category
+  // });
 
 
 
-    // this.http.get('http://localhost:8081/categories').subscribe(data => {
-    //   this.categories = (data as Category[]);
-    //   this.categories.forEach(category => {
 
-    //     this.http.get<Skill[]>(`http://localhost:8081/skill/category/${category.idCategory}`).subscribe(skills => {
-    //       category.skills = skills;
-    //       // skills.forEach(skill => {
-    //       //   // skill.rating = this.getRatingForSkill(this.assessment, this.assessment.idSkill) // Set default rating value
-    //       // });
-    //     });
-    //   });
-    // });
-    
-    
-    // this.name = this.getSkillName(this.assessment.idSkill);
-    // console.log('skilllll name', this.name);
-    // const categorynametest = this.getCategoryName(this.assessment.skill.category?.idCategory as number)
-    // console.log("cat is ", categorynametest)
-  
+
+  // this.http.get('http://10.66.12.54:8081/categories').subscribe(data => {
+  //   this.categories = (data as Category[]);
+  //   this.categories.forEach(category => {
+
+  //     this.http.get<Skill[]>(`http://10.66.12.54:8081/skill/category/${category.idCategory}`).subscribe(skills => {
+  //       category.skills = skills;
+  //       // skills.forEach(skill => {
+  //       //   // skill.rating = this.getRatingForSkill(this.assessment, this.assessment.idSkill) // Set default rating value
+  //       // });
+  //     });
+  //   });
+  // });
+
+
+  // this.name = this.getSkillName(this.assessment.idSkill);
+  // console.log('skilllll name', this.name);
+  // const categorynametest = this.getCategoryName(this.assessment.skill.category?.idCategory as number)
+  // console.log("cat is ", categorynametest)
+
   // groupAssessmentsByCategory(): void {
   //   const groupedAssessments = this.assessments.reduce((groups: { [key: string]: { category: string, assessments: Assessment[] } }, assessment) => {
   //     const category = assessment.skill?.category?.categoryName || '';
@@ -379,7 +379,7 @@ export class MyassessmenthistoryComponent implements OnInit {
       console.log('Original assessmentDate:', this.getSkillAssessmentDate(category, skill));
 
       const assessmentDate = new Date(this.getSkillAssessmentDate(category, skill));
-       const existingGroup = this.groupedAssessments.find(group => group.category === category && group.date === assessmentDate);
+      const existingGroup = this.groupedAssessments.find(group => group.category === category && group.date === assessmentDate);
 
       if (!latestAssessments[assessment.idSkill] || assessmentDate > new Date(latestAssessments[assessment.idSkill].assessmentDate)) {
         latestAssessments[assessment.idSkill] = {
@@ -452,7 +452,7 @@ export class MyassessmenthistoryComponent implements OnInit {
     return this.categoryColors[category];
   }
   // Call the groupAssessmentsByCategory function to populate and display the table
-  
+
 
   generateTableHTML(): string {
     let tableHTML = '';
@@ -517,10 +517,10 @@ export class MyassessmenthistoryComponent implements OnInit {
   //   return assessment ? assessment.rating : skill?.rating || 0;
   // }
 
-  
-  
 
-  
+
+
+
   // getRatingForSkill(skill: Skill): number {
   //   const assessment = this.assessments.find(a => a.skill.idSkill === skill.idSkill && a.idEmployee === this.employee!.idEmployee);
   //   return assessment ? assessment.rating : this.skill.rating;
@@ -538,7 +538,7 @@ export class MyassessmenthistoryComponent implements OnInit {
   //   return category ? category.categoryName : 'Unknown category';
   // }
 
-  
+
   // getCategoryName(categoryId: number | undefined): string {
   //   if (categoryId !== undefined) {
   //     const category = this.categories.find(category => category.idCategory === categoryId);

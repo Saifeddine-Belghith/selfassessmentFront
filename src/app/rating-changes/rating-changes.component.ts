@@ -31,7 +31,7 @@ export class RatingChangesComponent implements OnInit {
   selectedSkill!: Skill;
   coacheeId!: number;
   assessments!: Assessment[];
-  private apiUrl = 'http://localhost:8081';
+  private apiUrl = 'http://10.66.12.54:8081';
   id: number | null = null;
   employee!: Employee;
   errorMessage!: string;
@@ -47,9 +47,9 @@ export class RatingChangesComponent implements OnInit {
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
-    
+
     this.coacheeId = this.activatedRoute.snapshot.params['id'];
-    
+
     console.log('coachee ID:', this.coacheeId);
     this.getCoacheeDetails(this.coacheeId);
     Chart.register(...registerables);
@@ -198,7 +198,7 @@ export class RatingChangesComponent implements OnInit {
               font: {
                 size: 20
               }
-              
+
             },
             ticks: {
               font: {

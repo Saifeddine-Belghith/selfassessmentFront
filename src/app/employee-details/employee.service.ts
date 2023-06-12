@@ -10,10 +10,10 @@ import { Assessment } from '../assessment/assessment.model';
 export class EmployeeService {
 
 
-  private apiUrl = 'http://localhost:8081/employees';
-  private coachUrl = 'http://localhost:8081/coach';
-  private managerUrl = 'http://localhost:8081/managers';
-  private assessmentUrl = 'http://localhost:8081/assessments';
+  private apiUrl = 'http://10.66.12.54:8081/employees';
+  private coachUrl = 'http://10.66.12.54:8081/coach';
+  private managerUrl = 'http://10.66.12.54:8081/managers';
+  private assessmentUrl = 'http://10.66.12.54:8081/assessments';
 
 
   constructor(private http: HttpClient) { }
@@ -84,6 +84,6 @@ export class EmployeeService {
   searchConsultantsBySkillsAndRatings(payload: any): Observable<Employee[]> {
     return this.http.get<Employee[]>(`${this.apiUrl}/search`, { params: payload });
   }
-  
+
 
 }
