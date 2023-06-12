@@ -202,17 +202,30 @@ td.date {
     font-style: italic;
 } 
 .category-color1 {
-    background-color: #FFCCCC;
+    background-color: #16a4d8;
 }
 
 .category-color2 {
-    background-color: #CCFFCC;
+    background-color: #60dbe8;
 }
 
 .category-color3 {
-    background-color: #adadf5;
+    background-color: #8bd346;
+}
+.category-color4 {
+    background-color: #efdf48;
 }
 
+.category-color5 {
+    background-color: #f9a52c;
+}
+
+.category-color6 {
+    background-color: #d64e12;
+}
+.category-color7 {
+    background-color: #adadf5;
+}
 .category-row {
     background-color: #F2F2F2;
 }
