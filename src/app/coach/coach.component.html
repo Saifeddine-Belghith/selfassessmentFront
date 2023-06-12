@@ -33,21 +33,22 @@
         </div>
     </div>
 </div>
-<ng-container *ngIf="coach && coach.isCoach">
+<ng-container *ngIf="coach && coach.isCoach || coach.isManager ">
     <div class="coachee-table">
         <h1 class="title">Team Overview</h1>
         <p class="slogan">Explore the list of employees in your team.</p>
 
-        <div class="form-group">
+        <div class="input-list">
+        
             <div *ngFor="let criteria of searchCriteria; let i = index">
                 <div class="form-group">
-                    <label for="skills{{i}}">Skill:</label>
+                    <label for="skills{{i}}" style="margin-left: 30px;margin-right: 10px;">Skill:</label>
                     <select id="skills{{i}}" name="skills" [(ngModel)]="criteria.skill">
                         <option *ngFor="let skill of skills" [value]="skill.skillName">{{ skill.skillName }}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="ratings{{i}}">Rating:</label>
+                    <label for="ratings{{i}}" style="margin-left: 30px;margin-right: 10px;">Rating:</label>
                     <select id="ratings{{i}}" name="ratings" [(ngModel)]="criteria.rating">
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -55,46 +56,53 @@
                         <option value="3">3</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
-                    <button class="btn" (click)="addCriteria()">Add Another Criteria</button>
+                    <button class="btn" style="margin-left: 30px;margin-right: 10px;" (click)="addCriteria()">Add Another Criteria</button>
                 </div>
                 <div class="form-group">
                     <button class="btn-danger" *ngIf=" i > 0" (click)="deleteCriteria(i)">Delete Criteria</button>
                 </div>
             </div>
-            <button class="btn" (click)="searchConsultantsBySkillsAndRatings()">Search</button>
+            <button class="button-search" style="margin-left: 30px" (click)="searchConsultantsBySkillsAndRatings()">Search</button>
         </div>
-</div>
+        </div>
 
 
 
 
 
+
+<ng-container *ngIf="coach && coach.isCoach">
 <div>
 <table class="table">
     <thead>
         <tr>
             <th>Employee Name</th>
+            
+            <th>Role</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-<!-- <div class="coachee-list"> -->
+
     
-    <ng-container *ngIf="coach && coach.isCoach">
+    
         <tr *ngFor="let coachee of coacheeList || employee of employeeList">
             <td class="coachee-name">{{ coachee.firstName }} {{ coachee.lastName }}</td>
-           <td>
+           <td class="coachee-name">{{ coachee.role }} </td>
+            <td>
                 <button class="btn" (click)="onAssessmentSelect(coachee.idEmployee)">Assessments</button>
                 <button class="btn" (click)="onRatingSelect(coachee.idEmployee)">Rating</button>
                 <button class="btn" (click)="onPersonalTargetSelect(coachee.idEmployee)">Personal Target</button>
             </td>
         </tr>
-    </ng-container>
+    
     </tbody>
     </table>
 </div>
-<ng-container *ngIf="coach && coach.isCoach">
+</ng-container>
+<!-- <ng-container *ngIf="coach && coach.isCoach || coach.isManager"> -->
 <!-- <div class="assessment-table">
     <h2>Assessments</h2>
     <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
@@ -118,14 +126,14 @@
    
 </div> -->
 </ng-container>
-</ng-container>
+<!-- </ng-container> -->
 <ng-container *ngIf="coach && coach.isManager">
 <div class="coachee-table">
-    <h2>Employee List</h2>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Employee Name</th>
+                <th>Role</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -135,6 +143,7 @@
             
                 <tr *ngFor="let employee of employeeList">
                     <td class="coachee-name">{{ employee.firstName }} {{ employee.lastName }}</td>
+                    <td class="coachee-name">{{ employee.role }}</td>
                     <td>
                         <button class="btn" (click)="onAssessmentSelect(this.employee.idEmployee)">Assessments</button>
                         <button class="btn" (click)="onRatingSelect(employee.idEmployee)">Rating</button>
@@ -155,7 +164,8 @@
         <button (click)="getAssessments(coachee.idEmployee)">View Assessments</button>
     </li>
 </ul> -->
-<div *ngIf="searchPerformed"> <h2>The Result of your search</h2></div>
+<ng-container *ngIf="coach && coach.isCoach ">
+<div *ngIf="searchPerformed"> <h2 class="title">The Result of your search</h2>
 <div>
     <table class="table">
         <thead>
@@ -166,7 +176,7 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngIf="coach && coach.isCoach">
+            
                 <tr *ngFor="let consultant of getFilteredConsultants()">
                     <td class="coachee-name">{{ consultant.employeeDetails?.firstName }} {{
                         consultant.employeeDetails?.lastName }}</td>
@@ -174,7 +184,36 @@
                     <td class="coachee-name">{{ consultant.employeeDetails?.experienceLevel }}</td>
             
                 </tr>
-            </ng-container>
+            
         </tbody>
     </table>
 </div>
+</div>
+</ng-container>
+<ng-container *ngIf="coach && coach.isManager ">
+    <div *ngIf="searchPerformed">
+        <h2 class="title">The Result of your search</h2>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Role</th>
+                        <th>Experience Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let consultant of getFilteredEmployees()">
+                        <td class="coachee-name">{{ consultant.employeeDetails?.firstName }} {{
+                            consultant.employeeDetails?.lastName }}</td>
+                        <td class="coachee-name">{{ consultant.employeeDetails?.role }}</td>
+                        <td class="coachee-name">{{ consultant.employeeDetails?.experienceLevel }}</td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-container>

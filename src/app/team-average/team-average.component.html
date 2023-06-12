@@ -7,11 +7,11 @@
         <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
-            <button class="dropbtn">My Assessments</button>
+            <button class="dropbtn" >My Assessments</button>
             <div class="dropdown-content">
                 <a (click)="goToAssessment()">New Assessment</a>
-                <a (click)="goToMyAssessmentHistory()">History</a>
-                <a (click)="goToMyRating()">Ratings Over Time</a>
+                <a  (click)="goToMyAssessmentHistory()">History</a>
+
             </div>
         </div>
         <div class="dropdown">
@@ -21,16 +21,24 @@
             </div>
         </div>
         <div class="dropdown">
+            <button class="dropbtn">My Qualification</button>
+            <div class="dropdown-content">
+                <a type="button" (click)="goToCompare()">Compare</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
+            </div>
+        </div>
+        <div class="dropdown">
             <ng-container *ngIf="manager && (manager.isCoach || manager.isManager)">
                 <button class="dropbtn" class="active">People</button>
                 <div class="dropdown-content">
-                    <a  (click)="goToPeople()">My Team</a>
-                    <ng-container *ngIf="manager &&  manager.isManager">
-                    <a class="active" (click)="goToSkillsOverview()">Skills Overview</a>
+                    <a (click)="goToPeople()">My Team</a>
+                    <ng-container *ngIf="manager && manager.isManager">
+                        <a class="active" (click)="goToSkillsOverview()">Skills Overview</a>
                     </ng-container>
                 </div>
             </ng-container>
         </div>
+
     </div>
 </div>
 <div>

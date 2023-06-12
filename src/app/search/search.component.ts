@@ -41,7 +41,10 @@ export class SearchComponent implements OnInit {
   categoryNames: string[] = [];
   categoryIds: string[] = [];
   ratings: number[] = [];
-
+  ratingsConsultant: number[] = [];
+  selectedConsultantId!: number;
+  consultant!: Employee;
+  ratingsPerExperience: number[] = [];
 
 
   constructor(private employeeService: EmployeeService, private router: Router,
@@ -75,8 +78,8 @@ export class SearchComponent implements OnInit {
       this.getAverageRating(this.id).subscribe(ratings => {
         console.log('Ratings:', ratings);
       });
+      
       Chart.register(...registerables);
-      this.createChart();
       
     });
   }
@@ -204,7 +207,7 @@ export class SearchComponent implements OnInit {
     this.assessmentService.calculateAverageRatingsByCategoryAndExperience(this.experience).subscribe(
       (similarExperienceRatings: Map<number, number>) => {
         // Process the similarExperienceRatings data as needed
-        // console.log(similarExperienceRatings);
+        console.log(similarExperienceRatings);
       },
       (error: any) => {
         console.error('Error retrieving average ratings by category and experience:', error);
@@ -242,6 +245,7 @@ export class SearchComponent implements OnInit {
       }
   )
   }
+  
   getAverageRating(idEmployee: number): Observable<number[]> {
     return this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(idEmployee).pipe(
       map((employeeRatings: { [idCategory: number]: number } | Map<number, number>) => {
@@ -256,12 +260,45 @@ export class SearchComponent implements OnInit {
       })
     );
   }
+  getAverageRatingConsultant(idConsultant: number): Observable<number[]> {
+    this.selectedConsultantId = idConsultant;
+    return this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(idConsultant).pipe(
+      map((employeeRatings: { [idCategory: number]: number } | Map<number, number>) => {
+        const ratings: number[] = Object.values(employeeRatings);
+        console.log('Ratings:', ratings); // Log the extracted ratings
+        this.ratingsConsultant = ratings;
+        return this.ratingsConsultant;
+      }),
+      catchError((error: any) => {
+        console.error('Error retrieving average ratings by category and employee:', error);
+        return throwError(error);
+      })
+    );
+  }
 
 
 
 
+  compareWith(consultantId: number): void {
+    this.getAverageRating(this.id).subscribe((ratings: number[]) => {
+      // Ratings for your average
+      console.log('Your Ratings:', ratings);
 
+      this.getAverageRatingConsultant(consultantId).subscribe((consultantRatings: number[]) => {
+        this.employeeService.getEmployeeById(consultantId).subscribe(consultant => {
+          this.consultant = consultant;
+        });
+        
+        // Ratings for the selected consultant
+        console.log('Consultant Ratings:', consultantRatings);
 
+        // Create the chart with the ratings data
+        this.ratings = ratings;
+        this.ratingsConsultant = consultantRatings;
+        this.createChart();
+      });
+    });
+  }
 
 
 
@@ -299,7 +336,7 @@ export class SearchComponent implements OnInit {
           labels: this.categoryNames,
           datasets: [
         {
-          label: 'My Average',
+              label: this.employee.firstName  ,
               data: this.ratings,
           fill: true,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -307,11 +344,12 @@ export class SearchComponent implements OnInit {
           pointBackgroundColor: 'rgb(255, 99, 132)',
           pointBorderColor: '#fff',
           pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgb(255, 99, 132)',
+              pointHoverBorderColor: 'rgb(255, 99, 132)',
+              pointRadius: 7,
         },
         {
-          label: 'The similar experience average',
-          data: [28, 48, 40],
+          label: this.consultant.firstName,
+          data: this.ratingsConsultant,
           fill: true,
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgb(54, 162, 235)',
@@ -319,10 +357,10 @@ export class SearchComponent implements OnInit {
           pointBorderColor: '#fff',
           pointHoverBackgroundColor: '#fff',
           pointHoverBorderColor: 'rgb(54, 162, 235)',
+          pointRadius: 7,
         },
       ],
-    };
-
+        };
     const config: ChartConfiguration<'radar'> = {
       type: 'radar',
       data: data,
@@ -373,6 +411,6 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/personal-target', this.id]);
   }
   goToSkillsOverview() { this.router.navigate(['/team-levels']) }
-  goToSearch(){this.router.navigate(['/search'])}
+  goToCompare() { this.router.navigate(['/qualification-comparison'])}
 }
 

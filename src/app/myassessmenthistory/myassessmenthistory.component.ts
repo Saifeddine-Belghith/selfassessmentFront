@@ -43,6 +43,10 @@ export class MyassessmenthistoryComponent implements OnInit {
   coacheeFirstName: string = '';
   coacheeLastName: string = '';
   categoryColors: { [categoryName: string]: string } = {};
+  sortColumn: string = '';
+  sortOrder: 'asc' | 'desc' = 'asc';
+  sortBy: string = '';
+  sortDirection: string = '';
   constructor(
     private http: HttpClient,
     private activatedRoute: ActivatedRoute,
@@ -275,6 +279,47 @@ export class MyassessmenthistoryComponent implements OnInit {
     return category.assessments.filter((assessment: any) => assessment.skill.idSkill === skill.idSkill).length;
   }
 
+  
+
+  // Function to handle sorting
+  sort(column: string): void {
+    if (column === this.sortBy) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortBy = column;
+      this.sortDirection = 'asc';
+    }
+
+    // Perform the sorting based on the selected column
+    switch (column) {
+      case 'category':
+        this.groupedAssessments.sort((a, b) => {
+          const categoryA = a.category.toLowerCase();
+          const categoryB = b.category.toLowerCase();
+          return this.sortDirection === 'asc' ? categoryA.localeCompare(categoryB) : categoryB.localeCompare(categoryA);
+        });
+        break;
+      case 'skill':
+        this.groupedAssessments.sort((a, b) => {
+          const skillA = a.assessments[0].skill.skillName.toLowerCase();
+          const skillB = b.assessments[0].skill.skillName.toLowerCase();
+          return this.sortDirection === 'asc' ? skillA.localeCompare(skillB) : skillB.localeCompare(skillA);
+        });
+        break;
+      case 'rating':
+        // Implement sorting logic for the rating column if needed
+        break;
+      case 'date':
+        this.groupedAssessments.sort((a, b) => {
+          const dateA = new Date(a.assessments[0].assessmentDate).getTime();
+          const dateB = new Date(b.assessments[0].assessmentDate).getTime();
+          return this.sortDirection === 'asc' ? dateA - dateB : dateB - dateA;
+        });
+        break;
+      default:
+        break;
+    }
+  }
 
 
     // const skillObservables = this.assessments.map(assessment => {
@@ -532,5 +577,6 @@ export class MyassessmenthistoryComponent implements OnInit {
     this.router.navigate(['/personal-target', this.id]);
   }
   goToSkillsOverview() { this.router.navigate(['/team-levels']) }
+  goToCompare() { this.router.navigate(['/qualification-comparison']) }
 }
 

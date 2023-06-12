@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'rating-changes/:id', component: RatingChangesComponent },
   { path: 'team-levels', component: TeamAverageComponent },
   { path: 'personal-target/:id', component: PersonalTargetComponent },
-  { path: 'search', component: SearchComponent }
+  { path: 'qualification-comparison', component: SearchComponent }
 ];
 
 @NgModule({

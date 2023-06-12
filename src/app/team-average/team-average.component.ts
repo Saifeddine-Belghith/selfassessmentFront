@@ -106,6 +106,6 @@ export class TeamAverageComponent implements OnInit {
     console.log('id before' + this.idEmployee)
     this.router.navigate(['/personal-target', this.idEmployee]);
   }
-
+  goToCompare() { this.router.navigate(['/qualification-comparison']) }
 
 }

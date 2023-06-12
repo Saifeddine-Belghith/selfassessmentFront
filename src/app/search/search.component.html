@@ -11,7 +11,7 @@
             <div class="dropdown-content">
                 <a (click)="goToAssessment()">New Assessment</a>
                 <a (click)="goToMyAssessmentHistory()">History</a>
-                <a (click)="goToMyRating()">Ratings Over Time</a>
+
             </div>
         </div>
         <div class="dropdown">
@@ -21,8 +21,15 @@
             </div>
         </div>
         <div class="dropdown">
+            <button class="dropbtn" class="active">My Qualification</button>
+            <div class="dropdown-content">
+                <a class="active" type="button" (click)="goToCompare()">Compare</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
+            </div>
+        </div>
+        <div class="dropdown">
             <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-                <button class="dropbtn" >People</button>
+                <button class="dropbtn">People</button>
                 <div class="dropdown-content">
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
@@ -31,7 +38,7 @@
                 </div>
             </ng-container>
         </div>
-        <button><a class="active" type="button" (click)="goToSearch()">Search</a></button>
+
     </div>
 </div>
 <!-- <div class="container">
@@ -65,8 +72,8 @@
      -->
 
  <div class="container">
-    <h1 class="title">Compare Page</h1>
-    <p class="slogan">Here you can compare your qualification level to the average level of people with a similiar experience</p>
+    <h1 class="title">Qualification Comparison: Measure Your Progress and Expand Your Insight</h1>
+    <p class="slogan">Gain valuable insights by comparing your qualifications with peers in your Experience Level</p>
 
 <!-- <div class="input-list">
         <div class="form-group">
@@ -152,7 +159,7 @@
                     <td class="coachee-name">{{ consultant.role }}</td>
                     <td class="coachee-name">{{ consultant.experienceLevel }}</td>
                     <td class="search">
-                        <button >Compare with</button>
+                        <button (click)="compareWith(consultant.idEmployee)" >Compare with</button>
                     </td>
                     </ng-container>
                 </tr>

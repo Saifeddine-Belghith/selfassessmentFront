@@ -61,6 +61,4 @@ export class AssessmentService {
         const url = `${this.apiUrl}/average-ratings/experience/${experienceLevel}`;
         return this.http.get<Map<number, number>>(url);
     }
-
-
 }

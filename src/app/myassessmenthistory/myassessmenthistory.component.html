@@ -3,21 +3,28 @@
         <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
     </div>
     <div class="button-container">
-        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button><a  type="button" (click)="goToHome()">Home</a></button>
         <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
             <button class="dropbtn" class="active">My Assessments</button>
             <div class="dropdown-content">
-                <a  (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToAssessment()">New Assessment</a>
                 <a class="active" (click)="goToMyAssessmentHistory()">History</a>
-                <a (click)="goToMyRating()">Ratings Over Time</a>
+
             </div>
         </div>
         <div class="dropdown">
             <button class="dropbtn">My Personal Targets</button>
             <div class="dropdown-content">
                 <a (click)="goToTarget()">New Personal Target</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">My Qualification</button>
+            <div class="dropdown-content">
+                <a type="button" (click)="goToCompare()">Compare</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
             </div>
         </div>
         <div class="dropdown">
@@ -31,6 +38,7 @@
                 </div>
             </ng-container>
         </div>
+
     </div>
 </div>
 <ng-container *ngIf="employee && employee.idEmployee === this.coachee.idEmployee">
@@ -56,11 +64,22 @@
 <table class="table">
     <thead>
         <tr>
-
-            <th>Category</th>
-            <th>Skill</th>
-            <th>Rating</th>
-            <th>Date</th>
+            <th class="sortable" (click)="sort('category')"
+                [ngClass]="{ 'asc': sortBy === 'category' && sortDirection === 'asc', 'desc': sortBy === 'category' && sortDirection === 'desc' }">
+                Category
+            </th>
+            <th class="sortable" (click)="sort('skill')"
+                [ngClass]="{ 'asc': sortBy === 'skill' && sortDirection === 'asc', 'desc': sortBy === 'skill' && sortDirection === 'desc' }">
+                Skill
+            </th>
+            <th class="sortable" (click)="sort('rating')"
+                [ngClass]="{ 'asc': sortBy === 'rating' && sortDirection === 'asc', 'desc': sortBy === 'rating' && sortDirection === 'desc' }">
+                Rating
+            </th>
+            <th class="sortable" (click)="sort('date')"
+                [ngClass]="{ 'asc': sortBy === 'date' && sortDirection === 'asc', 'desc': sortBy === 'date' && sortDirection === 'desc' }">
+                Date
+            </th>
         </tr>
     </thead>
     <!-- <tbody class="assessment-table"></tbody> -->

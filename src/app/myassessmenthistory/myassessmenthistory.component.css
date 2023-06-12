@@ -271,3 +271,27 @@ td.date {
     background-color: #00FF00;
     /* Replace with your desired color */
 }
+th.sortable {
+    cursor: pointer;
+    position: relative;
+}
+
+.sortable::after {
+    content: '';
+    position: revert;
+    
+    transform: translateY(-50%);
+    
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    transition: transform 0.3s ease;
+}
+
+.sortable.asc::after {
+    border-bottom: 5px solid #fff;
+}
+
+.sortable.desc::after {
+    border-top: 5px solid #fff;
+    transform: translateY(-50%) rotate(0deg);
+}

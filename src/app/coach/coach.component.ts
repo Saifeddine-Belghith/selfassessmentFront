@@ -173,6 +173,9 @@ export class CoachComponent implements OnInit {
   getFilteredConsultants(): Employee[] {
     return this.consultants.filter(consultant => this.coacheeList.some(coachee => coachee.idEmployee === consultant.idEmployee));
   }
+  getFilteredEmployees(): Employee[] {
+    return this.consultants.filter(consultant => this.employeeList.some(coachee => coachee.idEmployee === consultant.idEmployee));
+  }
 
 
   onRatingSelect(coacheeId: number): void {

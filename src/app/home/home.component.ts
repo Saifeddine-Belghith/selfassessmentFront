@@ -67,5 +67,5 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/team-levels'])
   }
 
-  goToSearch() { this.router.navigate(['/search']) }
+  goToCompare() { this.router.navigate(['/qualification-comparison']) }
 }
