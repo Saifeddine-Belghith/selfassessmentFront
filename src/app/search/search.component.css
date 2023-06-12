@@ -6,28 +6,22 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
     background-color: rgba(172, 172, 172, 0.801);
 }
-
 .logo-container {
     margin-right: auto;
 }
-
 .button-container {
-    /* display: flex; */
     align-items: center;
     margin-right: auto;
 }
-
 .button-container button {
     margin-left: 10px;
     padding: 10px 15px;
     font-size: 16px;
     background-color: rgb(247, 106, 19);
-    /* border: 1px solid #ccc; */
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
 button {
     margin-left: 10px;
     padding: 10px 15px;
@@ -37,58 +31,45 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* text: white; */
     text-decoration: none;
 }
-
 .button-container a {
-    /* color: rgb(234, 226, 226); */
     text-decoration: none;
     cursor: pointer;
 }
-
 .button-container button:hover {
     background-color: rgb(242, 167, 120);
 }
-
 .button-container .active {
-    /*  color: rgb(234, 226, 226);*/
     color: rgb(242, 167, 120);
 }
-
 .logo {
     height: 50px;
     width: auto;
 }
-
 .form-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
-
 .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
 }
-
 .nav-container a {
     color: rgb(234, 226, 226);
     text-decoration: none;
     cursor: pointer;
 }
-
 label {
     margin-bottom: 5px;
 }
-
 .dropdown {
     position: relative;
     display: inline-block;
     text-decoration-color: white;
 }
-
 .dropbtn {
     margin-left: 10px;
     padding: 10px 15px;
@@ -101,7 +82,6 @@ label {
     text-decoration: none;
     text-decoration-color: white;
 }
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -109,7 +89,6 @@ label {
     min-width: 160px;
     background-color: rgba(217, 217, 217, 0.801);
 }
-
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -117,15 +96,12 @@ label {
     display: block;
     cursor: pointer;
 }
-
 .dropdown-content a:hover {
     background-color: rgb(247, 106, 19);
 }
-
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
 .dropdown:hover .dropbtn {
     background-color: rgb(242, 167, 120);
 }
@@ -142,35 +118,25 @@ label {
     font-size: 45px;
     font-weight: bold;
 }
-
 .slogan {
     text-align: center;
     color: #000;
     font-size: 30px;
     font-weight: medium;
 }
-/* .input-list {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 30px;
-} */
 .input-list {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    /* Add this line to horizontally center the elements */
     margin-top: 30px;
     gap: 10px;
-    /* Add this line to create space between the elements */
 }
 .input-list h3 {
   display: inline;
   margin-right: 10px;
   font-weight: bold;
 }
-
 .form-group {
     display: flex;
     flex-direction: column;
@@ -179,13 +145,11 @@ label {
 .inline-heading {
     display: inline;
     margin-right: 10px;
-    /* Adjust the spacing as needed */
 }
 label {
     font-weight: bold;
     margin-bottom: 5px;
 }
-
 input[type="text"],
 select {
     padding: 8px;
@@ -198,35 +162,25 @@ select {
 .search {
     margin-top: 20px;
 }
-
 .search button {
     margin-bottom: 10px;
     margin-left: 10px;
-    /* margin: 10px; */
     padding: 10px 15px;
     font-size: 16px;
     background-color: #4CAF50;
-    ;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
 }
-
 .search button:hover {
     background-color: #3e8e41;
 }
-
 .search button:disabled {
     background-color: #ddd;
     cursor: not-allowed;
 }
-
-
-
-
-
 .select {
     top: 9px;
     left: 63px;
@@ -246,22 +200,18 @@ select {
     margin-left: 10px;
     margin-right: 20px;
 }
-
 .table td,
 .table th {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: center;
 }
-
 .table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-
 .table tr:hover {
     background-color: #ddd;
 }
-
 .table th {
     padding-top: 12px;
     padding-bottom: 12px;

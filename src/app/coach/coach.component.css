@@ -12,7 +12,6 @@
 }
 
 .button-container {
-    /* display: flex; */
     align-items: center;
     margin-right: auto;
 }
@@ -22,7 +21,6 @@
     padding: 10px 15px;
     font-size: 16px;
     background-color: rgb(247, 106, 19);
-    /* border: 1px solid #ccc; */
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -37,12 +35,10 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* text: white; */
     text-decoration: none;
 }
 
 .button-container a {
-    /* color: rgb(234, 226, 226); */
     text-decoration: none;
     cursor: pointer;
 }
@@ -52,7 +48,6 @@ button {
 }
 
 .button-container .active {
-    /*  color: rgb(234, 226, 226);*/
     color: rgb(242, 167, 120);
 }
 
@@ -152,36 +147,31 @@ label {
 
 .form-group {
     display: contents;
-    /* flex-direction: column; */
     margin-bottom: 20px;
     gap: 15px;
 }
-.button-search{
-margin: 20px;
-margin-bottom: 10px;
+
+.button-search {
+    margin: 20px;
+    margin-bottom: 10px;
     margin-left: 10px;
-    /* margin: 10px; */
     padding: 10px 15px;
     font-size: 16px;
     background-color: #4CAF50;
-    ;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
 }
+
 .button-search button:hover {
     background-color: #3e8e41;
 }
-#skills{
-margin: 20px;
+
+#skills {
+    margin: 20px;
 }
-/* .inline-heading {
-    display: inline;
-    margin-right: 10px;
-    /* Adjust the spacing as needed 
-} */
 
 label {
     font-weight: bold;
@@ -205,11 +195,10 @@ select {
 .search button {
     margin-bottom: 10px;
     margin-left: 10px;
-    /* margin: 10px; */
     padding: 10px 15px;
     font-size: 16px;
     background-color: #4CAF50;
-    ;
+
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -251,27 +240,6 @@ select {
     background-color: rgb(247, 106, 19);
     color: white;
 }
-
-/* .assessment-table table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.assessment-table h2 {
-    margin-top: 20px;
-    margin-bottom: auto;
-    text-align: center;
-}
-
-.assessment-table table th,
-.assessment-table table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.assessment-table table th {
-    background-color: #f2f2f2;
-    text-align: left;
-} */
 
 .btn {
     background-color: #4CAF50;
@@ -317,30 +285,3 @@ td.rating {
 td.date {
     font-style: italic;
 }
-
-/* .coachee-name {
-    font-weight: bold;
-    color: #333;
-}
-.coachee-table table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.coachee-table h2{
-    margin-top: 20px;
-    margin-bottom: auto;
-    text-align: center;
-}
-
-.coachee-table th,
-td {
-    padding: 8px;
-    border: 1px solid black;
-    text-align: left;
-}
-
-th {
-    background-color: #ccc;
-} */

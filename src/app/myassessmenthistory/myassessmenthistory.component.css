@@ -12,7 +12,6 @@
 }
 
 .button-container {
-    /* display: flex; */
     align-items: center;
     margin-right: auto;
 }
@@ -37,12 +36,10 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* text: white; */
     text-decoration: none;
 }
 
 .button-container a {
-    /* color: rgb(234, 226, 226); */
     text-decoration: none;
     cursor: pointer;
 }
@@ -52,7 +49,6 @@ button {
 }
 
 .button-container .active {
-    /*  color: rgb(234, 226, 226);*/
     color: rgb(242, 167, 120);
 }
 
@@ -137,7 +133,6 @@ label {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     margin: 10px;
-    /* width: 90%; */
     margin-left: 10px;
     margin-right: 20px;
 
@@ -161,25 +156,11 @@ label {
 
 .employee-name {
     color: #ff6600;
-    /* Change the color for the employee's name */
 }
 
 .coachee-name {
     color: #3366ff;
-    /* Change the color for the coachee's name */
 }
-
-/* .table td,
-.table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-} */
-
-/* .table tr:nth-child(even) {
-    background-color: #f2f2f2;
-} */
-
 .table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -213,29 +194,6 @@ label {
 .assessment-separator td {
     background-color: rgba(237, 125, 55, 0.861);
 }
-
-/* table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-th,
-td {
-    padding: 8px;
-    border: 1px solid black;
-    text-align: left;
-}
-
-th {
-    background-color: #ccc;
-}
-td.skill-name {
-
-    text-transform: uppercase;
-}
-*/
 td.rating {
     color: blue;
 }
@@ -245,22 +203,18 @@ td.date {
 } 
 .category-color1 {
     background-color: #FFCCCC;
-    /* Replace with your desired color */
 }
 
 .category-color2 {
     background-color: #CCFFCC;
-    /* Replace with your desired color */
 }
 
 .category-color3 {
     background-color: #adadf5;
-    /* Replace with your desired color */
 }
 
 .category-row {
     background-color: #F2F2F2;
-    /* Replace with your desired color */
 }
 
 .first-row {
@@ -269,7 +223,6 @@ td.date {
 .newest-assessment {
     font-weight: bold;
     background-color: #00FF00;
-    /* Replace with your desired color */
 }
 th.sortable {
     cursor: pointer;

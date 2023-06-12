@@ -6,28 +6,22 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
     background-color: rgba(172, 172, 172, 0.801);
 }
-
 .logo-container {
     margin-right: auto;
 }
-
 .button-container {
-    /* display: flex; */
-    align-items: center;
+ align-items: center;
     margin-right: auto;
 }
-
 .button-container button {
     margin-left: 10px;
     padding: 10px 15px;
     font-size: 16px;
     background-color: rgb(247, 106, 19);
-    /* border: 1px solid #ccc; */
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
 button {
     margin-left: 10px;
     padding: 10px 15px;
@@ -37,57 +31,34 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* text: white; */
     text-decoration: none;
 }
-
 .button-container a {
-    /* color: rgb(234, 226, 226); */
     text-decoration: none;
     cursor: pointer;
 }
-
 .button-container button:hover {
     background-color: rgb(242, 167, 120);
 }
-
 .button-container .active {
-    /*  color: rgb(234, 226, 226);*/
     color: rgb(242, 167, 120);
 }
-
 .logo {
     height: 50px;
     width: auto;
 }
-
-/* .form-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-} */
 .form-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
-
-
 .form-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     display: flex;
-    flex-direction: row;
-    
+    flex-direction: row;   
 }
-
 .form-group {
     margin-top: 10px;
     display: flex;
@@ -96,19 +67,16 @@ button {
     margin-right: 10px;
     width: 50%;
 }
-
 label {
     font-weight: bold;
     margin-bottom: 5px;
 }
-
 .form-group select {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
-    width: 300px;
-    
+    width: 300px;    
     box-sizing: border-box;
 }
 .form-group input {
@@ -117,7 +85,6 @@ label {
     border: 1px solid #ddd;
     border-radius: 4px;
 }
-
 .btn-primary {
     background-color: #007bff;
     color: #fff;
@@ -126,7 +93,6 @@ label {
     border-radius: 4px;
     cursor: pointer;
 }
-
 .btn-primary:hover {
     background-color: #0056b3;
 }
@@ -135,17 +101,14 @@ label {
     text-decoration: none;
     cursor: pointer;
 }
-
 label {
     margin-bottom: 5px;
 }
-
 .dropdown {
     position: relative;
     display: inline-block;
     text-decoration-color: white;
 }
-
 .dropbtn {
     margin-left: 10px;
     padding: 10px 15px;
@@ -158,7 +121,6 @@ label {
     text-decoration: none;
     text-decoration-color: white;
 }
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -166,7 +128,6 @@ label {
     min-width: 160px;
     background-color: rgba(217, 217, 217, 0.801);
 }
-
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -174,15 +135,12 @@ label {
     display: block;
     cursor: pointer;
 }
-
 .dropdown-content a:hover {
     background-color: rgb(247, 106, 19);
 }
-
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
 .dropdown:hover .dropbtn {
     background-color: rgb(242, 167, 120);
 }
@@ -193,43 +151,18 @@ label {
     font-size: 40px;
     font-weight: bold;
 }
-
 .slogan {
     text-align: center;
     color: #000;
     font-size: 30px;
     font-weight: medium;
 }
-
 .employee-name {
     color: #ff6600;
-    /* Change the color for the employee's name */
 }
-
 .coachee-name {
     color: #3366ff;
-    /* Change the color for the coachee's name */
 }
-/* .coachee-list {
-    margin-bottom: 20px;
-} */
-
-/* .assessment-table table {
-    border-collapse: collapse;
-    width: 100%;
-} */
-
-/* .assessment-table table th,
-.assessment-table table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-} */
-
-/* .assessment-table table th {
-    background-color: #f2f2f2;
-    text-align: left;
-} */
-
 .btn-primary {
     background-color: #4CAF50;
     border: none;
@@ -245,24 +178,19 @@ label {
     height: fit-content;
         margin-top: 40px;
 }
-
 .btn:hover {
     background-color: #3e8e41;
 }
-
 td.skill-name {
 
     text-transform: uppercase;
 }
-
 td.rating {
     color: blue;
 }
-
 td.date {
     font-style: italic;
 }
-
  .errorMessage {
     font-weight: bold;
     color: #333;
@@ -270,7 +198,6 @@ td.date {
 #ratingChart {
     width: 100%;
     height: 500px;
-    /* Increase the height value */
     margin-top: 0px;
     margin-left: 10px;
     margin-bottom: 10px;
