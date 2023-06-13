@@ -36,9 +36,7 @@ import { SearchComponent } from './search/search.component';
     RatingChangesComponent,
     TeamAverageComponent,
     PersonalTargetComponent,
-    SearchComponent,
-
-    
+    SearchComponent
   ],
   imports: [
     BrowserModule,

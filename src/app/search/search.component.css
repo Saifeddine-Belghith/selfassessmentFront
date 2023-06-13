@@ -219,3 +219,9 @@ select {
     background-color: rgb(247, 106, 19);
     color: white;
 }
+#ratingChart {
+    display: block;
+        box-sizing: border-box;
+        height: 1094px;
+        width: 1393px;
+}

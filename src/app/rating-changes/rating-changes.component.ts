@@ -31,7 +31,7 @@ export class RatingChangesComponent implements OnInit {
   selectedSkill!: Skill;
   coacheeId!: number;
   assessments!: Assessment[];
-  private apiUrl = 'http://10.66.12.54:8081';
+  private apiUrl = 'http://localhost:8081';
   id: number | null = null;
   employee!: Employee;
   errorMessage!: string;

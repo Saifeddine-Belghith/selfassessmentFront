@@ -9,7 +9,7 @@ export interface PersonalTarget {
     origin: Employee;
     definedBy: string;
     employee: Employee;
-    targetDate: Date;
+    targetDate: number;
     quarter: string;
     supportedValue: SupportedValue;
 }

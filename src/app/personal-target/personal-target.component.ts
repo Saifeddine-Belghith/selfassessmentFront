@@ -65,12 +65,12 @@ export class PersonalTargetComponent implements OnInit {
       origin: {} as Employee,
       definedBy: '',
       employee: {} as Employee,
-      targetDate: new Date(),
+      targetDate: 2023,
       quarter: 'First Quarter',
       supportedValue: SupportedValue.FEEDBACK
     };
   }
-
+ 
   getPersonalTargets(): void {
     this.personalTargetService.getPersonalTargetsByEmployee(this.coacheeId).subscribe(
       (personalTargets: PersonalTarget[]) => {
