@@ -14,7 +14,7 @@ interface AssessmentDTO {
 })
 export class ViewallassessmentService {
 
-  private apiUrl = 'http://localhost:8081/assessments';
+  private apiUrl = 'http://10.66.12.54:8081/assessments';
 
   constructor(private http: HttpClient) { }
   getAllAssessmentsByIdCoach(id: number, employeeId: number, assessments: AssessmentDTO[]): Observable<AssessmentDTO[]> {
