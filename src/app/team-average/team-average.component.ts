@@ -107,5 +107,7 @@ export class TeamAverageComponent implements OnInit {
     this.router.navigate(['/personal-target', this.idEmployee]);
   }
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
+  goToSearch() { this.router.navigate(['/search']) }
+  goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
 
 }

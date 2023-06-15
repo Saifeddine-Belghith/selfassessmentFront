@@ -75,7 +75,7 @@ button {
 }
 
 label {
-    margin-bottom: 5px;
+    margin: 15px;
 }
 
 .dropdown {
@@ -124,11 +124,13 @@ label {
 .dropdown:hover .dropbtn {
     background-color: rgb(242, 167, 120);
 }
+
 .container-box {
     box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 24%);
-        padding: 2px;
-        margin: 40px;
-    }
+    padding: 2px;
+    margin: 40px;
+}
+
 .coachee-list {
     margin-left: 5px;
     margin-bottom: 20px;
@@ -195,7 +197,7 @@ label {
 
 label {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 30px;
 }
 
 input[type="text"],
@@ -229,13 +231,14 @@ select {
 .search button:hover {
     background-color: #3e8e41;
 }
+
 /* .resultat{
 
     margin-top: revert;
 }*/
-.zeroResutat{
+.zeroResutat {
     margin: 20px;
-} 
+}
 
 .table {
     font-family: Arial, Helvetica, sans-serif;
@@ -311,4 +314,11 @@ td.rating {
 
 td.date {
     font-style: italic;
+}
+.employee-name {
+    color: #ff6600;
+}
+
+.coachee-name {
+    color: #3366ff;
 }

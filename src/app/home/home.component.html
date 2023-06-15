@@ -3,7 +3,7 @@
         <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
     </div>
     <div class="button-container">
-        <button><a  class="active" type="button" (click)="goToHome()">Home</a></button>
+        <button><a class="active" type="button" (click)="goToHome()">Home</a></button>
         <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
@@ -15,9 +15,10 @@
             </div>
         </div>
         <div class="dropdown">
-            <button class="dropbtn">My Personal Targets</button>
+            <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
                 <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
         <div class="dropdown">
@@ -31,8 +32,9 @@
         </div>
         <div class="dropdown">
             <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-                <button class="dropbtn">People</button>
+                <button class="dropbtn">Employees</button>
                 <div class="dropdown-content">
+                    <a (click)="goToSearch()">Search</a>
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
@@ -74,4 +76,4 @@
 <button (click)="goToAssessment()">New Assessment</button>
 <ng-container *ngIf="employee.isCoach ==true">
 <button (click)="goToViewAllAssessment()" >View Assessment</button>
-</ng-container> --> 
+</ng-container> -->

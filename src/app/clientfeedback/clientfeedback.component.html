@@ -1,0 +1,119 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">My Assessments</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" class="active">My MBO</button>
+            <div class="dropdown-content">
+                <a  (click)="goToTarget()">New Personal Target</a>
+                <a class="active" (click)="goToClientFeedback()">Client Feedback</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">My Qualification</button>
+            <div class="dropdown-content">
+                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" type="button"
+                    (click)="goToCompare()">Compare</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+                <button class="dropbtn">Employees</button>
+                <div class="dropdown-content">
+                    <a (click)="goToSearch()">Search</a>
+                    <a (click)="goToPeople()">My Team</a>
+                    <ng-container *ngIf="employee && employee.isManager">
+                        <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+
+    </div>
+</div>
+<div class="container"  >
+<ng-container *ngIf=" employee.idEmployee === coacheeId">
+    <h1 class="title">
+        Welcome <span class="employee-name">{{ employee.firstName }} </span> <span class="employee-name">{{
+            employee.lastName }}</span> in your Client Feedback page
+    </h1>
+    <p class="slogan">This space is to display the client feedback given to you</p>
+</ng-container>
+<ng-container *ngIf="employee.isManager && (employee.idEmployee !== coacheeId)">
+    <h1 class="title">
+        Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
+            employee.lastName }}</span> in <span class="coachee-name">{{ coacheeFirstName }} </span> <span
+            class="coachee-name">{{ coacheeLastName }}</span>'s Client Feedback page
+    </h1>
+    <p class="slogan">This space where you can add client feedback to your employee</p>
+</ng-container>
+<div class="container-box" *ngIf=" employee.isManager && (employee.idEmployee !== coacheeId)">
+<div class="input-list" style="margin: inherit;" *ngIf="employee && employee.isManager">
+    
+    <div class="form-group">
+        <label for="evaluation">Evaluation:</label>
+        <select id="evaluation" name="evaluation" [(ngModel)]="clientFeedback.evaluation">
+            <option value="NOT_Applicable" selected>Not Applicable</option>
+            <option value="POOR" >Poor</option>
+            <option value="Under_Expectation">Under Expectation</option>
+            <option value="Appropriate">Appropriate</option>
+            <option value="GOOD">Good</option>
+            <option value="EXCELLENT">Excellent</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Rating:</label>
+        <select id="rating" name="rating" [(ngModel)]="clientFeedback.rating">
+            <option>0</option>
+            <option>0.5</option>
+            <option>1</option>
+            <option>1.5</option>
+            <option>2</option>
+            <option>2.5</option>
+            <option>3</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>Trend:</label>
+        <input type="text" [(ngModel)]="clientFeedback.trend" class="form-desc">
+    </div>
+
+    <button class="button-search" style="margin-left: 30px" (click)="createClientFeedback (clientFeedback)" *ngIf="employee && employee.isManager && idEmployee !== coacheeId">
+        Add Client Feedback</button>
+
+</div>
+</div>
+</div>
+<div class="container-box">
+<table class="table" *ngIf="employee && employee.isManager || idEmployee === coacheeId">
+    <thead>
+        <tr>
+            <th id="desc">Evaluation</th>
+            <th>Rating</th>
+            <th>Trend</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let clientFeedback of clientFeedbacks">
+
+            <td>{{ clientFeedback.evaluation }}</td>
+            <td>{{ clientFeedback.rating }}</td>
+            <td>{{ clientFeedback.trend }}</td>
+        </tr>
+    </tbody>
+</table>
+</div>

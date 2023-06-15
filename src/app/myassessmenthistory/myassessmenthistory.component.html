@@ -3,7 +3,7 @@
         <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
     </div>
     <div class="button-container">
-        <button><a  type="button" (click)="goToHome()">Home</a></button>
+        <button><a type="button" (click)="goToHome()">Home</a></button>
         <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
@@ -15,22 +15,25 @@
             </div>
         </div>
         <div class="dropdown">
-            <button class="dropbtn">My Personal Targets</button>
+            <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
                 <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
         <div class="dropdown">
             <button class="dropbtn">My Qualification</button>
             <div class="dropdown-content">
-                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" type="button" (click)="goToCompare()">Compare</a>
+                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" type="button"
+                    (click)="goToCompare()">Compare</a>
                 <a (click)="goToMyRating()">Ratings Over Time</a>
             </div>
         </div>
         <div class="dropdown">
             <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-                <button class="dropbtn">People</button>
+                <button class="dropbtn">Employees</button>
                 <div class="dropdown-content">
+                    <a (click)="goToSearch()">Search</a>
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
@@ -61,77 +64,40 @@
 <!-- <h1 class="title" >{{coach.firstName}} Assessment History</h1>
 <p class="slogan">Explore your complete assessment history</p> -->
 <div>
-<table class="table">
-    <thead>
-        <tr>
-            <th class="sortable" (click)="sort('category')"
-                [ngClass]="{ 'asc': sortBy === 'category' && sortDirection === 'asc', 'desc': sortBy === 'category' && sortDirection === 'desc' }">
-                Category
-            </th>
-            <th class="sortable" (click)="sort('skill')"
-                [ngClass]="{ 'asc': sortBy === 'skill' && sortDirection === 'asc', 'desc': sortBy === 'skill' && sortDirection === 'desc' }">
-                Skill
-            </th>
-            <th class="sortable" (click)="sort('rating')"
-                [ngClass]="{ 'asc': sortBy === 'rating' && sortDirection === 'asc', 'desc': sortBy === 'rating' && sortDirection === 'desc' }">
-                Rating
-            </th>
-            <th class="sortable" (click)="sort('date')"
-                [ngClass]="{ 'asc': sortBy === 'date' && sortDirection === 'asc', 'desc': sortBy === 'date' && sortDirection === 'desc' }">
-                Date
-            </th>
-        </tr>
-    </thead>
-    <!-- <tbody class="assessment-table"></tbody> -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="sortable" (click)="sort('category')"
+                    [ngClass]="{ 'asc': sortBy === 'category' && sortDirection === 'asc', 'desc': sortBy === 'category' && sortDirection === 'desc' }">
+                    Category
+                </th>
+                <th class="sortable" (click)="sort('skill')"
+                    [ngClass]="{ 'asc': sortBy === 'skill' && sortDirection === 'asc', 'desc': sortBy === 'skill' && sortDirection === 'desc' }">
+                    Skill
+                </th>
+                <th class="sortable" (click)="sort('rating')"
+                    [ngClass]="{ 'asc': sortBy === 'rating' && sortDirection === 'asc', 'desc': sortBy === 'rating' && sortDirection === 'desc' }">
+                    Rating
+                </th>
+                <th class="sortable" (click)="sort('date')"
+                    [ngClass]="{ 'asc': sortBy === 'date' && sortDirection === 'asc', 'desc': sortBy === 'date' && sortDirection === 'desc' }">
+                    Date
+                </th>
+            </tr>
+        </thead>
+        <!-- <tbody class="assessment-table"></tbody> -->
 
-<tbody class="assessment-table">
-    <ng-container *ngFor="let group of groupedAssessments.reverse(); let i = index">
-        <tr>
-            <td class="category-name" [attr.rowspan]="group.assessments.length"
-                [ngClass]="getCategoryColor(group.category)">
-                {{ group.category }}
-            </td>
-            <td class="skill-name">{{ group.assessments[0].skill.skillName }}</td>
-            <td class="rating">{{ group.assessments[0].rating }}</td>
-            <td class="date">{{ group.assessments[0].assessmentDate }}</td>
-        </tr>
-        
-    </ng-container>
-</tbody>
+        <tbody class="assessment-table">
+            <ng-container *ngFor="let group of groupedAssessments.reverse(); let i = index">
+                <tr>
+                    <td class="category-name" [attr.rowspan]="group.assessments.length"
+                        [ngClass]="getCategoryColor(group.category)">
+                        {{ group.category }}
+                    </td>
+                    <td class="skill-name">{{ group.assessments[0].skill.skillName }}</td>
+                    <td class="rating">{{ group.assessments[0].rating }}</td>
+                    <td class="date">{{ group.assessments[0].assessmentDate }}</td>
+                </tr>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            </ng-container>
+        </tbody>

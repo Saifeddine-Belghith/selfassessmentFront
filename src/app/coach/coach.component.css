@@ -129,12 +129,29 @@ label {
     margin-left: 5px;
     margin-bottom: 20px;
 }
-
+.container-box {
+    box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 24%);
+    padding: 2px;
+    margin: 40px;
+}
 .title {
     text-align: center;
     color: #000;
-    margin-top: 50px;
+    margin-top: 40px;
     font-size: 45px;
+    font-weight: bold;
+}
+.title-table {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    font-weight: bold;
+}
+.title-search {
+    text-align: center;
+    color: #000;
+    /* margin-top: 50px; */
+    margin-bottom: 20px;
     font-weight: bold;
 }
 
@@ -144,13 +161,34 @@ label {
     font-size: 30px;
     font-weight: medium;
 }
-
+.text {
+    margin: 40px;
+    margin-top: 100px;
+    font-size: 18px;
+}
 .form-group {
     display: contents;
     margin-bottom: 20px;
     gap: 15px;
 }
+.search-section {
+    display: flex;
+    align-items: center;
+}
+.searchEmployee {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
 
+.searchEmployee:hover {
+    background-color: #45a049;
+}
 .button-search {
     margin: 20px;
     margin-bottom: 10px;
@@ -184,7 +222,7 @@ select {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
-    width: 300px;
+    width: 136px;
     box-sizing: border-box;
 }
 
@@ -213,9 +251,9 @@ select {
 .table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    margin: 10px;
+    /* margin: 10px;
     margin-left: 10px;
-    margin-right: 20px;
+    margin-right: 20px; */
 }
 
 .table td,

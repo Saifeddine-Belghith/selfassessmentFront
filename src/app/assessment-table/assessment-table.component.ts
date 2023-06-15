@@ -248,7 +248,8 @@ export class AssessmentTableComponent implements OnInit {
     this.router.navigate(['/team-levels'])
   }
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
-
+  goToSearch() { this.router.navigate(['/search']) }
+  goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
 }
 
 

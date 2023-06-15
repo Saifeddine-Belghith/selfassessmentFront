@@ -4,10 +4,10 @@
     </div>
     <div class="button-container">
         <button><a type="button" (click)="goToHome()">Home</a></button>
-        <button> <a  type="button" (click)="goToProfile()">Profile</a></button>
+        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
-            <button  class="dropbtn" class="active">My Assessments</button>
+            <button class="dropbtn" class="active">My Assessments</button>
             <div class="dropdown-content">
                 <a class="active" (click)="goToAssessment()">New Assessment</a>
                 <a (click)="goToMyAssessmentHistory()">History</a>
@@ -15,22 +15,25 @@
             </div>
         </div>
         <div class="dropdown">
-            <button class="dropbtn">My Personal Targets</button>
+            <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
                 <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
         <div class="dropdown">
             <button class="dropbtn">My Qualification</button>
             <div class="dropdown-content">
-                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" type="button" (click)="goToCompare()">Compare</a>
+                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" type="button"
+                    (click)="goToCompare()">Compare</a>
                 <a (click)="goToMyRating()">Ratings Over Time</a>
             </div>
         </div>
         <div class="dropdown">
             <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-                <button class="dropbtn">People</button>
+                <button class="dropbtn">Employees</button>
                 <div class="dropdown-content">
+                    <a (click)="goToSearch()">Search</a>
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
@@ -76,7 +79,8 @@
                     <tr *ngFor="let skill of category.skills.slice(1)">
                         <td>{{ skill.skillName }}</td>
                         <td>
-                            <select [(ngModel)]="lastRatings[skill.idSkill]" (ngModelChange)="onRatingChange(skill, $event)">
+                            <select [(ngModel)]="lastRatings[skill.idSkill]"
+                                (ngModelChange)="onRatingChange(skill, $event)">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>

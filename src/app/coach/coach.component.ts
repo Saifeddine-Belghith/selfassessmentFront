@@ -9,6 +9,8 @@ import { Employee } from '../employee-details/employee.model';
 import { EmployeeService } from '../employee-details/employee.service';
 import { Skill } from '../skill/skill.model';
 import { SkillService } from '../skill/skill.service';
+import { SupportedValue, TargetArea, TargetStatus } from '../personal-target/personal-target.model';
+import { PersonalTargetService } from '../personal-target/personal-target.service';
 
 @Component({
   selector: 'app-coach',
@@ -47,7 +49,25 @@ export class CoachComponent implements OnInit {
   consultant!: Employee;
   searchPerformed: boolean = false;
 
-  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router, public skillService: SkillService, private assessmentService: AssessmentService, private http: HttpClient) {
+  selectedTargetAreas: TargetArea[] = [];
+  selectedSupportedValues: SupportedValue[] = [];
+  selectedStatuses: TargetStatus[] = [];
+  selectedTargetArea!: TargetArea;
+  selectedSupportedValue!: SupportedValue;
+  selectedStatus!: TargetStatus;
+  targetDate!: number;
+  selectedQuarters: string[] = [];
+  selectedQuarter!: string;
+  searchPersonalTargedPerformed: boolean = false;
+
+  filteredConsultants: Employee[] = []; // Stores results of search by skills and ratings
+  filteredEmployees: Employee[] = [];   // Stores results of search by personal targets
+
+
+
+  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router,
+    public skillService: SkillService, private assessmentService: AssessmentService,
+    private http: HttpClient, private personalTargetService: PersonalTargetService) {
     this.searchCriteria = [{ skill: '', rating: 0 }];
   }
 
@@ -70,7 +90,7 @@ export class CoachComponent implements OnInit {
     this.getSkills();
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
-    const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
+
     this.name = this.getSkillName(this.assessment.idSkill);
     console.log('skilllll name', this.name);
     console.log("id selected :", this.assessment.idSkill);
@@ -118,7 +138,7 @@ export class CoachComponent implements OnInit {
         });
 
         console.log('Consultants:', consultants);
-        this.consultants = consultants;
+        this.filteredConsultants = consultants;
       },
       (error) => {
         console.error('Error:', error);
@@ -128,6 +148,59 @@ export class CoachComponent implements OnInit {
   }
   deleteCriteria(index: number): void {
     this.searchCriteria.splice(index, 1);
+  }
+
+  searchConsultantsbyTarget(): void {
+    const payload = {
+      targetArea: this.selectedTargetArea ? [this.selectedTargetArea] : this.selectedTargetAreas,
+      supportedValue: this.selectedSupportedValue ? [this.selectedSupportedValue] : this.selectedSupportedValues,
+      targetStatus: this.selectedStatus ? [this.selectedStatus] : this.selectedStatuses,
+      targetDate: this.targetDate,
+      quarter: this.selectedQuarter ? [this.selectedQuarter] : this.selectedQuarters,
+    };
+
+    this.personalTargetService.searchConsultantsByTarget(payload)
+      .subscribe(
+        consultants => {
+          const uniqueConsultants = new Set<number>();
+          const filteredConsultants: Employee[] = [];
+
+          consultants.forEach(consultant => {
+            if (!uniqueConsultants.has(consultant.idEmployee)) {
+              uniqueConsultants.add(consultant.idEmployee);
+              filteredConsultants.push(consultant);
+            }
+          });
+
+          // Fetch additional details for each consultant
+          const fetchDetailsPromises = filteredConsultants.map(consultant => {
+            return this.employeeService.getEmployeeById(consultant.idEmployee)
+              .toPromise()
+              .then(employee => {
+                consultant.employeeDetails = employee;
+              })
+              .catch(error => {
+                console.error('Error fetching employee details:', error);
+              });
+          });
+
+          Promise.all(fetchDetailsPromises)
+            .then(() => {
+
+              console.log('Consultants:', filteredConsultants);
+
+              this.consultants = filteredConsultants;
+              this.filteredEmployees = filteredConsultants;
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    this.searchPersonalTargedPerformed = true;
   }
 
 
@@ -166,16 +239,16 @@ export class CoachComponent implements OnInit {
     } else {
       this.assessments = [];
     }
-    const url = `http://10.66.12.54:8081/assessments/employee/${this.selectedCoacheeId}`;
     console.log("id selected :", coacheeId)
-    console.log("url", url)
   }
   getFilteredConsultants(): Employee[] {
-    return this.consultants.filter(consultant => this.coacheeList.some(coachee => coachee.idEmployee === consultant.idEmployee));
+    return this.filteredConsultants;
   }
+
   getFilteredEmployees(): Employee[] {
-    return this.consultants.filter(consultant => this.employeeList.some(coachee => coachee.idEmployee === consultant.idEmployee));
+    return this.filteredEmployees;
   }
+
 
 
   onRatingSelect(coacheeId: number): void {
@@ -194,6 +267,9 @@ export class CoachComponent implements OnInit {
     this.router.navigate(['/myassessmenthistory/' + coacheeId]);
   }
 
+  onClientFeedbackSelect(coacheeId: number): void {
+    this.router.navigate(['/client-feedback/' + coacheeId]);
+  }
   getSkillName(idSkill: number): string {
     const skill = this.skills.find(skill => skill.idSkill === idSkill);
     return skill ? skill.skillName : 'Unknown skill';
@@ -231,5 +307,6 @@ export class CoachComponent implements OnInit {
     this.router.navigate(['/team-levels'])
   }
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
-
+  goToSearch() { this.router.navigate(['/search']) }
+  goToClientFeedback() { this.router.navigate(['/client-feedback', this.id]) }
 }

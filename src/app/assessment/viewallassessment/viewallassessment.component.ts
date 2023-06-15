@@ -191,5 +191,5 @@ export class ViewallassessmentComponent implements OnInit {
     this.router.navigate(['/team-levels'])
   }
 
-
+  goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
 }

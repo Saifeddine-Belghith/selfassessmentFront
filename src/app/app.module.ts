@@ -18,7 +18,9 @@ import { CoachComponent } from './coach/coach.component';
 import { RatingChangesComponent } from './rating-changes/rating-changes.component';
 import { TeamAverageComponent } from './team-average/team-average.component';
 import { PersonalTargetComponent } from './personal-target/personal-target.component';
+import { ComparisonComponent } from './comparison/comparison.component';
 import { SearchComponent } from './search/search.component';
+import { ClientfeedbackComponent } from './clientfeedback/clientfeedback.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { SearchComponent } from './search/search.component';
     RatingChangesComponent,
     TeamAverageComponent,
     PersonalTargetComponent,
-    SearchComponent
+    ComparisonComponent,
+    SearchComponent,
+    ClientfeedbackComponent,
   ],
   imports: [
     BrowserModule,

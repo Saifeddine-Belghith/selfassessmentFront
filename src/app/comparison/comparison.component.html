@@ -1,0 +1,179 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">My Assessments</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">My MBO</button>
+            <div class="dropdown-content">
+                <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToClientFeedback()">Client Feedback</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" class="active">My Qualification</button>
+            <div class="dropdown-content">
+                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" class="active" type="button"
+                    (click)="goToCompare()">Compare</a>
+
+
+                <a (click)="goToMyRating()">Ratings Over Time</a>
+
+            </div>
+        </div>
+        <div class="dropdown">
+            <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+                <button class="dropbtn">Employees</button>
+                <div class="dropdown-content">
+                    <a (click)="goToSearch()">Search</a>
+                    <a (click)="goToPeople()">My Team</a>
+                    <ng-container *ngIf="employee && employee.isManager">
+                        <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+
+    </div>
+</div>
+<!-- <div class="container">
+<h1 class="title">Search Consultants and Employees</h1>
+<p class="slogan">Find the Perfect Match for Your Needs</p>
+
+
+<div class="input-list">
+<div class="form-group">
+    <h3 class="inline-heading">Search by Skills and Ratings</h3>
+    <label for="Skills">Skill:</label>
+    <select id="targetArea" name="targetArea">
+        <option value="TRAINING">Training</option>
+        <option value="CDT">Client Delivery Target</option>
+        <option value="BD">Business Development</option>
+        <option value="SME">SME Task</option>
+        <option value="SF">Soft Skill</option>
+        <option value="Others">Others</option>
+    </select>
+  </div>
+
+    
+        <label for="ratings">Ratings:</label>
+        <select class="form-group" id="ratings" name="ratings">
+            <option value="0" [selected]>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    
+     -->
+
+<div class="container">
+    <h1 class="title">Qualification Comparison: Measure Your Progress and Expand Your Insight</h1>
+    <p class="slogan">Gain valuable insights by comparing your qualifications with peers in your Experience Level</p>
+
+    <!-- <div class="input-list">
+        <div class="form-group">
+    <h4 class="inline-heading">Search by Skills and Ratings</h4>
+        </div>
+        <div class="form-group">
+            <label for="skills">Skills:</label>
+            <select id="skills" name="skills" [(ngModel)]="selectedSkills" multiple>
+                <option *ngFor="let skill of skills" [value]="skill">{{ skill.skillName }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ratings">Ratings:</label>
+            <select id="ratings" name="ratings" [(ngModel)]="selectedRatings" multiple>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="search">
+            <button (click)="searchConsultantsbySkill()">Search</button>
+        </div>
+    </div>
+<div class="input-list">
+    <div class="form-group">
+        <h4 class="inline-heading">Search by Personal Targets</h4>
+    </div>
+    <div class="form-group">
+        <label for="targetArea">Target Area:</label>
+        <select id="targetArea" name="targetArea" [(ngModel)]="selectedTargetAreas" multiple>
+            <option value="TRAINING">Training</option>
+            <option value="CDT">Client Delivery Target</option>
+            <option value="BD">Business Development</option>
+            <option value="SME">SME Task</option>
+            <option value="SF">Soft Skill</option>
+            <option value="Others">Others</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="supportedValue">Supported Value:</label>
+        <select id="supportedValue" name="supportedValue" [(ngModel)]="selectedSupportedValues" multiple>
+            <option value="CL" >CL - Continuous Learning</option>
+            <option value="FEEDBACK">Feedback</option>
+            <option value="TRUST">Trust</option>
+            <option value="HONESTY">Honesty</option>
+            <option value="OPC">OPC - Openness Towards Change</option>
+            <option value="PPDI">PPDI - Passion & Process Driven Innovation</option>
+            <option value="PCC">PCC - Proactive & Conscious Collaboration</option>
+            <option value="SOLIDARITY">Solidarity</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="supportedValue">Target Status:</label>
+        <select id="supportedValue" name="supportedValue" [(ngModel)]="selectedStatuses" multiple>
+            <option value="IN_PROGRESS" >IN PROGRESS</option>
+            <option value="COMLETED">COMPLETED</option>
+            <option value="CANCELLED">CANCELLED</option>
+        </select>
+    </div>
+    <div class="search">
+        <button (click)="searchConsultantsbyTarget()">Search</button>
+    </div>
+</div>-->
+
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Role</th>
+                <th>Experience Level</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let consultant of consultantList">
+                <ng-container *ngIf="employee.idEmployee!==consultant.idEmployee">
+                    <td class="coachee-name">{{ consultant.firstName }} {{
+                        consultant.lastName }}</td>
+                    <td class="coachee-name">{{ consultant.role }}</td>
+                    <td class="coachee-name">{{ consultant.experienceLevel }}</td>
+                    <td class="search">
+                        <button (click)="compareWith(consultant.idEmployee)">Compare with</button>
+                    </td>
+                </ng-container>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div>
+    <canvas id="ratingChart"></canvas>
+</div>
+<!-- Display search results -->
