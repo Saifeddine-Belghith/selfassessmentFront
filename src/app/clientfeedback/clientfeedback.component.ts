@@ -69,6 +69,7 @@ export class ClientfeedbackComponent implements OnInit {
   resetClientFeedbackForm(): void {
     this.clientFeedback = {
       idClientFeedback: 0,
+      clientName: '',
       evaluation: Evaluation.NOT_Applicable,
       rating: 0,
       trend: '',
@@ -128,6 +129,6 @@ export class ClientfeedbackComponent implements OnInit {
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
-  
+  goToAssistance() { this.router.navigate(['/assistance']) }
   }
   

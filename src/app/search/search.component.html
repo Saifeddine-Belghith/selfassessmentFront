@@ -33,6 +33,7 @@
                 <button class="dropbtn">Employees</button>
                     <div class="dropdown-content">
                         <a class="active" (click)="goToSearch()">Search</a>
+                        <a *ngIf="coach && coach.isCoach" (click)="goToAssistance()">Assistance</a>
                         <a (click)="goToPeople()">My Team</a>
 
                         <ng-container *ngIf="coach && coach.isManager">

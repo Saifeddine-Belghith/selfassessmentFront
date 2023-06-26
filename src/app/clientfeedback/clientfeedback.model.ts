@@ -2,6 +2,7 @@ import { Employee } from "../employee-details/employee.model";
 
 export interface ClientFeedback{
     idClientFeedback: number;
+    clientName: string;
     evaluation: Evaluation;
     rating: number;
     trend: string;

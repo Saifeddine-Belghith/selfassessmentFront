@@ -185,11 +185,12 @@ export class ComparisonComponent implements OnInit {
   }
 
   getAverageRatingSimilarExperience(experience: string): Observable<number[]> {
+    this.experience = experience;
     console.log('Hello from ExperiencegetAverageRatingSimilarExperience Method:');
     return this.assessmentService.calculateAverageRatingsByCategoryAndExperience(experience).pipe(
-      map((similarExperienceRatings: Map<number, number>) => {
+      map((similarExperienceRatings: { [idCategory: number]: number } | Map<number, number>) => {
         console.log('Ratings from Experience:');
-        const ratings: number[] = Array.from(similarExperienceRatings.values());
+        const ratings: number[] = Array.from(Object.values(similarExperienceRatings));
         console.log('Ratings from Experience:', ratings);
         this.ratingsPerExperience = ratings;
         return this.ratingsPerExperience;
@@ -201,6 +202,24 @@ export class ComparisonComponent implements OnInit {
     );
   }
 
+  // getAverageRatingSimilarExperience(experience: string): Observable<number[]> {
+  //   console.log('Hello from ExperiencegetAverageRatingSimilarExperience Method:');
+  //   return new Observable<number[]>((observer) => {
+  //     this.getAverageRatingsByCategoryAndExperience().subscribe(
+  //       (similarExperienceRatings: Map<number, number>) => {
+  //         const ratings: number[] = Array.from(similarExperienceRatings.values());
+  //         observer.next(ratings);
+  //         observer.complete();
+  //         this.ratingsPerExperience = ratings;
+  //         console.log("ratinggggggs : ", ratings )
+  //       },
+  //       (error: any) => {
+  //         console.error('Error retrieving average ratings by category and experience:', error);
+  //         observer.error(error);
+  //       }
+  //     );
+  //   });
+  // }
 
 
 
@@ -341,5 +360,6 @@ export class ComparisonComponent implements OnInit {
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.id]) }
+  goToAssistance() { this.router.navigate(['/assistance']) }
 }
 

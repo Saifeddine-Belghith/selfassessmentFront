@@ -156,35 +156,121 @@ label {
     padding: 2px;
     margin: 40px;
 }
+.coachee-list {
+    margin-left: 5px;
+    margin-bottom: 20px;
+}
 
-.dropdown-content a:hover {
+.title {
+    text-align: center;
+    color: #000;
+    margin-top: 40px;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.title-table {
+    text-align: center;
+    color: #000;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.title-search {
+    text-align: center;
+    color: #000;
+    /* margin-top: 50px; */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.slogan {
+    text-align: center;
+    color: #000;
+    font-size: 30px;
+    font-weight: medium;
+}
+
+.form-group {
+    display: contents;
+    margin-bottom: 20px;
+    gap: 15px;
+    
+}
+
+.button-search {
+    margin: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #273978;
+        color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.button-search button:hover {
     background-color: #5b6b9c;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 
-.dropdown:hover .dropbtn {
-    background-color: rgb(242, 167, 120);
-}
-
-.welcome-message {
-    text-align: center;
-    color: #000;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    font-size: 40px;
+label {
     font-weight: bold;
+    margin-bottom: 30px;
+}
 
+input[type="text"],
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    
+    box-sizing: border-box;
+}
+
+.search {
+    margin-top: 20px;
+}
+
+.search button {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #273978;
+    color: white;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.search button:hover {
+    background-color: #5b6b9c;
+}
+
+/* .resultat{
+
+    margin-top: revert;
+}*/
+.zeroResutat {
+    margin: 20px;
 }
 
 .table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    margin: 10px;
+    /* margin: 10px;
     margin-left: 10px;
-    margin-right: 20px;
+    margin-right: 20px; */
 }
 
 .table td,
@@ -210,75 +296,55 @@ label {
     color: white;
 }
 
-.Sub {
-    text-align: right;
-}
-
-.Sub button:hover {
-    background-color: #5b6b9c;
-}
-
-.Sub button {
-    padding: 10px 20px;
+.btn {
     background-color: #273978;
-        color: white;
-    color: white;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 10px;
-}
-
-.Sub a {
-    color: rgb(234, 226, 226);
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
     text-decoration: none;
-    cursor: pointer;
-}
-
-.dropdown {
-    position: relative;
     display: inline-block;
-    text-decoration-color: white;
-}
-
-.dropbtn {
-    margin-left: 10px;
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #273978;
-        color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    font-size: 14px;
+    margin: 4px 2px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    text-decoration-color: white;
+    border-radius: 4px;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    z-index: 1;
-    min-width: 160px;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
+.btn-danger {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
     text-decoration: none;
-    display: block;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
     cursor: pointer;
+    border-radius: 4px;
 }
 
-.dropdown-content a:hover {
-    background-color: rgb(247, 106, 19);
+.btn:hover {
+    background-color: #3e8e41;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
+td.skill-name {
+
+    text-transform: uppercase;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: rgb(242, 167, 120);
+td.rating {
+    color: blue;
+}
+
+td.date {
+    font-style: italic;
+}
+
+.employee-name {
+    color: #ff6600;
+}
+
+.coachee-name {
+    color: #3366ff;
 }

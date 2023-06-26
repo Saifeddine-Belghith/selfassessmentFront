@@ -34,6 +34,7 @@
                 <button class="dropbtn">Employees</button>
                 <div class="dropdown-content">
                     <a (click)="goToSearch()">Search</a>
+                    <a *ngIf="employee && employee.isCoach" (click)="goToAssistance()">Assistance</a>
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
@@ -64,6 +65,10 @@
 <div class="input-list" style="margin: inherit;" *ngIf="employee && employee.isManager">
     
     <div class="form-group">
+        <label>Client Name:</label>
+        <input type="text" [(ngModel)]="clientFeedback.clientName" class="form-desc">
+    </div>
+    <div class="form-group">
         <label for="evaluation">Evaluation:</label>
         <select id="evaluation" name="evaluation" [(ngModel)]="clientFeedback.evaluation">
             <option value="NOT_Applicable" selected>Not Applicable</option>
@@ -88,8 +93,14 @@
     </div>
     
     <div class="form-group">
-        <label>Trend:</label>
-        <input type="text" [(ngModel)]="clientFeedback.trend" class="form-desc">
+        <label for="trend">Trend:</label>
+        <select id="trend" name="trend" [(ngModel)]="clientFeedback.trend">
+            <option selected>Not Applicable</option>
+            <option >Deteriorating</option>
+            <option >Poor</option>
+            <option >Staying the same</option>
+            <option >improving</option>
+        </select>
     </div>
 
     <button class="button-search" style="margin-left: 30px" (click)="createClientFeedback (clientFeedback)" *ngIf="employee && employee.isManager && idEmployee !== coacheeId">
@@ -102,6 +113,7 @@
 <table class="table" *ngIf="employee && employee.isManager || idEmployee === coacheeId">
     <thead>
         <tr>
+            <th>Client Name</th>
             <th id="desc">Evaluation</th>
             <th>Rating</th>
             <th>Trend</th>
@@ -109,7 +121,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let clientFeedback of clientFeedbacks">
-
+            <td>{{clientFeedback.clientName}}</td>
             <td>{{ clientFeedback.evaluation }}</td>
             <td>{{ clientFeedback.rating }}</td>
             <td>{{ clientFeedback.trend }}</td>

@@ -21,6 +21,7 @@ import { PersonalTargetComponent } from './personal-target/personal-target.compo
 import { ComparisonComponent } from './comparison/comparison.component';
 import { SearchComponent } from './search/search.component';
 import { ClientfeedbackComponent } from './clientfeedback/clientfeedback.component';
+import { AssistanceComponent } from './assistance/assistance.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ClientfeedbackComponent } from './clientfeedback/clientfeedback.compone
     ComparisonComponent,
     SearchComponent,
     ClientfeedbackComponent,
+    AssistanceComponent,
   ],
   imports: [
     BrowserModule,

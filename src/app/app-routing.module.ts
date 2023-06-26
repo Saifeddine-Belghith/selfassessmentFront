@@ -13,6 +13,7 @@ import { TeamAverageComponent } from './team-average/team-average.component';
 import { ComparisonComponent } from './comparison/comparison.component';
 import { SearchComponent } from './search/search.component';
 import { ClientfeedbackComponent } from './clientfeedback/clientfeedback.component';
+import { AssistanceComponent } from './assistance/assistance.component';
 
 
 
@@ -30,11 +31,12 @@ const routes: Routes = [
   { path: 'personal-target/:id', component: PersonalTargetComponent },
   { path: 'qualification-comparison', component: ComparisonComponent },
   { path: 'search', component:SearchComponent},
-  {path:'client-feedback/:id', component:ClientfeedbackComponent}
+  { path: 'client-feedback/:id', component: ClientfeedbackComponent },
+  { path: 'assistance', component:AssistanceComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
-})
+}) 
 export class AppRoutingModule { }

@@ -43,10 +43,7 @@ export class HomeComponent implements OnInit {
   }
   goToPeople() {
     console.log('id notre emplyee' + this.idEmployee)
-    // console.log('notre url :' + `${this.apiUrl}/assessments/all/${this.idEmployee}`)
     this.router.navigate(['/people']);
-    // this.http.get(`${this.apiUrl}/assessments/all/${this.idEmployee}`);
-    // console.log('notre url :' + `${this.router}`)
   }
   goToHome() {
     this.router.navigateByUrl('/home');
@@ -70,4 +67,5 @@ export class HomeComponent implements OnInit {
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
+  goToAssistance(){this.router.navigate(['/assistance'])}
 }

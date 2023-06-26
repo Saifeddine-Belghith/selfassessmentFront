@@ -214,4 +214,6 @@ export class PersonalTargetComponent implements OnInit {
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
+  goToAssistance() { this.router.navigate(['/assistance']) }
+
 }

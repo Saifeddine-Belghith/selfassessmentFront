@@ -46,35 +46,41 @@
 
     </div>
 </div>
-
-<div class="banner">
-    <div class="banner-child"></div>
-    <!-- <img class="logo-color-1-icon"  /> -->
+<div *ngIf="employee && employee.isCoach">
+<h1 class="title">
+    Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
+        employee.lastName }}</span> in your Assistance page
+</h1>
+<p class="slogan">This space where you can find an assistance </p>
 </div>
 
-<h1 class="welcome-message">Welcome {{employee?.firstName}} {{employee?.lastName}} in your home page</h1>
 
-
-<!-- 
-<div class="header">
-    <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png"/>
-    <div class="btn-group">
-    <button> <a class="active" (click)="goToProfile()">Profile</a></button>
-    <button> <a (click)="goToAssessment()">New Assessment</a></button>
-    <ng-container *ngIf="employee && employee.isCoach == true || employee.isManager ==true">
-        <button (click)="goToViewAllAssessment()">View Assessment</button>
-    </ng-container>
-     <button> <a href="#about">View Assessment</a></button> 
+    <div class="form-group" class="container-box">
+        <div class="input-list" style="text-align: center;" >
+        <label style="margin-left: 30px;margin-right: 10px;">Problem Area:</label>
+        <select name="selectedCategory" [(ngModel)]="selectedCategory">
+            <option *ngFor="let category of categories" [value]="category.idCategory">{{ category.categoryName }}</option>
+        </select>
+        <button class="button-search" style="margin-left: 30px" (click)="getAssistanceByEmployeeAndCategory(selectedCategory, employee.idEmployee)">Search</button>
     </div>
-</div>
- <div class="banner">
-    <div class="banner-child"></div>
-    <img class="logo-color-1-icon" alt="" src="../assets/images/Logo-color.png" />
-</div> 
-
-<h1 class="welcome-message">Welcome  {{employee?.firstName}} to the Your Home Page</h1> -->
-<!-- <button (click)="goToProfile()">Profile</button>
-<button (click)="goToAssessment()">New Assessment</button>
-<ng-container *ngIf="employee.isCoach ==true">
-<button (click)="goToViewAllAssessment()" >View Assessment</button>
-</ng-container> -->
+    </div>
+    <!-- Display employees and their details in a table -->
+    <table class="table" *ngIf="employees && employees.length > 0">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Score</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employees; let i= index;">
+                <td >{{ employee.firstName }} {{ employee.lastName }}</td>
+                <td>{{ ratings[i] }}%</td>
+                <td class="coachee-name">{{ employee.email }}</td>
+                <td class="search"><button (click)="sendEmail(employee.email)">Contact</button></td>
+            </tr>
+        </tbody>
+        
+    </table>

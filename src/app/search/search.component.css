@@ -4,14 +4,15 @@
     align-items: center;
     padding: 10px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-    background-color: rgba(172, 172, 172, 0.801);
+    background-color: #ffffff;
 }
 
 .logo-container {
-    margin-right: auto;
+    margin: auto;
 }
 
 .button-container {
+    /* display: flex; */
     align-items: center;
     margin-right: auto;
 }
@@ -20,7 +21,8 @@
     margin-left: 10px;
     padding: 10px 15px;
     font-size: 16px;
-    background-color: rgb(247, 106, 19);
+    background-color: rgba(23, 175, 156, 255);
+    /* border: 1px solid #ccc; */
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -35,20 +37,23 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
+    /* text: white; */
     text-decoration: none;
 }
 
 .button-container a {
+    /* color: rgb(234, 226, 226); */
     text-decoration: none;
     cursor: pointer;
 }
 
 .button-container button:hover {
-    background-color: rgb(242, 167, 120);
+    background-color: rgb(70, 86, 139);
 }
 
 .button-container .active {
-    color: rgb(242, 167, 120);
+    /*  color: rgb(234, 226, 226);*/
+    color: rgb(91, 107, 156);
 }
 
 .logo {
@@ -88,7 +93,7 @@ label {
     margin-left: 10px;
     padding: 10px 15px;
     font-size: 16px;
-    background-color: rgb(247, 106, 19);
+    background-color: rgb(70, 86, 139);
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -114,7 +119,7 @@ label {
 }
 
 .dropdown-content a:hover {
-    background-color: rgb(247, 106, 19);
+    background-color: rgb(70, 86, 139);
 }
 
 .dropdown:hover .dropdown-content {
@@ -122,7 +127,7 @@ label {
 }
 
 .dropdown:hover .dropbtn {
-    background-color: rgb(242, 167, 120);
+    background-color: rgb(70, 86, 139);
 }
 .container-box {
     box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 24%);
@@ -177,7 +182,8 @@ label {
     margin-left: 10px;
     padding: 10px 15px;
     font-size: 16px;
-    background-color: #4CAF50;
+    color: white;
+    background-color: #273978;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -186,7 +192,7 @@ label {
 }
 
 .button-search button:hover {
-    background-color: #3e8e41;
+    background-color: #5b6b9c;
 }
 
 #skills {
@@ -217,8 +223,8 @@ select {
     margin-left: 10px;
     padding: 10px 15px;
     font-size: 16px;
-    background-color: #4CAF50;
-
+    background-color: #5b6b9c;
+color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -227,7 +233,7 @@ select {
 }
 
 .search button:hover {
-    background-color: #3e8e41;
+    background-color: #5b6b9c;
 }
 /* .resultat{
 
@@ -264,12 +270,12 @@ select {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: center;
-    background-color: rgb(247, 106, 19);
+    background-color: rgba(23, 175, 156, 255);
     color: white;
 }
 
 .btn {
-    background-color: #4CAF50;
+    background-color: #273978;
     border: none;
     color: white;
     padding: 8px 16px;
@@ -297,7 +303,7 @@ select {
 }
 
 .btn:hover {
-    background-color: #3e8e41;
+    background-color: #5b6b9c;
 }
 
 td.skill-name {

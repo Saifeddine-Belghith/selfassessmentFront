@@ -4,24 +4,30 @@
     align-items: center;
     padding: 10px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-    background-color: rgba(172, 172, 172, 0.801);
+    background-color: #ffffff;
 }
+
 .logo-container {
-    margin-right: auto;
+    margin: auto;
 }
+
 .button-container {
- align-items: center;
+    /* display: flex; */
+    align-items: center;
     margin-right: auto;
 }
+
 .button-container button {
     margin-left: 10px;
     padding: 10px 15px;
     font-size: 16px;
-    background-color: rgb(247, 106, 19);
+    background-color: rgba(23, 175, 156, 255);
+    /* border: 1px solid #ccc; */
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
 button {
     margin-left: 10px;
     padding: 10px 15px;
@@ -31,89 +37,63 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
+    /* text: white; */
     text-decoration: none;
 }
+
 .button-container a {
+    /* color: rgb(234, 226, 226); */
     text-decoration: none;
     cursor: pointer;
 }
+
 .button-container button:hover {
-    background-color: rgb(242, 167, 120);
+    background-color: rgb(70, 86, 139);
 }
+
 .button-container .active {
-    color: rgb(242, 167, 120);
+    /*  color: rgb(234, 226, 226);*/
+    color: rgb(91, 107, 156);
 }
+
 .logo {
     height: 50px;
     width: auto;
 }
+
 .form-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
-.form-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;   
-}
+
 .form-group {
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-    margin-right: 10px;
-    width: 50%;
 }
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.form-group select {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    width: 300px;    
-    box-sizing: border-box;
-}
-.form-group input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-.btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.btn-primary:hover {
-    background-color: #0056b3;
-}
+
 .nav-container a {
     color: rgb(234, 226, 226);
     text-decoration: none;
     cursor: pointer;
 }
+
 label {
     margin-bottom: 5px;
 }
+
 .dropdown {
     position: relative;
     display: inline-block;
     text-decoration-color: white;
 }
+
 .dropbtn {
     margin-left: 10px;
     padding: 10px 15px;
     font-size: 16px;
-    background-color: rgb(247, 106, 19);
+    background-color: rgb(70, 86, 139);
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -121,6 +101,7 @@ label {
     text-decoration: none;
     text-decoration-color: white;
 }
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -128,6 +109,7 @@ label {
     min-width: 160px;
     background-color: rgba(217, 217, 217, 0.801);
 }
+
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -135,16 +117,24 @@ label {
     display: block;
     cursor: pointer;
 }
+
 .dropdown-content a:hover {
-    background-color: rgb(247, 106, 19);
+    background-color: rgb(70, 86, 139);
 }
+
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 .dropdown:hover .dropbtn {
-    background-color: rgb(242, 167, 120);
+    background-color: rgb(70, 86, 139);
 }
-.title {
+
+.container-box {
+    box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 24%);
+    padding: 2px;
+    margin: 40px;
+}.title {
     text-align: center;
     color: #000;
     margin-top: 50px;
