@@ -8,7 +8,7 @@ import { Skill } from '../skill/skill.model';
     providedIn: 'root'
 })
 export class CategoryService {
-    private apiUrl = 'http://localhost:8081/categories';
+    private apiUrl = 'http://10.66.12.54:8081/categories';
 
     constructor(private http: HttpClient) { }
 

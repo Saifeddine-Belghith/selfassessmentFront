@@ -19,7 +19,7 @@ export class EmployeeDetailsComponent implements OnInit {
   errorMessage!: string;
   isCoach: boolean = false;
   isManager: boolean = false;
-  private apiUrl = 'http://localhost:8081';
+  private apiUrl = 'http://10.66.12.54:8081';
 
   constructor(private route: ActivatedRoute, private employeeService: EmployeeService, private fb: FormBuilder, private router: Router, private http: HttpClient) { }
 
