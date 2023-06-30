@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ClientFeedback } from './clientfeedback.model';
+import { ClientFeedback, ClientFeedbackPlayload } from './clientfeedback.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class ClientfeedbackService {
 
   constructor(private http: HttpClient) { }
 
-  createClientFeedback(idEmployee: number, clientFeedback: ClientFeedback): Observable<ClientFeedback> {
+  createClientFeedback(idEmployee: number, clientFeedback: ClientFeedbackPlayload): Observable<ClientFeedback> {
     const url = `${this.baseUrl}/create/${idEmployee}`;
     return this.http.post<ClientFeedback>(url, clientFeedback);
   }

@@ -7,13 +7,23 @@ export interface ClientFeedback{
     rating: number;
     trend: string;
     employee: Employee;
+    comment: string;
+}
+export interface ClientFeedbackPlayload {
+    idClientFeedback: number;
+    clientName: string;
+    // evaluation: Evaluation;
+    rating: number;
+    trend: string;
+    employee: Employee;
+    comment: string;
 }
 export enum Evaluation{
     EXCELLENT = 'Excellent',
     GOOD = 'Good',
-    Appropriate='Appropriate',
-    Under_Expectation ="Under Expectation",
+    APPROPRIATE ='Appropriate',
+    UNDER_EXPECTATION ="Under Expectation",
     POOR ="POOR",
-    NOT_Applicable ="NOT Applicable"
+    NOT_APPLICABLE ="NOT Applicable"
 
 }

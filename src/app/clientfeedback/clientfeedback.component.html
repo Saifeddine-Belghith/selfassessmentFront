@@ -69,17 +69,6 @@
         <input type="text" [(ngModel)]="clientFeedback.clientName" class="form-desc">
     </div>
     <div class="form-group">
-        <label for="evaluation">Evaluation:</label>
-        <select id="evaluation" name="evaluation" [(ngModel)]="clientFeedback.evaluation">
-            <option value="NOT_Applicable" selected>Not Applicable</option>
-            <option value="POOR" >Poor</option>
-            <option value="Under_Expectation">Under Expectation</option>
-            <option value="Appropriate">Appropriate</option>
-            <option value="GOOD">Good</option>
-            <option value="EXCELLENT">Excellent</option>
-        </select>
-    </div>
-    <div class="form-group">
         <label>Rating:</label>
         <select id="rating" name="rating" [(ngModel)]="clientFeedback.rating">
             <option>0</option>
@@ -102,6 +91,10 @@
             <option >improving</option>
         </select>
     </div>
+    <div class="form-group">
+        <label>Comment:</label>
+        <input type="text" [(ngModel)]="clientFeedback.comment" class="form-desc">
+    </div>
 
     <button class="button-search" style="margin-left: 30px" (click)="createClientFeedback (clientFeedback)" *ngIf="employee && employee.isManager && idEmployee !== coacheeId">
         Add Client Feedback</button>
@@ -117,6 +110,7 @@
             <th id="desc">Evaluation</th>
             <th>Rating</th>
             <th>Trend</th>
+            <th>Comment</th>
         </tr>
     </thead>
     <tbody>
@@ -125,6 +119,7 @@
             <td>{{ clientFeedback.evaluation }}</td>
             <td>{{ clientFeedback.rating }}</td>
             <td>{{ clientFeedback.trend }}</td>
+            <td>{{clientFeedback.comment}}</td>
         </tr>
     </tbody>
 </table>

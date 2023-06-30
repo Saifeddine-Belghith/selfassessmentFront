@@ -38,7 +38,7 @@ body {
     position: absolute;
     top: 24px;
     left: 23px;
-    width: 344px;
+    /* width: 344px; */
     height: 75px;
     object-fit: cover;
 }

@@ -3,7 +3,7 @@ import { Employee } from '../employee-details/employee.model';
 import { ClientfeedbackService } from './clientfeedback.service';
 import { EmployeeService } from '../employee-details/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientFeedback, Evaluation } from './clientfeedback.model';
+import { ClientFeedback, ClientFeedbackPlayload, Evaluation } from './clientfeedback.model';
 
 @Component({
   selector: 'app-clientfeedback',
@@ -19,7 +19,7 @@ export class ClientfeedbackComponent implements OnInit {
   isCoach: boolean = false;
   coacheeFirstName!: string;
   coacheeLastName!: string;
-  clientFeedback!: ClientFeedback;
+  clientFeedback!: ClientFeedbackPlayload;
   evaluations: Evaluation[] = [];
   clientFeedbacks!: ClientFeedback[];
   
@@ -70,10 +70,11 @@ export class ClientfeedbackComponent implements OnInit {
     this.clientFeedback = {
       idClientFeedback: 0,
       clientName: '',
-      evaluation: Evaluation.NOT_Applicable,
+      // evaluation: Evaluation.NOT_APPLICABLE,
       rating: 0,
       trend: '',
       employee: {} as Employee,
+      comment:'',
     };
   }
 
@@ -88,7 +89,7 @@ export class ClientfeedbackComponent implements OnInit {
     );
   }
 
-  createClientFeedback(clientFeedback: ClientFeedback): void{
+  createClientFeedback(clientFeedback: ClientFeedbackPlayload): void{
     this.clientFeedbackService.createClientFeedback(this.coacheeId, clientFeedback)
       .subscribe(
         (createdClientFeedback: ClientFeedback) => {
