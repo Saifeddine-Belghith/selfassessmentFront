@@ -78,8 +78,8 @@ export class MyassessmenthistoryComponent implements OnInit {
       this.coachee = coachee;
     });
 
-    const assessmentsUrl = `http://10.66.12.54:8081/assessments/employee/${this.coacheeId}`;
-    const categoriesUrl = 'http://10.66.12.54:8081/categories';
+    const assessmentsUrl = `http://localhost:8081/assessments/employee/${this.coacheeId}`;
+    const categoriesUrl = 'http://localhost:8081/categories';
 
     forkJoin({
       assessments: this.http.get<Assessment[]>(assessmentsUrl),
@@ -336,11 +336,11 @@ export class MyassessmenthistoryComponent implements OnInit {
 
 
 
-  // this.http.get('http://10.66.12.54:8081/categories').subscribe(data => {
+  // this.http.get('http://localhost:8081/categories').subscribe(data => {
   //   this.categories = (data as Category[]);
   //   this.categories.forEach(category => {
 
-  //     this.http.get<Skill[]>(`http://10.66.12.54:8081/skill/category/${category.idCategory}`).subscribe(skills => {
+  //     this.http.get<Skill[]>(`http://localhost:8081/skill/category/${category.idCategory}`).subscribe(skills => {
   //       category.skills = skills;
   //       // skills.forEach(skill => {
   //       //   // skill.rating = this.getRatingForSkill(this.assessment, this.assessment.idSkill) // Set default rating value

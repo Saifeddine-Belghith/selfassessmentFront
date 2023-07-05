@@ -12,8 +12,8 @@ export interface ClientFeedback{
 export interface ClientFeedbackPlayload {
     idClientFeedback: number;
     clientName: string;
-    // evaluation: Evaluation;
-    rating: number;
+    evaluation: Evaluation;
+    // rating: number;
     trend: string;
     employee: Employee;
     comment: string;

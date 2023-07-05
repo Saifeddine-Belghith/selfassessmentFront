@@ -3,7 +3,7 @@
         <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
     </div>
     <div class="button-container">
-        <button><a class="active" type="button" (click)="goToHome()">Home</a></button>
+        <button><a type="button" (click)="goToHome()">Home</a></button>
         <button> <a type="button" (click)="goToProfile()">Profile</a></button>
         <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
@@ -35,7 +35,7 @@
                 <button class="dropbtn">Employees</button>
                 <div class="dropdown-content">
                     <a (click)="goToSearch()">Search</a>
-                    <a *ngIf="employee && employee.isCoach" (click)="goToAssistance()">Assistance</a>
+                    <a  class="active" *ngIf="employee && employee.isCoach" (click)="goToAssistance()">Assistance</a>
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
@@ -58,10 +58,10 @@
     <div class="form-group" class="container-box">
         <div class="input-list" style="text-align: center;" >
         <label style="margin-left: 30px;margin-right: 10px;">Problem Area:</label>
-        <select name="selectedCategory" [(ngModel)]="selectedCategory">
-            <option *ngFor="let category of categories" [value]="category.idCategory">{{ category.categoryName }}</option>
+        <select name="selectedCategory" [(ngModel)]="selectedSkill">
+            <option *ngFor="let skill of skills" [value]="skill.idSkill">{{ skill.skillName }}</option>
         </select>
-        <button class="button-search" style="margin-left: 30px" (click)="getAssistanceByEmployeeAndCategory(selectedCategory, employee.idEmployee)">Search</button>
+        <button class="button-search" style="margin-left: 30px" (click)="getAssistanceByEmployeeAndCategory(selectedSkill, employee.idEmployee)">Search</button>
     </div>
     </div>
     <!-- Display employees and their details in a table -->

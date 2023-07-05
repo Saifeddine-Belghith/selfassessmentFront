@@ -25,14 +25,14 @@ export class CoachComponent implements OnInit {
   selectedCoacheeId: number | null = null;
   assessments: Assessment[] = [];
   skillNames: string[] = [];
-  private apiUrl = 'http://10.66.12.54:8081/assessments';
+  private apiUrl = 'http://localhost:8081/assessments';
   id: number | null = null;
 
   assessment!: Assessment;
   skills!: Skill[];
   skill!: Skill;
   idEmployee!: number;
-  // private apiUrl = 'http://10.66.12.54:8081';
+  // private apiUrl = 'http://localhost:8081';
   employee!: Employee;
   idSkill!: number;
   name!: string;

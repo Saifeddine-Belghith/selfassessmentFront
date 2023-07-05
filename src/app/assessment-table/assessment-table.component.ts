@@ -35,7 +35,7 @@ export class AssessmentTableComponent implements OnInit {
   skill!: Skill;
   rating: number = 0
   currentRating: number = 0;
-  private apiUrl = 'http://10.66.12.54:8081';
+  private apiUrl = 'http://localhost:8081';
   isCoach: boolean = false;
   isManager: boolean = false;
   response: any;
@@ -108,11 +108,11 @@ export class AssessmentTableComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     const idEmployee = localStorage.getItem('idEmployee') || '';
     this.idEmployee = parseInt(idEmployee);
-    this.http.get('http://10.66.12.54:8081/categories').subscribe(data => {
+    this.http.get('http://localhost:8081/categories').subscribe(data => {
       this.categories = (data as Category[]);
       this.categories.forEach(category => {
 
-        this.http.get<Skill[]>(`http://10.66.12.54:8081/skill/category/${category.idCategory}`).subscribe(skills => {
+        this.http.get<Skill[]>(`http://localhost:8081/skill/category/${category.idCategory}`).subscribe(skills => {
           category.skills = skills;
           skills.forEach(skill => {
             skill.rating = this.getRatingForSkill(skill) // Set default rating value
@@ -188,7 +188,7 @@ export class AssessmentTableComponent implements OnInit {
     }
     const data = { idEmployee, assessments };
     console.log("Our data is", data)
-    this.http.post("http://10.66.12.54:8081/assessments/saveAssessments", data)
+    this.http.post("http://localhost:8081/assessments/saveAssessments", data)
       .subscribe(
         response => {
           console.log(response);

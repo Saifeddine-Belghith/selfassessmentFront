@@ -9,7 +9,7 @@ import { Employee } from '../employee-details/employee.model';
 })
 export class PersonalTargetService {
 
-    private baseUrl = 'http://10.66.12.54:8081/personal-targets';
+    private baseUrl = 'http://localhost:8081/personal-targets';
 
     constructor(private http: HttpClient) { }
 

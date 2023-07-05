@@ -70,8 +70,8 @@ export class ClientfeedbackComponent implements OnInit {
     this.clientFeedback = {
       idClientFeedback: 0,
       clientName: '',
-      // evaluation: Evaluation.NOT_APPLICABLE,
-      rating: 0,
+      evaluation: Evaluation.NOT_APPLICABLE,
+      // rating: 0,
       trend: '',
       employee: {} as Employee,
       comment:'',

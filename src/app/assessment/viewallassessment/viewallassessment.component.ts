@@ -17,7 +17,7 @@ import { AssessmentDTO } from '../assessmentdto/assessmentdto.model';
   styleUrls: ['./viewallassessment.component.css']
 })
 export class ViewallassessmentComponent implements OnInit {
-  private apiUrl = 'http://10.66.12.54:8081';
+  private apiUrl = 'http://localhost:8081';
   employees: Employee[] = [];
   id!: number;
   assessments: Assessment[] = [];

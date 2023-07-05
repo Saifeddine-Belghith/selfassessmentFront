@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../category/category.service';
 import { Category } from '../category/category.model';
 import { Observable, catchError, defaultIfEmpty, forkJoin, map, switchMap, throwError } from 'rxjs';
+import { Skill } from '../skill/skill.model';
+import { SkillService } from '../skill/skill.service';
 
 @Component({
   selector: 'app-assistance',
@@ -20,18 +22,21 @@ export class AssistanceComponent implements OnInit {
   experience!: string;
   consultants: Employee[] = [];
   categories!: Category[];
-  
+  skills!: Skill[];
+  skillName!: string;
+  skillsIds!: string[];
   categoryName!: string;
   categoriesIds!: string[];
   ratings!: number[];
   consultant!: Employee;
   averageRatingsByCategoryAndEmployee!: { [idEmployee: string]: any };
   categoryNames: string[] = [];
-  selectedCategory!: number;
+  skillNames: string[] = [];
+  selectedSkill!: number;
   employees: Employee[] = [];
 
   constructor(private employeeService: EmployeeService, private assessmentService: AssessmentService,
-  private router:Router, private categoryService:CategoryService) { }
+  private router:Router, private categoryService:CategoryService, private skillService: SkillService) { }
 
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
@@ -42,20 +47,20 @@ export class AssistanceComponent implements OnInit {
       this.isManager = this.employee?.isManager;
       this.experience = this.employee?.experienceLevel;
     })
-    this.getcategories();
+    this.getskills();
     // this.getAssistanceByEmployeeAndCategory(4,1)
     // this.getAssistance();
     // this.getEmployeesByCategory();
     
   }
-  getcategories(): void {
-    this.categoryService.getCategories()
-      .subscribe(categories => {
-        this.categories = categories;
-        console.log("categories :", this.categories)
-        // Extract category names
-        this.categoryNames = this.categories.map(category => category.categoryName);
-        console.log('categoryNames:', this.categoryNames);
+  getskills(): void {
+    this.skillService.getSkills()
+      .subscribe(skills => {
+        this.skills = skills;
+        console.log("skills :", this.skills)
+        // Extract skills names
+        this.skillNames = this.skills.map(skill => skill.skillName);
+        console.log('skillNames:', this.skillNames);
       }); 
   }
 
@@ -74,8 +79,8 @@ export class AssistanceComponent implements OnInit {
   //     })
   //   )
   // }
-  getAssistanceByEmployeeAndCategory(idCategory: number, idEmployee: number): void {
-    this.assessmentService.getAssistanceByEmployeeAndCategory(idCategory, idEmployee)
+  getAssistanceByEmployeeAndCategory(idSkill: number, idEmployee: number): void {
+    this.assessmentService.getAssistanceByEmployeeAndCategory(idSkill, idEmployee)
       .subscribe(
         (response: Record<number, number>) => {
           // Sort the ratings in descending order
@@ -98,7 +103,7 @@ export class AssistanceComponent implements OnInit {
                 // Handle the response and update the component data as needed
                 this.employees = employees.map((employee, index) => ({
                   ...employee,
-                  ratings: { [this.selectedCategory]: sortedRatings[index][1] },
+                  ratings: { [this.selectedSkill]: sortedRatings[index][1] },
                 }));
                 console.log("Employee list:", this.employees);
               },
@@ -126,7 +131,7 @@ export class AssistanceComponent implements OnInit {
   // }
   // Function to retrieve employees by selected category
   getEmployeesByCategory(): void {
-    this.assessmentService.getAssistanceByEmployeeAndCategory(this.id, this.selectedCategory).subscribe(
+    this.assessmentService.getAssistanceByEmployeeAndCategory(this.id, this.selectedSkill).subscribe(
       (response: any) => {
         const employeeRatings = response as { [id: number]: number };
         // Retrieve employees based on ratings
@@ -140,7 +145,7 @@ export class AssistanceComponent implements OnInit {
           return {
             
             ...employee,
-            ratings: { [this.selectedCategory]: rating }
+            ratings: { [this.selectedSkill]: rating }
           } as Employee;
           
         });

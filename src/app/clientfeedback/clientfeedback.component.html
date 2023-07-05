@@ -69,15 +69,14 @@
         <input type="text" [(ngModel)]="clientFeedback.clientName" class="form-desc">
     </div>
     <div class="form-group">
-        <label>Rating:</label>
-        <select id="rating" name="rating" [(ngModel)]="clientFeedback.rating">
-            <option>0</option>
-            <option>0.5</option>
-            <option>1</option>
-            <option>1.5</option>
-            <option>2</option>
-            <option>2.5</option>
-            <option>3</option>
+        <label>Evaluation:</label>
+        <select id="rating" name="rating" [(ngModel)]="clientFeedback.evaluation">
+            <option value="EXCELLENT">Excellent</option>
+            <option value="GOOD">Good</option>
+            <option value="APPROPRIATE">Appropriate</option>
+            <option value="UNDER_EXPECTATION">Under Expectation</option>
+            <option value="POOR">POOR</option>
+            <option value="NOT_APPLICABLE">NOT Applicable</option>
         </select>
     </div>
     
