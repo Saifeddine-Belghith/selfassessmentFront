@@ -5,6 +5,8 @@ import { PersonalTargetService } from './personal-target.service';
 import { Employee } from '../employee-details/employee.model';
 import { EmployeeService } from '../employee-details/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Skill } from '../skill/skill.model';
+import { SkillService } from '../skill/skill.service';
 
 @Component({
   selector: 'app-personal-target',
@@ -29,14 +31,18 @@ export class PersonalTargetComponent implements OnInit {
   coacheeId!: number;
   coacheeFirstName: string = '';
   coacheeLastName: string = '';
+  skills: Skill[] = [];
+  skillNames: any;
 
-  constructor(private personalTargetService: PersonalTargetService, private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute,) { }
+  constructor(private personalTargetService: PersonalTargetService, private employeeService: EmployeeService,
+    private router: Router, private route: ActivatedRoute, private skillService:SkillService) { }
 
   ngOnInit(): void {
     this.coacheeId = parseInt(this.route.snapshot.params['id']);
     this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
     this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('coachee ID:', this.coacheeId);
+    this.getSkills();
     this.getCoacheeDetails(this.coacheeId);
     this.targetAreas = Object.values(TargetArea);
     this.targetStatus = Object.values(TargetStatus);
@@ -54,10 +60,22 @@ export class PersonalTargetComponent implements OnInit {
     console.log("id emp", this.id)
     this.idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
   }
+  getSkills(): void {
+    this.skillService.getSkills()
+      .subscribe(skills => {
+        this.skills = skills;
+        // Extract skill names
+        const skillNames = this.skills.map(skill => skill.skillName);
+        this.skillNames = skillNames;
+        console.log('Skill names:', this.skillNames);
+      });
+ }
+
 
   resetPersonalTargetForm(): void {
     this.personalTarget = {
       idPersonalTarget: 0,
+      skill:'',
       description: '',
       acceptanceCriteria:'',
       targetArea: TargetArea.TRAINING,
@@ -215,5 +233,5 @@ export class PersonalTargetComponent implements OnInit {
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
   goToAssistance() { this.router.navigate(['/assistance']) }
-
+  goToSearchByPersonalTarget() { this.router.navigate(['/searchbypersonaltarget']) }
 }

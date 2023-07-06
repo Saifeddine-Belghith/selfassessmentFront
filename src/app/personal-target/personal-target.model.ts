@@ -2,6 +2,7 @@ import { Employee } from "../employee-details/employee.model";
 
 export interface PersonalTarget {
     idPersonalTarget: number;
+    skill: string;
     description: string;
     acceptanceCriteria: string;
     targetArea: TargetArea;

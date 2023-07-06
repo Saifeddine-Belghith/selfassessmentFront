@@ -31,7 +31,7 @@ export class RatingChangesComponent implements OnInit {
   selectedSkill!: Skill;
   coacheeId!: number;
   assessments!: Assessment[];
-  private apiUrl = 'http://localhost:8081';
+  private apiUrl = 'http://10.66.12.54:8081';
   id: number | null = null;
   employee!: Employee;
   errorMessage!: string;
@@ -306,5 +306,5 @@ export class RatingChangesComponent implements OnInit {
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.employee.idEmployee]) }
   goToAssistance() { this.router.navigate(['/assistance']) }
-
+  goToSearchByPersonalTarget() { this.router.navigate(['/searchbypersonaltarget']) }
 }

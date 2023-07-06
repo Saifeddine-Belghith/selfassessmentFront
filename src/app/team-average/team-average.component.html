@@ -28,16 +28,18 @@
             </div>
         </div>
         <div class="dropdown">
-            <ng-container *ngIf="manager && (manager.isCoach || manager.isManager)">
-                <button class="dropbtn">Employees</button>
+            
+                <button class="dropbtn" class="active">Employees</button>
                     <div class="dropdown-content">
-                        <a (click)="goToSearch()">Search</a>
+                        <a (click)="goToAssistance()">Assistance</a>
+                        <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                        <ng-container *ngIf="manager && (manager.isCoach || manager.isManager)">                        <a (click)="goToSearch()">Search</a>
                         <a (click)="goToPeople()">My Team</a>
                         <ng-container *ngIf="manager && manager.isManager">
                             <a class="active" (click)="goToSkillsOverview()">Skills Overview</a>
                         </ng-container>
+                        </ng-container>
                     </div>
-            </ng-container>
         </div>
 
     </div>

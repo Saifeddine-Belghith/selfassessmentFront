@@ -30,17 +30,18 @@
             </div>
         </div>
         <div class="dropdown">
-            <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
                 <button class="dropbtn">Employees</button>
                 <div class="dropdown-content">
+                    <a  (click)="goToAssistance()">Assistance</a>
+                    <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                    <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
                     <a (click)="goToSearch()">Search</a>
-                    <a *ngIf="employee && employee.isCoach" (click)="goToAssistance()">Assistance</a>
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
                     </ng-container>
+                    </ng-container>
                 </div>
-            </ng-container>
         </div>
 
     </div>
@@ -65,6 +66,12 @@
 
 
     <div class="input-list" style=" margin-right: 10px;">
+        <div class="form-group">
+            <label for="skill">Skill:</label>
+            <select id="skill" name="skill" [(ngModel)]="personalTarget.skill">
+                <option *ngFor="let skill of skills" [ngValue]="skill.skillName">{{ skill.skillName }}</option>
+            </select>
+        </div>
         <div class="form-group">
             <label>Description:</label>
             <input type="text" [(ngModel)]="personalTarget.description" class="form-desc">
@@ -120,6 +127,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Skill</th>
             <th id="desc">Description</th>
             <th>Acceptance Criteria</th>
             <th>Target Area</th>
@@ -133,7 +141,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let target of personalTargets">
-
+            <td>{{target.skill}}</td>
             <td>{{ target.description }}</td>
             <td>{{ target.acceptanceCriteria }}</td>
             <td>{{ target.targetArea }}</td>

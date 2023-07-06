@@ -361,5 +361,6 @@ export class ComparisonComponent implements OnInit {
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.id]) }
   goToAssistance() { this.router.navigate(['/assistance']) }
+  goToSearchByPersonalTarget() { this.router.navigate(['/searchbypersonaltarget']) }
 }
 

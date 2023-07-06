@@ -25,14 +25,14 @@ export class CoachComponent implements OnInit {
   selectedCoacheeId: number | null = null;
   assessments: Assessment[] = [];
   skillNames: string[] = [];
-  private apiUrl = 'http://localhost:8081/assessments';
+  private apiUrl = 'http://10.66.12.54:8081/assessments';
   id: number | null = null;
 
   assessment!: Assessment;
   skills!: Skill[];
   skill!: Skill;
   idEmployee!: number;
-  // private apiUrl = 'http://localhost:8081';
+  // private apiUrl = 'http://10.66.12.54:8081';
   employee!: Employee;
   idSkill!: number;
   name!: string;
@@ -310,4 +310,5 @@ export class CoachComponent implements OnInit {
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.id]) }
   goToAssistance() { this.router.navigate(['/assistance']) }
+  goToSearchByPersonalTarget() { this.router.navigate(['/searchbypersonaltarget']) }
 }

@@ -1,0 +1,144 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button" (click)="goToHome()">Home</a></button>
+        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">My Assessments</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">My MBO</button>
+            <div class="dropdown-content">
+                <a [routerLink]="['/personal-target', this.id]">New Personal Target</a>
+                <a (click)="goToClientFeedback()">Client Feedback</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">My Qualification</button>
+            <div class="dropdown-content">
+                <a *ngIf="coach && (coach.isCoach || coach.isCoachee)" type="button" (click)="goToCompare()">Compare</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" class="active">Employees</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssistance()">Assistance</a>
+                <a class="active" (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
+                    <a  (click)="goToSearch()">Search</a>
+                    <a (click)="goToPeople()">My Team</a>
+                    <ng-container *ngIf="coach && coach.isManager">
+                        <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="coachee-table">
+    <h1 class="title">Employee Search</h1>
+    <p class="slogan">Find the right employees based on Personal Targets.</p>
+    <div class="container-box">
+        
+        <div class="input-list" style="margin-bottom: 45px;">
+            <div class="form-group">
+                <h4 class="title-search">Search Employee by Personal Targets</h4>
+            </div>
+            <div class="form-group">
+                <label for="skill" style="margin-left: 30px;margin-right: 7px;">Skill:</label>
+                <select id="skill" name="skill" [(ngModel)]="skill">
+                    <option *ngFor="let skill of skills" [value]="skill.skillName">{{ skill.skillName }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="targetArea" style="margin-left: 30px;margin-right: 7px;">Target Area:</label>
+                <select id="targetArea" name="targetArea" [(ngModel)]="selectedTargetAreas">
+                    <option value="TRAINING">Training</option>
+                    <option value="CDT">Client Delivery Target</option>
+                    <option value="BD">Business Development</option>
+                    <option value="SME">SME Task</option>
+                    <option value="SF">Soft Skill</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="supportedValue" style="margin-left: 30px;margin-right: 7px;">Supported Value:</label>
+                <select id="supportedValue" name="supportedValue" [(ngModel)]="selectedSupportedValues">
+                    <option value="CL">CL - Continuous Learning</option>
+                    <option value="FEEDBACK">Feedback</option>
+                    <option value="TRUST">Trust</option>
+                    <option value="HONESTY">Honesty</option>
+                    <option value="OPC">OPC - Openness Towards Change</option>
+                    <option value="PPDI">PPDI - Passion & Process Driven Innovation</option>
+                    <option value="PCC">PCC - Proactive & Conscious Collaboration</option>
+                    <option value="SOLIDARITY">Solidarity</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="supportedValue" style="margin-left: 30px;margin-right: 7px;">Target Status:</label>
+                <select id="supportedValue" name="supportedValue" [(ngModel)]="selectedStatuses">
+                    <option value="IN_PROGRESS">IN PROGRESS</option>
+                    <option value="COMPLETED">COMPLETED</option>
+                    <option value="CANCELLED">CANCELLED</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label style="margin-left: 30px; margin-right: 7px;">Target Date:</label>
+                <input [(ngModel)]="targetDate" type="number" id="targetDate" min="2023" max="2100">
+            </div>
+            <div class="form-group">
+                <label for="quarter" style="margin-left: 10px; margin-right: 7px;">Quarter:</label>
+                <select id="quarter" name="quarter" [(ngModel)]="selectedQuarters">
+                    <option>First Quarter</option>
+                    <option>Second Quarter</option>
+                    <option>Third Quarter</option>
+                    <option>Fourth Quarter</option>
+                </select>
+            </div>
+            <button class="button-search" style="margin-left: 30px"
+                (click)="searchConsultantsbyTarget()">Search</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="searchPersonalTargedPerformed" class="container-box">
+    <ng-container *ngIf="filteredEmployees.length <= 0">
+        <h3 class="zeroResutat">No employees found with the specified Personal Target Criteria</h3>
+    </ng-container>
+    <ng-container *ngIf="filteredEmployees.length>0">
+        <h4 class="title-table">Result of your search</h4>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Role</th>
+                        <th>Experience Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <ng-container *ngFor="let consultant of getFilteredEmployees()">
+                        <tr *ngIf="this.id !== consultant.idEmployee">
+                            <td class="coachee-name">{{ consultant.employeeDetails?.firstName }} {{
+                                consultant.employeeDetails?.lastName }}</td>
+                            <td class="coachee-name">{{ consultant.employeeDetails?.role }}</td>
+                            <td class="coachee-name">{{ consultant.employeeDetails?.experienceLevel }}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </ng-container>
+</div>

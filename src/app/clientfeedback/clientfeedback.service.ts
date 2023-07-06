@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ClientfeedbackService {
 
-  private baseUrl = 'http://localhost:8081/clientfeedbacks';
+  private baseUrl = 'http://10.66.12.54:8081/clientfeedbacks';
 
   constructor(private http: HttpClient) { }
 

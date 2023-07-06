@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TeamAverageService {
-  private managerUrl = 'http://localhost:8081/managers';
+  private managerUrl = 'http://10.66.12.54:8081/managers';
 
   constructor(private http: HttpClient) { }
 

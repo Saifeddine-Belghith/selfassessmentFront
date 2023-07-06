@@ -14,6 +14,7 @@ import { ComparisonComponent } from './comparison/comparison.component';
 import { SearchComponent } from './search/search.component';
 import { ClientfeedbackComponent } from './clientfeedback/clientfeedback.component';
 import { AssistanceComponent } from './assistance/assistance.component';
+import { SearchbypersonaltargetComponent } from './searchbypersonaltarget/searchbypersonaltarget.component';
 
 
 
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'qualification-comparison', component: ComparisonComponent },
   { path: 'search', component:SearchComponent},
   { path: 'client-feedback/:id', component: ClientfeedbackComponent },
-  { path: 'assistance', component:AssistanceComponent}
+  { path: 'assistance', component: AssistanceComponent },
+  {path:'searchbypersonaltarget', component:SearchbypersonaltargetComponent}
 ];
 
 @NgModule({

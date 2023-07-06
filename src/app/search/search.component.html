@@ -29,18 +29,18 @@
             </div>
         </div>
         <div class="dropdown">
-            <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
-                <button class="dropbtn">Employees</button>
+                <button class="dropbtn" class="active">Employees</button>
                     <div class="dropdown-content">
+                        <a  (click)="goToAssistance()">Assistance</a>
+                        <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                        <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
                         <a class="active" (click)="goToSearch()">Search</a>
-                        <a *ngIf="coach && coach.isCoach" (click)="goToAssistance()">Assistance</a>
                         <a (click)="goToPeople()">My Team</a>
-
                         <ng-container *ngIf="coach && coach.isManager">
                             <a (click)="goToSkillsOverview()">Skills Overview</a>
                         </ng-container>
+                        </ng-container>
                     </div>
-            </ng-container>
         </div>
 
     </div>
@@ -48,7 +48,7 @@
 
 <div class="coachee-table">
     <h1 class="title">Employee Search</h1>
-    <p class="slogan">Find the right employees based on skills and personal targets.</p>
+    <p class="slogan">Find the right employees based on skills & ratings.</p>
     <div class="container-box">
         <div class="input-list" style="margin-top: 70px">
             <div class="form-group" style="text-align: center;">
@@ -82,58 +82,6 @@
             <button class="button-search" style="margin-left: 30px"
                 (click)="searchConsultantsBySkillsAndRatings()">Search</button>
         </div>
-        <div class="input-list" style="margin-bottom: 45px;">
-            <div class="form-group">
-                <h4 class="title-search">Search Employee by Personal Targets</h4>
-            </div>
-            <div class="form-group">
-                <label for="targetArea" style="margin-left: 30px;margin-right: 7px;">Target Area:</label>
-                <select id="targetArea" name="targetArea" [(ngModel)]="selectedTargetAreas">
-                    <option value="TRAINING">Training</option>
-                    <option value="CDT">Client Delivery Target</option>
-                    <option value="BD">Business Development</option>
-                    <option value="SME">SME Task</option>
-                    <option value="SF">Soft Skill</option>
-                    <option value="Others">Others</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="supportedValue" style="margin-left: 30px;margin-right: 7px;">Supported Value:</label>
-                <select id="supportedValue" name="supportedValue" [(ngModel)]="selectedSupportedValues">
-                    <option value="CL">CL - Continuous Learning</option>
-                    <option value="FEEDBACK">Feedback</option>
-                    <option value="TRUST">Trust</option>
-                    <option value="HONESTY">Honesty</option>
-                    <option value="OPC">OPC - Openness Towards Change</option>
-                    <option value="PPDI">PPDI - Passion & Process Driven Innovation</option>
-                    <option value="PCC">PCC - Proactive & Conscious Collaboration</option>
-                    <option value="SOLIDARITY">Solidarity</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="supportedValue" style="margin-left: 30px;margin-right: 7px;">Target Status:</label>
-                <select id="supportedValue" name="supportedValue" [(ngModel)]="selectedStatuses">
-                    <option value="IN_PROGRESS">IN PROGRESS</option>
-                    <option value="COMPLETED">COMPLETED</option>
-                    <option value="CANCELLED">CANCELLED</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label style="margin-left: 30px; margin-right: 7px;">Target Date:</label>
-                <input [(ngModel)]="targetDate" type="number" id="targetDate" min="2023" max="2100">
-            </div>
-            <div class="form-group">
-                <label for="quarter" style="margin-left: 10px; margin-right: 7px;">Quarter:</label>
-                <select id="quarter" name="quarter" [(ngModel)]="selectedQuarters">
-                    <option>First Quarter</option>
-                    <option>Second Quarter</option>
-                    <option>Third Quarter</option>
-                    <option>Fourth Quarter</option>
-                </select>
-            </div>
-            <button class="button-search" style="margin-left: 30px"
-                (click)="searchConsultantsbyTarget()">Search</button>
-        </div>
     </div>
 </div>
 
@@ -150,6 +98,8 @@
                         <th>Employee Name</th>
                         <th>Role</th>
                         <th>Experience Level</th>
+                        <th>Email</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,37 +110,8 @@
                                 consultant.employeeDetails?.lastName }}</td>
                             <td class="coachee-name">{{ consultant.employeeDetails?.role }}</td>
                             <td class="coachee-name">{{ consultant.employeeDetails?.experienceLevel }}</td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
-        </div>
-    </ng-container>
-</div>
-
-<div *ngIf="searchPersonalTargedPerformed" class="container-box">
-    <ng-container *ngIf="filteredEmployees.length <= 0">
-        <h3 class="zeroResutat">No employees found with the specified Personal Target Criteria</h3>
-    </ng-container>
-    <ng-container *ngIf="filteredEmployees.length>0">
-        <h4 class="title-table">The Result of your search by Personal Targets</h4>
-        <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Employee Name</th>
-                        <th>Role</th>
-                        <th>Experience Level</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <ng-container *ngFor="let consultant of getFilteredEmployees()">
-                        <tr *ngIf="this.id !== consultant.idEmployee">
-                            <td class="coachee-name">{{ consultant.employeeDetails?.firstName }} {{
-                                consultant.employeeDetails?.lastName }}</td>
-                            <td class="coachee-name">{{ consultant.employeeDetails?.role }}</td>
-                            <td class="coachee-name">{{ consultant.employeeDetails?.experienceLevel }}</td>
+                            <td class="coachee-name">{{ consultant.employeeDetails?.email }}</td>
+                            <td ><button class="btn" (click)="sendEmail(consultant.email)">Contact</button></td>
                         </tr>
                     </ng-container>
                 </tbody>

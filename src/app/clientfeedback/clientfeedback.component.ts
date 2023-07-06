@@ -131,5 +131,6 @@ export class ClientfeedbackComponent implements OnInit {
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
   goToAssistance() { this.router.navigate(['/assistance']) }
+  goToSearchByPersonalTarget() { this.router.navigate(['/searchbypersonaltarget']) }
   }
   

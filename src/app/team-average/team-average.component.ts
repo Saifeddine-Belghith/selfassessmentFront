@@ -17,7 +17,7 @@ export class TeamAverageComponent implements OnInit {
   teamAverageData: any;
   chart!: Chart;
   idEmployee!: number;
-  private apiUrl = 'http://localhost:8081';
+  private apiUrl = 'http://10.66.12.54:8081';
 
   constructor(private route: ActivatedRoute, private router: Router, private activatedRoute: ActivatedRoute, private employeeService: EmployeeService, private teamAverageService: TeamAverageService, private http: HttpClient) {
 
@@ -109,5 +109,6 @@ export class TeamAverageComponent implements OnInit {
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.idEmployee]) }
-
+  goToAssistance() { this.router.navigate(['/assistance']) }
+  goToSearchByPersonalTarget() { this.router.navigate(['/searchbypersonaltarget']) }
 }

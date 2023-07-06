@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../employee-details/employee.service';
-import { Employee } from '../employee-details/employee.model';
-import { Skill } from '../skill/skill.model';
-import { Assessment } from '../assessment/assessment.model';
-import { SkillService } from '../skill/skill.service';
-import { SupportedValue, TargetArea, TargetStatus } from '../personal-target/personal-target.model';
-import { PersonalTargetService } from '../personal-target/personal-target.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EmployeeService } from '../employee-details/employee.service';
+import { PersonalTargetService } from '../personal-target/personal-target.service';
+import { SkillService } from '../skill/skill.service';
+import { Assessment } from '../assessment/assessment.model';
+import { Employee } from '../employee-details/employee.model';
+import { TargetArea, SupportedValue, TargetStatus } from '../personal-target/personal-target.model';
+import { Skill } from '../skill/skill.model';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: 'app-searchbypersonaltarget',
+  templateUrl: './searchbypersonaltarget.component.html',
+  styleUrls: ['./searchbypersonaltarget.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchbypersonaltargetComponent implements OnInit {
+
   idEmployee!: number;
   id!: number;
   isCoach: boolean = false;
@@ -47,9 +48,7 @@ export class SearchComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, private skillService: SkillService,
     private personalTargetService: PersonalTargetService, private route: ActivatedRoute,
-    private router: Router) { 
-    this.searchCriteria = [{ skill: '', rating: 0 }];
-    }
+    private router: Router) { }
 
   ngOnInit(): void {
     const idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
@@ -77,51 +76,9 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  addCriteria() {
-    this.searchCriteria.push({ skill: '', rating: 0 });
-  }
-
-  searchConsultantsBySkillsAndRatings(): void {
-    // Perform the search using searchCriteria
-    const payload = this.searchCriteria.reduce(
-      (result, criteria) => {
-        result.skills.push(criteria.skill);
-        result.ratings.push(criteria.rating);
-        return result;
-      },
-      { skills: [] as string[], ratings: [] as number[] } // Explicitly define the types
-    );
-
-    this.employeeService.searchConsultantsBySkillsAndRatings(payload).subscribe(
-      (consultants) => {
-        consultants.forEach((consultant) => {
-          this.employeeService.getEmployeeById(consultant.idEmployee).subscribe(
-            (employee) => {
-              consultant.employeeDetails = employee;
-            },
-            (error) => {
-              console.error('Error fetching employee details:', error);
-            }
-          );
-        });
-
-        console.log('Consultants:', consultants);
-        this.filteredConsultants = consultants;
-      },
-      (error) => {
-        console.error('Error:', error);
-      }
-    );
-    this.searchPerformed = true;
-  }  
-
-  deleteCriteria(index: number): void {
-    this.searchCriteria.splice(index, 1);
-  }
-
   searchConsultantsbyTarget(): void {
     const payload = {
-      skill:this.skill,
+      skill: this.skill,
       targetArea: this.selectedTargetArea ? [this.selectedTargetArea] : this.selectedTargetAreas,
       supportedValue: this.selectedSupportedValue ? [this.selectedSupportedValue] : this.selectedSupportedValues,
       targetStatus: this.selectedStatus ? [this.selectedStatus] : this.selectedStatuses,
@@ -181,12 +138,7 @@ export class SearchComponent implements OnInit {
     return this.filteredEmployees;
   }
 
-  sendEmail(email: string) {
-    const subject = encodeURIComponent("Assistance");
-    const body = encodeURIComponent("Body of the email");
-    const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
-    window.open(mailtoLink);
-  }
+
   goToHome() {
     this.router.navigateByUrl('/home');
   }
@@ -221,6 +173,6 @@ export class SearchComponent implements OnInit {
   goToSearch() { this.router.navigate(['/search']) }
   goToClientFeedback() { this.router.navigate(['/client-feedback', this.id]) }
   goToAssistance() { this.router.navigate(['/assistance']) }
-  goToSearchByPersonalTarget(){this.router.navigate(['/searchbypersonaltarget'])}
+  goToSearchByPersonalTarget() { this.router.navigate(['/searchbypersonaltarget']) }
 
 }
