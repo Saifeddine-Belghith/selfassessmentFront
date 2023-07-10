@@ -181,7 +181,7 @@ export class RatingChangesComponent implements OnInit {
       type: 'line',
       data,
       options: {
-        maintainAspectRatio: false,
+
         scales: {
           x: {
             // type: 'time',
@@ -232,6 +232,8 @@ export class RatingChangesComponent implements OnInit {
         //     }
         //   }
         // }
+        responsive: true,
+        maintainAspectRatio: false,
       }
     };
 

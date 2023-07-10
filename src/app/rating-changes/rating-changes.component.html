@@ -74,5 +74,7 @@
 
 <div class="errorMessage" *ngIf="errorMessage; else chartContainer">{{ errorMessage }}</div>
 <ng-template #chartContainer>
+    <div>
     <canvas id="ratingChart"></canvas>
+    </div>
 </ng-template>
