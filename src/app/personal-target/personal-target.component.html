@@ -30,18 +30,18 @@
             </div>
         </div>
         <div class="dropdown">
-                <button class="dropbtn">Employees</button>
-                <div class="dropdown-content">
-                    <a  (click)="goToAssistance()">Assistance</a>
-                    <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
-                    <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-                    <a (click)="goToSearch()">Search</a>
+            <button class="dropbtn">Employees</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssistance()">Assistance</a>
+                <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+                    <a (click)="goToSearch()">Search By Skill & Rating</a>
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
                     </ng-container>
-                    </ng-container>
-                </div>
+                </ng-container>
+            </div>
         </div>
 
     </div>
@@ -67,57 +67,57 @@
 
     <div class="input-list" style=" margin-right: 10px;">
         <div style="margin:auto;">
-        <div class="form-group">
-            <label for="skill">Skill:</label>
-            <select id="skill" name="skill" [(ngModel)]="personalTarget.skill">
-                <option *ngFor="let skill of skills" [ngValue]="skill.skillName">{{ skill.skillName }}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Description:</label>
-            <input type="text" [(ngModel)]="personalTarget.description" class="form-desc">
-        </div>
-        <div class="form-group">
-            <label>Acceptance Criteria:</label>
-            <input type="text" [(ngModel)]="personalTarget.acceptanceCriteria" class="form-desc">
-        </div>
-        <div class="form-group">
-            <label for="targetArea">Target Area:</label>
-            <select id="targetArea" name="targetArea" [(ngModel)]="personalTarget.targetArea">
-                <option value="TRAINING">Training</option>
-                <option value="CDT">Client Delivery Target</option>
-                <option value="BD">Business Development</option>
-                <option value="SME">SME Task</option>
-                <option value="SF">Soft Skill</option>
-                <option value="Others">Others</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="supportedValue">Supported Value:</label>
-            <select id="supportedValue" name="supportedValue" [(ngModel)]="personalTarget.supportedValue">
-                <option value="CL" [selected]>CL - Continuous Learning</option>
-                <option value="FEEDBACK">Feedback</option>
-                <option value="TRUST">Trust</option>
-                <option value="HONESTY">Honesty</option>
-                <option value="OPC">OPC - Openness Towards Change</option>
-                <option value="PPDI">PPDI - Passion & Process Driven Innovation</option>
-                <option value="PCC">PCC - Proactive & Conscious Collaboration</option>
-                <option value="SOLIDARITY">Solidarity</option>
-            </select>
-        </div>
-        <div class="form-group" style=" margin-left: 10px;">
-            <label>Target Date:</label>
-            <input [(ngModel)]="personalTarget.targetDate" type="number" id="targetDate" min="2023" max="2100">
-        </div>
-        <div class="form-group" style=" margin-left: 10px;">
-            <label for="quarter">Quarter:</label>
-            <select id="quarter" name="quarter" [(ngModel)]="personalTarget.quarter">
-                <option [selected]>First Quarter</option>
-                <option>Second Quarter</option>
-                <option>Third Quarter</option>
-                <option>Fourth Quarter</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="skill">Skill:</label>
+                <select id="skill" name="skill" [(ngModel)]="personalTarget.skill">
+                    <option *ngFor="let skill of skills" [ngValue]="skill.skillName">{{ skill.skillName }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <input type="text" [(ngModel)]="personalTarget.description" class="form-desc">
+            </div>
+            <div class="form-group">
+                <label>Acceptance Criteria:</label>
+                <input type="text" [(ngModel)]="personalTarget.acceptanceCriteria" class="form-desc">
+            </div>
+            <div class="form-group">
+                <label for="targetArea">Target Area:</label>
+                <select id="targetArea" name="targetArea" [(ngModel)]="personalTarget.targetArea">
+                    <option value="TRAINING">Training</option>
+                    <option value="CDT">Client Delivery Target</option>
+                    <option value="BD">Business Development</option>
+                    <option value="SME">SME Task</option>
+                    <option value="SF">Soft Skill</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="supportedValue">Supported Value:</label>
+                <select id="supportedValue" name="supportedValue" [(ngModel)]="personalTarget.supportedValue">
+                    <option value="CL" [selected]>CL - Continuous Learning</option>
+                    <option value="FEEDBACK">Feedback</option>
+                    <option value="TRUST">Trust</option>
+                    <option value="HONESTY">Honesty</option>
+                    <option value="OPC">OPC - Openness Towards Change</option>
+                    <option value="PPDI">PPDI - Passion & Process Driven Innovation</option>
+                    <option value="PCC">PCC - Proactive & Conscious Collaboration</option>
+                    <option value="SOLIDARITY">Solidarity</option>
+                </select>
+            </div>
+            <div class="form-group" style=" margin-left: 10px;">
+                <label>Target Date:</label>
+                <input [(ngModel)]="personalTarget.targetDate" type="number" id="targetDate" min="2023" max="2100">
+            </div>
+            <div class="form-group" style=" margin-left: 10px;">
+                <label for="quarter">Quarter:</label>
+                <select id="quarter" name="quarter" [(ngModel)]="personalTarget.quarter">
+                    <option [selected]>First Quarter</option>
+                    <option>Second Quarter</option>
+                    <option>Third Quarter</option>
+                    <option>Fourth Quarter</option>
+                </select>
+            </div>
         </div>
     </div>
 

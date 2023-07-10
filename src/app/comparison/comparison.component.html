@@ -33,19 +33,19 @@
             </div>
         </div>
         <div class="dropdown">
-            
-                <button class="dropbtn">Employees</button>
-                <div class="dropdown-content">
-                    <a (click)="goToAssistance()">Assistance</a>
-                    <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
-                    <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-                    <a (click)="goToSearch()">Search</a>
+
+            <button class="dropbtn">Employees</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssistance()">Assistance</a>
+                <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+                    <a (click)="goToSearch()">Search By Skill & Rating</a>
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
                     </ng-container>
-                    </ng-container>
-                </div>
+                </ng-container>
+            </div>
         </div>
 
     </div>
@@ -176,6 +176,6 @@
         </tbody>
     </table>
 </div>
-<div >
+<div>
     <canvas id="ratingChart"></canvas>
 </div>

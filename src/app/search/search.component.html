@@ -34,7 +34,7 @@
                         <a  (click)="goToAssistance()">Assistance</a>
                         <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
                         <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
-                        <a class="active" (click)="goToSearch()">Search</a>
+                        <a class="active" (click)="goToSearch()">Search By Skill & Rating</a>
                         <a (click)="goToPeople()">My Team</a>
                         <ng-container *ngIf="coach && coach.isManager">
                             <a (click)="goToSkillsOverview()">Skills Overview</a>

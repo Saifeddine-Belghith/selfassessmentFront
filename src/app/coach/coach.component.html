@@ -18,7 +18,7 @@
             <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
                 <a [routerLink]="['/personal-target', this.coach.idEmployee]">New Personal Target</a>
-                <a (click)="goToClientFeedback()">Client Feedback</a> 
+                <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
         <div class="dropdown">
@@ -30,19 +30,19 @@
             </div>
         </div>
         <div class="dropdown">
-            
-                <button class="dropbtn" class="active">Employees</button>
-                    <div class="dropdown-content">
-                        <a (click)="goToAssistance()">Assistance</a>
-                        <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
-                        <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
-                            <a (click)="goToSearch()">Search</a>
-                            <a class="active" (click)="goToPeople()">My Team</a>
-                            <ng-container *ngIf="coach && coach.isManager">
-                                <a (click)="goToSkillsOverview()">Skills Overview</a>
-                            </ng-container>
-                        </ng-container>
-                    </div>
+
+            <button class="dropbtn" class="active">Employees</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssistance()">Assistance</a>
+                <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
+                    <a (click)="goToSearch()">Search By Skill & Rating</a>
+                    <a class="active" (click)="goToPeople()">My Team</a>
+                    <ng-container *ngIf="coach && coach.isManager">
+                        <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    </ng-container>
+                </ng-container>
+            </div>
         </div>
 
     </div>
@@ -83,7 +83,7 @@
                             <button class="btn" (click)="onRatingSelect(coachee.idEmployee)">Rating</button>
                             <button class="btn" (click)="onPersonalTargetSelect(coachee.idEmployee)">Personal
                                 Target</button>
-                                
+
                         </td>
                     </tr>
 
@@ -138,7 +138,8 @@
                         <button class="btn" (click)="onRatingSelect(employee.idEmployee)">Rating</button>
                         <button class="btn" (click)="onPersonalTargetSelect(employee.idEmployee)">Personal
                             Targets</button>
-                            <button class="btn" (click)="onClientFeedbackSelect(employee.idEmployee)">Add Client Feedback</button>
+                        <button class="btn" (click)="onClientFeedbackSelect(employee.idEmployee)">Add Client
+                            Feedback</button>
                     </td>
                 </tr>
 

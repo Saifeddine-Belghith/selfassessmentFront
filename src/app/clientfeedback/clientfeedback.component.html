@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn" class="active">My MBO</button>
             <div class="dropdown-content">
-                <a  (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToTarget()">New Personal Target</a>
                 <a class="active" (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -30,99 +30,100 @@
             </div>
         </div>
         <div class="dropdown">
-            
-                <button class="dropbtn">Employees</button>
-                <div class="dropdown-content">
-                    <a  (click)="goToAssistance()">Assistance</a>
-                    <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
-                    <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
-                    <a (click)="goToSearch()">Search</a>
-                    
+
+            <button class="dropbtn">Employees</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssistance()">Assistance</a>
+                <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+                    <a (click)="goToSearch()">Search By Skill & Rating</a>
+
                     <a (click)="goToPeople()">My Team</a>
                     <ng-container *ngIf="employee && employee.isManager">
                         <a (click)="goToSkillsOverview()">Skills Overview</a>
                     </ng-container>
-                    </ng-container>
-                </div>
+                </ng-container>
+            </div>
         </div>
 
     </div>
 </div>
-<div class="container"  >
-<ng-container *ngIf=" employee.idEmployee === coacheeId">
-    <h1 class="title">
-        Welcome <span class="employee-name">{{ employee.firstName }} </span> <span class="employee-name">{{
-            employee.lastName }}</span> in your Client Feedback page
-    </h1>
-    <p class="slogan">This space is to display the client feedback given to you</p>
-</ng-container>
-<ng-container *ngIf="employee.isManager && (employee.idEmployee !== coacheeId)">
-    <h1 class="title">
-        Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
-            employee.lastName }}</span> in <span class="coachee-name">{{ coacheeFirstName }} </span> <span
-            class="coachee-name">{{ coacheeLastName }}</span>'s Client Feedback page
-    </h1>
-    <p class="slogan">This space where you can add client feedback to your employee</p>
-</ng-container>
-<div class="container-box" *ngIf=" employee.isManager && (employee.idEmployee !== coacheeId)">
-<div class="input-list" style="margin: inherit;" *ngIf="employee && employee.isManager">
-    
-    <div class="form-group">
-        <label>Client Name:</label>
-        <input type="text" [(ngModel)]="clientFeedback.clientName" class="form-desc">
-    </div>
-    <div class="form-group">
-        <label>Evaluation:</label>
-        <select id="rating" name="rating" [(ngModel)]="clientFeedback.evaluation">
-            <option value="EXCELLENT">Excellent</option>
-            <option value="GOOD">Good</option>
-            <option value="APPROPRIATE">Appropriate</option>
-            <option value="UNDER_EXPECTATION">Under Expectation</option>
-            <option value="POOR">POOR</option>
-            <option value="NOT_APPLICABLE">NOT Applicable</option>
-        </select>
-    </div>
-    
-    <div class="form-group">
-        <label for="trend">Trend:</label>
-        <select id="trend" name="trend" [(ngModel)]="clientFeedback.trend">
-            <option selected>Not Applicable</option>
-            <option >Deteriorating</option>
-            <option >Poor</option>
-            <option >Staying the same</option>
-            <option >improving</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Comment:</label>
-        <input type="text" [(ngModel)]="clientFeedback.comment" class="form-desc">
-    </div>
+<div class="container">
+    <ng-container *ngIf=" employee.idEmployee === coacheeId">
+        <h1 class="title">
+            Welcome <span class="employee-name">{{ employee.firstName }} </span> <span class="employee-name">{{
+                employee.lastName }}</span> in your Client Feedback page
+        </h1>
+        <p class="slogan">This space is to display the client feedback given to you</p>
+    </ng-container>
+    <ng-container *ngIf="employee.isManager && (employee.idEmployee !== coacheeId)">
+        <h1 class="title">
+            Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
+                employee.lastName }}</span> in <span class="coachee-name">{{ coacheeFirstName }} </span> <span
+                class="coachee-name">{{ coacheeLastName }}</span>'s Client Feedback page
+        </h1>
+        <p class="slogan">This space where you can add client feedback to your employee</p>
+    </ng-container>
+    <div class="container-box" *ngIf=" employee.isManager && (employee.idEmployee !== coacheeId)">
+        <div class="input-list" style="margin: inherit;" *ngIf="employee && employee.isManager">
 
-    <button class="button-search" style="margin-left: 30px" (click)="createClientFeedback (clientFeedback)" *ngIf="employee && employee.isManager && idEmployee !== coacheeId">
-        Add Client Feedback</button>
+            <div class="form-group">
+                <label>Client Name:</label>
+                <input type="text" [(ngModel)]="clientFeedback.clientName" class="form-desc">
+            </div>
+            <div class="form-group">
+                <label>Evaluation:</label>
+                <select id="rating" name="rating" [(ngModel)]="clientFeedback.evaluation">
+                    <option value="EXCELLENT">Excellent</option>
+                    <option value="GOOD">Good</option>
+                    <option value="APPROPRIATE">Appropriate</option>
+                    <option value="UNDER_EXPECTATION">Under Expectation</option>
+                    <option value="POOR">POOR</option>
+                    <option value="NOT_APPLICABLE">NOT Applicable</option>
+                </select>
+            </div>
 
-</div>
-</div>
+            <div class="form-group">
+                <label for="trend">Trend:</label>
+                <select id="trend" name="trend" [(ngModel)]="clientFeedback.trend">
+                    <option selected>Not Applicable</option>
+                    <option>Deteriorating</option>
+                    <option>Poor</option>
+                    <option>Staying the same</option>
+                    <option>improving</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Comment:</label>
+                <input type="text" [(ngModel)]="clientFeedback.comment" class="form-desc">
+            </div>
+
+            <button class="button-search" style="margin-left: 30px" (click)="createClientFeedback (clientFeedback)"
+                *ngIf="employee && employee.isManager && idEmployee !== coacheeId">
+                Add Client Feedback</button>
+
+        </div>
+    </div>
 </div>
 <div class="container-box">
-<table class="table" *ngIf="employee && employee.isManager || idEmployee === coacheeId">
-    <thead>
-        <tr>
-            <th>Client Name</th>
-            <th id="desc">Evaluation</th>
-            <th>Rating</th>
-            <th>Trend</th>
-            <th>Comment</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let clientFeedback of clientFeedbacks">
-            <td>{{clientFeedback.clientName}}</td>
-            <td>{{ clientFeedback.evaluation }}</td>
-            <td>{{ clientFeedback.rating }}</td>
-            <td>{{ clientFeedback.trend }}</td>
-            <td>{{clientFeedback.comment}}</td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table" *ngIf="employee && employee.isManager || idEmployee === coacheeId">
+        <thead>
+            <tr>
+                <th>Client Name</th>
+                <th id="desc">Evaluation</th>
+                <th>Rating</th>
+                <th>Trend</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let clientFeedback of clientFeedbacks">
+                <td>{{clientFeedback.clientName}}</td>
+                <td>{{ clientFeedback.evaluation }}</td>
+                <td>{{ clientFeedback.rating }}</td>
+                <td>{{ clientFeedback.trend }}</td>
+                <td>{{clientFeedback.comment}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
