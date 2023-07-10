@@ -316,6 +316,8 @@ export class ComparisonComponent implements OnInit {
             borderWidth: 3,
           },
         },
+        responsive: true,
+        maintainAspectRatio: false,
       },
     };
 

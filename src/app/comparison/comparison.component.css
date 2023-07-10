@@ -254,8 +254,8 @@ select {
     color: white;
 }
 #ratingChart {
-    display: block;
+        display: block;
         box-sizing: border-box;
-        height: 1094px;
-        width: 1393px;
+        width: 50%;
+        height: 50%;
 }
