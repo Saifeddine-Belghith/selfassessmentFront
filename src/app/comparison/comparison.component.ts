@@ -10,6 +10,8 @@ import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { CategoryService } from '../category/category.service';
 import { Observable, catchError, defaultIfEmpty, forkJoin, map, switchMap, throwError } from 'rxjs';
 import { AssessmentService } from '../assessment/assessment.service';
+import { TargetRoleService } from '../target-role/target-role.service';
+import { TargetRole } from '../target-role/target-role.model';
 
 @Component({
   selector: 'app-search',
@@ -27,8 +29,8 @@ export class ComparisonComponent implements OnInit {
   selectedSkill!: Skill;
   selectedSkills: Skill[] = [];
   selectedRatings: number[] = [];
-  consultants: Employee[] = [];
-  consultantList: Employee[] = [];
+  targetRoles: TargetRole[] = [];
+  targetRoleList: TargetRole[] = [];
   selectedTargetAreas: TargetArea[] = [];
   selectedSupportedValues: SupportedValue[] = [];
   selectedStatuses: TargetStatus[] = [];
@@ -44,12 +46,14 @@ export class ComparisonComponent implements OnInit {
   ratingsConsultant: number[] = [];
   selectedConsultantId!: number;
   consultant!: Employee;
+  targetRole!: TargetRole;
   ratingsPerExperience: number[] = [];
 
 
   constructor(private employeeService: EmployeeService, private router: Router,
     private skillService: SkillService, private personalTargetService: PersonalTargetService,
-    private categoryService: CategoryService, private assessmentService: AssessmentService) { }
+    private categoryService: CategoryService, private assessmentService: AssessmentService,
+    private targetRoleService: TargetRoleService) { }
 
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
@@ -72,7 +76,7 @@ export class ComparisonComponent implements OnInit {
       
       
     this.getAverageRatingsByCategoryAndEmployee(this.id);
-     this.getAverageRatingsByCategoryAndExperience();
+    //  this.getAverageRatingsByCategoryAndExperience();
       this.getCategoryNameFromAverageMethods();
       
       this.getAverageRating(this.id).subscribe(ratings => {
@@ -146,10 +150,10 @@ export class ComparisonComponent implements OnInit {
   }
 
   getConsultantWithSimilarExperience(): void{
-    this.employeeService.getEmployeesByExperience(this.experience).subscribe(
-      consultants => {
-        this.consultantList = consultants;
-        console.log('people:', this.consultantList);
+    this.targetRoleService.getTargetRoles().subscribe(
+      targetRoles => {
+        this.targetRoleList = targetRoles;
+        console.log('people:', this.targetRoleList);
       }
   )
   }
@@ -168,9 +172,9 @@ export class ComparisonComponent implements OnInit {
       })
     );
   }
-  getAverageRatingConsultant(idConsultant: number): Observable<number[]> {
-    this.selectedConsultantId = idConsultant;
-    return this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(idConsultant).pipe(
+  getTargetRoleMinScore(idTargetRole: number): Observable<number[]> {
+    this.selectedConsultantId = idTargetRole;
+    return this.targetRoleService.getMinScore(idTargetRole).pipe(
       map((employeeRatings: { [idCategory: number]: number } | Map<number, number>) => {
         const ratings: number[] = Object.values(employeeRatings);
         console.log('Ratings:', ratings); // Log the extracted ratings
@@ -225,16 +229,16 @@ export class ComparisonComponent implements OnInit {
 
 
 
-  compareWith(consultantId: number): void {
+  compareWith(idTargetRole: number): void {
     this.getAverageRating(this.id).subscribe((ratings: number[]) => {
       // Ratings for your average
       console.log('Your Ratings:', ratings);
 
-      this.getAverageRatingConsultant(consultantId).subscribe((consultantRatings: number[]) => {
-        this.employeeService.getEmployeeById(consultantId).subscribe(consultant => {
-          this.consultant = consultant;
+      this.getTargetRoleMinScore(idTargetRole).subscribe((consultantRatings: number[]) => {
+        this.targetRoleService.getTargetRoleById(idTargetRole).subscribe(targetRole => {
+          this.targetRole = targetRole;
         });
-        
+
         // Ratings for the selected consultant
         console.log('Consultant Ratings:', consultantRatings);
 
@@ -245,6 +249,7 @@ export class ComparisonComponent implements OnInit {
       });
     });
   }
+
 
 
 
@@ -294,7 +299,7 @@ export class ComparisonComponent implements OnInit {
               pointRadius: 7,
         },
         {
-          label: this.consultant.firstName,
+          label: this.targetRole.roleName,
           data: this.ratingsConsultant,
           fill: true,
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
