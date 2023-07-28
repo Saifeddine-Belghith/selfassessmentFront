@@ -130,6 +130,26 @@ label {
     background-color: rgb(70, 86, 139);
 }
 
+.title {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    margin-bottom: revert;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.employee-name {
+    color: #ff6600;
+}
+
+.slogan {
+    text-align: center;
+    color: #000;
+    font-size: 30px;
+    font-weight: medium;
+}
+
 #ratingChart {
     width: 100%;
     height: 400px;

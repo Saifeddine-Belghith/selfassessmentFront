@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
-                <a [routerLink]="['/personal-target', this.id]">New Personal Target</a>
+                <a [routerLink]="['/personal-target', this.id]">Personal Targets</a>
                 <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -29,18 +29,18 @@
             </div>
         </div>
         <div class="dropdown">
-                <button class="dropbtn" class="active">Employees</button>
-                    <div class="dropdown-content">
-                        <a  (click)="goToAssistance()">Assistance</a>
-                        <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
-                        <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
-                        <a class="active" (click)="goToSearch()">Search By Skill & Rating</a>
-                        <a (click)="goToPeople()">My Team</a>
-                        <ng-container *ngIf="coach && coach.isManager">
-                            <a (click)="goToSkillsOverview()">Skills Overview</a>
-                        </ng-container>
-                        </ng-container>
-                    </div>
+            <button class="dropbtn" class="active">Employees</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssistance()">Assistance</a>
+                <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                <ng-container *ngIf="coach && (coach.isCoach || coach.isManager)">
+                    <a class="active" (click)="goToSearch()">Search By Skill & Rating</a>
+                    <a (click)="goToPeople()">My Team</a>
+                    <ng-container *ngIf="coach && coach.isManager">
+                        <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    </ng-container>
+                </ng-container>
+            </div>
         </div>
 
     </div>
@@ -111,7 +111,7 @@
                             <td class="coachee-name">{{ consultant.employeeDetails?.role }}</td>
                             <td class="coachee-name">{{ consultant.employeeDetails?.experienceLevel }}</td>
                             <td class="coachee-name">{{ consultant.employeeDetails?.email }}</td>
-                            <td ><button class="btn" (click)="sendEmail(consultant.email)">Contact</button></td>
+                            <td><button class="btn" (click)="sendEmail(consultant.email)">Contact</button></td>
                         </tr>
                     </ng-container>
                 </tbody>

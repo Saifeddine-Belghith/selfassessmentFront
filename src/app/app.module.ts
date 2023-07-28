@@ -23,7 +23,7 @@ import { SearchComponent } from './search/search.component';
 import { ClientfeedbackComponent } from './clientfeedback/clientfeedback.component';
 import { AssistanceComponent } from './assistance/assistance.component';
 import { SearchbypersonaltargetComponent } from './searchbypersonaltarget/searchbypersonaltarget.component';
-import { TargetRoleComponent } from './target-role/target-role.component';
+import { ProfileRoleComponent } from './profile-role/profile-role.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { TargetRoleComponent } from './target-role/target-role.component';
     ClientfeedbackComponent,
     AssistanceComponent,
     SearchbypersonaltargetComponent,
-    TargetRoleComponent,
+    ProfileRoleComponent,
   ],
   imports: [
     BrowserModule,

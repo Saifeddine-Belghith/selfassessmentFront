@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn" class="active">My MBO</button>
             <div class="dropdown-content">
-                <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToTarget()">Personal Targets</a>
                 <a class="active" (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -51,8 +51,8 @@
 <div class="container">
     <ng-container *ngIf=" employee.idEmployee === coacheeId">
         <h1 class="title">
-            Welcome <span class="employee-name">{{ employee.firstName }} </span> <span class="employee-name">{{
-                employee.lastName }}</span> in your Client Feedback page
+            <span class="employee-name">{{ employee.firstName }} </span> <span class="employee-name">{{
+                employee.lastName }}</span> - Client Feedback page
         </h1>
         <p class="slogan">This space is to display the client feedback given to you</p>
     </ng-container>

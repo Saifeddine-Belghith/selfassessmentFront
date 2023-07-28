@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
-                <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToTarget()">Personal Targets</a>
                 <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -59,11 +59,11 @@
             <input type="text" id="lastName" name="lastName" formControlName="lastName" required>
         </div>
         <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">Email *</label>
             <input type="email" id="email" name="email" formControlName="email" readonly>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Password <span style="color: rgb(243, 60, 60);">(Required)</span> </label>
             <input type="text" id="password" name="password" formControlName="password" required>
         </div>
         <div class="form-group">
@@ -72,21 +72,22 @@
         </div>
 
         <div class="form-group">
-            <label for="role">Role</label>
+            <label for="role">Role *</label>
             <input type="text" id="role" name="role" formControlName="role" readonly>
         </div>
         <div class="form-group">
-            <label for="isCoach">Is Coach?</label>
+            <label for="isCoach">Is Coach? *</label>
             <input type="text" id="isCoach" name="isCoach" formControlName="isCoach" readonly>
         </div>
         <div class="form-group">
-            <label for="isManager">Is Manager?</label>
+            <label for="isManager">Is Manager? *</label>
             <input type="text" id="isManager" name="isManager" formControlName="isManager" readonly>
         </div>
         <div class="form-group">
-            <label for="isCoachee">Is Coachee?</label>
+            <label for="isCoachee">Is Coachee? *</label>
             <input type="text" id="isCoachee" name="isCoachee" formControlName="isCoachee" readonly>
         </div>
+        <div>* : Only Admin have the right to change it</div>
         <div class="Sub">
             <button type="submit" [disabled]="!employeeForm.valid">Save</button>
             <button type="button" (click)="cancel()">Cancel</button>

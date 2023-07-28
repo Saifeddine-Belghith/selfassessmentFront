@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
-                <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToTarget()">Personal Targets</a>
                 <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -51,8 +51,6 @@
 <div>
     <form (ngSubmit)="createAssessment"></form>
 
-    <!--<ng-container *ngIf="categories && skills.length > 0">-->
-    <!-- <button (click)="logSkill(skill.rating, skills,  skill)">Log Skill</button> -->
     <table class="table">
         <thead>
             <tr>

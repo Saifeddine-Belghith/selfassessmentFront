@@ -1,5 +1,5 @@
-export interface TargetRole {
-    idTargetRole: number;
+export interface ProfileRole {
+    idProfileRole: number;
     roleName: string;
     description: string;
     displayName: string;

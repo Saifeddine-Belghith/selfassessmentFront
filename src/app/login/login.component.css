@@ -67,7 +67,6 @@ body {
     top: 0;
     left: 53px;
     border-radius: var(--br-mini);
-    background-color: rgba(255, 169, 77, 0.67);
     width: 164px;
     height: 51px;
 }
@@ -212,4 +211,50 @@ body {
     font-size: var(--font-size-9xl);
     color: var(--color-darkslategray);
     font-family: var(--font-varela-round);
+}
+.button-container {
+    /* display: flex; */
+    align-items: center;
+    margin-right: auto;
+    color: white;
+}
+
+.button-container button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: rgba(23, 175, 156, 255);
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: rgb(49, 70, 225);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* text: white; */
+    text-decoration: none;
+}
+
+.button-container a {
+    /* color: rgb(234, 226, 226); */
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+}
+
+.group-child button:hover {
+    background-color: rgb(70, 86, 139);
+}
+
+.group-child .active {
+    /*  color: rgb(234, 226, 226);*/
+    color: rgb(91, 107, 156);
 }

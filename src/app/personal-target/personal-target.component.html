@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn" class="active">My MBO</button>
             <div class="dropdown-content">
-                <a class="active" (click)="goToTarget()">New Personal Target</a>
+                <a class="active" (click)="goToTarget()">Personal Targets</a>
                 <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -49,15 +49,15 @@
 <div class="container">
     <ng-container *ngIf="idEmployee === coacheeId">
         <h1 class="title">
-            Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name">{{
-                employee.lastName }}</span> in Your Personal Targets
+            <span class="employee-name">{{ employee.firstName }} </span> <span class="employee-name">{{
+                employee.lastName }}</span> - Personal Targets
         </h1>
-        <p class="slogan">This space is to define your personal targets</p>
+        <p class="slogan">This space is to define and display your personal targets</p>
     </ng-container>
     <ng-container *ngIf="idEmployee !== coacheeId">
         <h1 class="title">
             Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
-                employee.lastName }}</span> in <span class="coachee-name">{{ coacheeFirstName }} </span> <span
+                employee.lastName }}</span> in <span class="coachee-name"> {{ coacheeFirstName }} </span> <span
                 class="coachee-name">{{ coacheeLastName }}</span>'s Personal Targets
         </h1>
         <p class="slogan">This space is to define personal targets for your employee</p>
@@ -66,7 +66,8 @@
 
 
     <div class="input-list" style=" margin-right: 10px;">
-        <div style="margin:auto;">
+        <div class="container-box" style="margin:auto;">
+            <h1 style="margin-bottom: revert;">Add New Personal Target</h1>
             <div class="form-group">
                 <label for="skill">Skill:</label>
                 <select id="skill" name="skill" [(ngModel)]="personalTarget.skill">
@@ -107,25 +108,31 @@
             </div>
             <div class="form-group" style=" margin-left: 10px;">
                 <label>Target Date:</label>
-                <input [(ngModel)]="personalTarget.targetDate" type="number" id="targetDate" min="2023" max="2100">
+                <input [(ngModel)]="personalTarget.targetDate" type="number" id="targetDate" min={{minyear}} max={{maxyear}}>
             </div>
             <div class="form-group" style=" margin-left: 10px;">
                 <label for="quarter">Quarter:</label>
                 <select id="quarter" name="quarter" [(ngModel)]="personalTarget.quarter">
-                    <option [selected]>First Quarter</option>
-                    <option>Second Quarter</option>
-                    <option>Third Quarter</option>
+                    <option *ngIf=" personalTarget.targetDate === minyear && month > 3"  disabled [selected]="false">First Quarter</option>
+                    <option *ngIf=" personalTarget.targetDate > minyear"  [selected]>First Quarter</option>
+                    <option *ngIf=" personalTarget.targetDate === minyear && month > 6" disabled >Second Quarter</option>
+                    <option *ngIf=" personalTarget.targetDate > minyear" >Second Quarter</option>
+                    <option *ngIf=" personalTarget.targetDate === minyear && month < 9"  >Third Quarter</option>
+                    <option *ngIf=" personalTarget.targetDate > minyear">Third Quarter</option>
                     <option>Fourth Quarter</option>
                 </select>
             </div>
+            <div class="add">
+                <button (click)="createPersonalTarget(personalTarget)" *ngIf="idEmployee === coacheeId">Add target</button>
+                <button (click)="assignPersonalTarget(personalTarget)" *ngIf="idEmployee !== coacheeId">Assign Target</button>
+            </div>
         </div>
+        
     </div>
 
-    <div class="add">
-        <button (click)="createPersonalTarget(personalTarget)" *ngIf="idEmployee === coacheeId">Add target</button>
-        <button (click)="assignPersonalTarget(personalTarget)" *ngIf="idEmployee !== coacheeId">Assign Target</button>
-    </div>
+    
 </div>
+<div class="container-box"><h1 style="text-align: center; margin-bottom: inherit;">Existing Personal Targets</h1>
 <table class="table">
     <thead>
         <tr>
@@ -163,7 +170,7 @@
         </tr>
     </tbody>
 </table>
-
+</div>
 <div class="overlay" *ngIf="showAlert">
     <div class="alert-box">
         <h2>Confirmation</h2>

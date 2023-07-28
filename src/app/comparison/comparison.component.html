@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
-                <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToTarget()">Personal Targets</a>
                 <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -65,14 +65,14 @@
         </thead>
         <tbody>
 
-            <tr *ngFor="let targetRole of targetRoleList">
-                
-                    <td class="coachee-name">{{ targetRole.roleName }}</td>
-                    <td class="coachee-name">{{ targetRole.description }}</td>
-                    <td class="search">
-                        <button (click)="compareWith(targetRole.idTargetRole)">Compare with</button>
-                    </td>
-                
+            <tr *ngFor="let profileRole of profileRoleList">
+
+                <td class="coachee-name">{{ profileRole.roleName }}</td>
+                <td class="coachee-name">{{ profileRole.description }}</td>
+                <td class="search">
+                    <button (click)="compareWith(profileRole.idProfileRole)">Compare with</button>
+                </td>
+
             </tr>
 
         </tbody>

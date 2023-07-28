@@ -15,11 +15,8 @@
             <img class="logo-color-1-icon" alt="" src="../assets/images/Logo-color.png" />
         </div>
         <div class="login-child"></div>
-        <div class="rectangle-parent" id="groupContainer" (click)="Login()" type="submit">
-            <div class="group-child"></div>
-            <div class="login1" (click)="Login()" type="submit"> LOGIN</div>
-        </div>
         
+
         <img class="user-circle-1-icon" alt="" src="./assets/images/images.png" />
         <div class="login-item"></div>
         <div class="e-mail-address">
@@ -27,53 +24,24 @@
             <div class="e-mail-address-item"></div>
             <div class="div">@</div>
             <div class="e-mail-address1"><input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
-                class="form-control"
-                id="email" placeholder="Enter Email"></div>
+                    class="form-control" id="email" placeholder="Enter Email"></div>
         </div>
-            <div class="password">
-                <div class="e-mail-address-child"></div>
-                <div class="e-mail-address-item"></div>
-                <img class="locked-password-1-icon" alt="" src="./assets/images/lockedpassword.png" />
-                <div class="password1"><input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control" id="password"
-                    class="form-control" placeholder="Enter Password"></div>
+        <div class="password">
+            <div class="e-mail-address-child"></div>
+            <div class="e-mail-address-item"></div>
+            <img class="locked-password-1-icon" alt="" src="./assets/images/lockedpassword.png" />
+            <div class="password1"><input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"
+                    class="form-control" id="password" class="form-control" placeholder="Enter Password"></div>
+        </div>
+        <div class="rectangle-parent" id="groupContainer" (click)="Login()" type="submit">
+            <div class="group-child"></div>
+            <div class="button-container"><button> <a type="button" (click)="Login()" type="submit"> LOGIN</a></button>
             </div>
-            <!-- <div><button type="submit" class="btn btn-primary" (click)="Login()"> Login</button></div>
+            <!-- <button><a type="button" (click)="goToHome()">Home</a></button> -->
+        </div>
+        <!-- <div><button type="submit" class="btn btn-primary" (click)="Login()"> Login</button></div>
              -->
     </article>
 
-    <!-- <script>
-        
-        var groupContainer = document.getElementById("groupContainer");
-        if (groupContainer) {
-            groupContainer.addEventListener("click", function (e) {
-                // Please sync "User Dashboard" to the project
-            });
-        }
-    </script> -->
+
 </body>
-
-<!-- 
-<div class="container mt-4">
-    <div class="card">
-        <h1>Employee Login</h1>
-        <form>
-
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" class="form-control"
-                    id="email" placeholder="Enter Email">
-            </div>
-
-            <div class="form-group">
-                <label>Paaword</label>
-                <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control"
-                    id="password" class="form-control" placeholder="Enter Password">
-            </div>
-
-            <button type="submit" class="btn btn-primary" (click)="Login()">Login</button>
-
-
-        </form>
-    </div>
-
-</div> -->

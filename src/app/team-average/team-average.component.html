@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
-                <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToTarget()">Personal Targets</a>
                 <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -45,6 +45,12 @@
 
     </div>
 </div>
+
+<h1 class="title">
+    <span class="employee-name">{{ manager.firstName }} </span> <span class="employee-name">{{
+        manager.lastName }}</span> - Average Ratings Dashboard
+</h1>
+<p class="slogan">Discover the average ratings for each skill based on the latest assessments submitted by team members. Gain a comprehensive overview of your team's strengths and areas for improvement.</p>
 <div>
     <canvas id="ratingChart"></canvas>
 </div>

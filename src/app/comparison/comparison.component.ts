@@ -10,8 +10,8 @@ import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { CategoryService } from '../category/category.service';
 import { Observable, catchError, defaultIfEmpty, forkJoin, map, switchMap, throwError } from 'rxjs';
 import { AssessmentService } from '../assessment/assessment.service';
-import { TargetRoleService } from '../target-role/target-role.service';
-import { TargetRole } from '../target-role/target-role.model';
+import { ProfileRoleService } from '../profile-role/profile-role.service';
+import { ProfileRole } from '../profile-role/profile-role.model';
 
 @Component({
   selector: 'app-search',
@@ -19,7 +19,7 @@ import { TargetRole } from '../target-role/target-role.model';
   styleUrls: ['./comparison.component.css']
 })
 export class ComparisonComponent implements OnInit {
-  
+
 
   employee!: Employee;
   id!: number;
@@ -29,8 +29,8 @@ export class ComparisonComponent implements OnInit {
   selectedSkill!: Skill;
   selectedSkills: Skill[] = [];
   selectedRatings: number[] = [];
-  targetRoles: TargetRole[] = [];
-  targetRoleList: TargetRole[] = [];
+  profileRoles: ProfileRole[] = [];
+  profileRoleList: ProfileRole[] = [];
   selectedTargetAreas: TargetArea[] = [];
   selectedSupportedValues: SupportedValue[] = [];
   selectedStatuses: TargetStatus[] = [];
@@ -46,45 +46,45 @@ export class ComparisonComponent implements OnInit {
   ratingsConsultant: number[] = [];
   selectedConsultantId!: number;
   consultant!: Employee;
-  targetRole!: TargetRole;
+  profileRole!: ProfileRole;
   ratingsPerExperience: number[] = [];
 
 
   constructor(private employeeService: EmployeeService, private router: Router,
     private skillService: SkillService, private personalTargetService: PersonalTargetService,
     private categoryService: CategoryService, private assessmentService: AssessmentService,
-    private targetRoleService: TargetRoleService) { }
+    private profileRoleService: ProfileRoleService) { }
 
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
     console.log('id of this employee' + this.id);
 
 
-    
+
     this.employeeService.getEmployeeById(this.id).subscribe(employee => {
       this.employee = employee;
       this.isCoach = this.employee?.isCoach;
       this.isManager = this.employee?.isManager;
       this.experience = this.employee?.experienceLevel;
       console.log("the experience is :", this.experience)
-    
+
       this.experience = this.employee.experienceLevel;
       this.getConsultantWithSimilarExperience();
-    console.log("is exp", this.experience)
-    console.log("id emp", this.id)
-    this.getSkills();
-      
-      
-    this.getAverageRatingsByCategoryAndEmployee(this.id);
-    //  this.getAverageRatingsByCategoryAndExperience();
+      console.log("is exp", this.experience)
+      console.log("id emp", this.id)
+      this.getSkills();
+
+
+      this.getAverageRatingsByCategoryAndEmployee(this.id);
+      //  this.getAverageRatingsByCategoryAndExperience();
       this.getCategoryNameFromAverageMethods();
-      
+
       this.getAverageRating(this.id).subscribe(ratings => {
         // console.log('Ratings:', ratings);
       });
       this.getAverageRatingSimilarExperience(this.experience);
       Chart.register(...registerables);
-      
+
     });
   }
 
@@ -102,11 +102,11 @@ export class ComparisonComponent implements OnInit {
   }
 
 
-  getAverageRatingsByCategoryAndEmployee(idEmployee:number): void {
+  getAverageRatingsByCategoryAndEmployee(idEmployee: number): void {
     this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(idEmployee).subscribe(
       (employeeRatings: Map<number, number>) => {
         // Process the employeeRatings data as needed
-        
+
       },
       (error: any) => {
         console.error('Error retrieving average ratings by category and employee:', error);
@@ -114,7 +114,7 @@ export class ComparisonComponent implements OnInit {
     );
   }
 
-  
+
   getAverageRatingsByCategoryAndExperience(): void {
     this.assessmentService.calculateAverageRatingsByCategoryAndExperience(this.experience).subscribe(
       (similarExperienceRatings: Map<number, number>) => {
@@ -127,7 +127,7 @@ export class ComparisonComponent implements OnInit {
     );
   }
 
-  
+
   getCategoryNameFromAverageMethods(): Observable<string[]> {
     return this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(this.id).pipe(
       switchMap((employeeRatings: { [idCategory: string]: any }) => {
@@ -149,15 +149,15 @@ export class ComparisonComponent implements OnInit {
     );
   }
 
-  getConsultantWithSimilarExperience(): void{
-    this.targetRoleService.getTargetRoles().subscribe(
-      targetRoles => {
-        this.targetRoleList = targetRoles;
-        console.log('people:', this.targetRoleList);
+  getConsultantWithSimilarExperience(): void {
+    this.profileRoleService.getProfileRoles().subscribe(
+      profileRoles => {
+        this.profileRoleList = profileRoles;
+        console.log('people:', this.profileRoleList);
       }
-  )
+    )
   }
-  
+
   getAverageRating(idEmployee: number): Observable<number[]> {
     return this.assessmentService.calculateAverageRatingsByCategoryAndEmployee(idEmployee).pipe(
       map((employeeRatings: { [idCategory: number]: number } | Map<number, number>) => {
@@ -172,9 +172,9 @@ export class ComparisonComponent implements OnInit {
       })
     );
   }
-  getTargetRoleMinScore(idTargetRole: number): Observable<number[]> {
-    this.selectedConsultantId = idTargetRole;
-    return this.targetRoleService.getMinScore(idTargetRole).pipe(
+  getProfileRoleMinScore(idProfileRole: number): Observable<number[]> {
+    this.selectedConsultantId = idProfileRole;
+    return this.profileRoleService.getMinScore(idProfileRole).pipe(
       map((employeeRatings: { [idCategory: number]: number } | Map<number, number>) => {
         const ratings: number[] = Object.values(employeeRatings);
         console.log('Ratings:', ratings); // Log the extracted ratings
@@ -229,14 +229,14 @@ export class ComparisonComponent implements OnInit {
 
 
 
-  compareWith(idTargetRole: number): void {
+  compareWith(idProfileRole: number): void {
     this.getAverageRating(this.id).subscribe((ratings: number[]) => {
       // Ratings for your average
       console.log('Your Ratings:', ratings);
 
-      this.getTargetRoleMinScore(idTargetRole).subscribe((consultantRatings: number[]) => {
-        this.targetRoleService.getTargetRoleById(idTargetRole).subscribe(targetRole => {
-          this.targetRole = targetRole;
+      this.getProfileRoleMinScore(idProfileRole).subscribe((consultantRatings: number[]) => {
+        this.profileRoleService.getProfileRoleById(idProfileRole).subscribe(profileRole => {
+          this.profileRole = profileRole;
         });
 
         // Ratings for the selected consultant
@@ -286,45 +286,45 @@ export class ComparisonComponent implements OnInit {
         const data = {
           labels: this.categoryNames,
           datasets: [
-        {
-              label: this.employee.firstName  ,
+            {
+              label: this.employee.firstName,
               data: this.ratings,
-          fill: true,
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          borderColor: 'rgb(255, 99, 132)',
-          pointBackgroundColor: 'rgb(255, 99, 132)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
+              fill: true,
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgb(255, 99, 132)',
+              pointBackgroundColor: 'rgb(255, 99, 132)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
               pointHoverBorderColor: 'rgb(255, 99, 132)',
               pointRadius: 7,
-        },
-        {
-          label: this.targetRole.roleName,
-          data: this.ratingsConsultant,
-          fill: true,
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgb(54, 162, 235)',
-          pointBackgroundColor: 'rgb(54, 162, 235)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgb(54, 162, 235)',
-          pointRadius: 7,
-        },
-      ],
+            },
+            {
+              label: this.profileRole.roleName,
+              data: this.ratingsConsultant,
+              fill: true,
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgb(54, 162, 235)',
+              pointBackgroundColor: 'rgb(54, 162, 235)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: 'rgb(54, 162, 235)',
+              pointRadius: 7,
+            },
+          ],
         };
-    const config: ChartConfiguration<'radar'> = {
-      type: 'radar',
-      data: data,
-      options: {
-        elements: {
-          line: {
-            borderWidth: 3,
+        const config: ChartConfiguration<'radar'> = {
+          type: 'radar',
+          data: data,
+          options: {
+            elements: {
+              line: {
+                borderWidth: 3,
+              },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
           },
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-      },
-    };
+        };
 
         if (this.chart) {
           this.chart.destroy();

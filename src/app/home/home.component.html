@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
-                <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToTarget()">Personal Targets</a>
                 <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -56,7 +56,9 @@
     <!-- <img class="logo-color-1-icon"  /> -->
 </div>
 
-<h1 class="welcome-message">Welcome {{employee?.firstName}} {{employee?.lastName}} in your home page</h1>
+<h1 class="title">
+    <span class="employee-name">{{ employee.firstName }} </span> <span class="employee-name">{{
+        employee.lastName }}</span> - Home page</h1>
 
 
 <!-- 

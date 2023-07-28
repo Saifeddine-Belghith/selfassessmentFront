@@ -46,6 +46,7 @@ export class SearchbypersonaltargetComponent implements OnInit {
   filteredEmployees: Employee[] = [];   // Stores results of search by personal targets
 
 
+
   constructor(private employeeService: EmployeeService, private skillService: SkillService,
     private personalTargetService: PersonalTargetService, private route: ActivatedRoute,
     private router: Router) { }
@@ -79,8 +80,8 @@ export class SearchbypersonaltargetComponent implements OnInit {
   searchConsultantsbyTarget(): void {
     const payload = {
       skill: this.skill,
-      targetArea: this.selectedTargetArea ? [this.selectedTargetArea] : this.selectedTargetAreas,
-      supportedValue: this.selectedSupportedValue ? [this.selectedSupportedValue] : this.selectedSupportedValues,
+      // targetArea: this.selectedTargetArea ? [this.selectedTargetArea] : this.selectedTargetAreas,
+      // supportedValue: this.selectedSupportedValue ? [this.selectedSupportedValue] : this.selectedSupportedValues,
       targetStatus: this.selectedStatus ? [this.selectedStatus] : this.selectedStatuses,
       targetDate: this.targetDate,
       quarter: this.selectedQuarter ? [this.selectedQuarter] : this.selectedQuarters,
@@ -117,7 +118,9 @@ export class SearchbypersonaltargetComponent implements OnInit {
               console.log('Consultants:', filteredConsultants);
 
               this.consultants = filteredConsultants;
+              console.log('Consultants now:', this.consultants);
               this.filteredEmployees = filteredConsultants;
+              console.log('Employees now:', this.filteredEmployees);
             })
             .catch(error => {
               console.error('Error:', error);
@@ -136,6 +139,13 @@ export class SearchbypersonaltargetComponent implements OnInit {
 
   getFilteredEmployees(): Employee[] {
     return this.filteredEmployees;
+  }
+
+  sendEmail(email: string) {
+    const subject = encodeURIComponent("Subject of the email");
+    const body = encodeURIComponent("Body of the email");
+    const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+    window.open(mailtoLink);
   }
 
 

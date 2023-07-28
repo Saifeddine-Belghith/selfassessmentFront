@@ -33,6 +33,9 @@ export class PersonalTargetComponent implements OnInit {
   coacheeLastName: string = '';
   skills: Skill[] = [];
   skillNames: any;
+  minyear: number = new Date().getFullYear();
+  maxyear: number = this.minyear + 100;
+  month: number = new Date().getMonth();
 
   constructor(private personalTargetService: PersonalTargetService, private employeeService: EmployeeService,
     private router: Router, private route: ActivatedRoute, private skillService:SkillService) { }

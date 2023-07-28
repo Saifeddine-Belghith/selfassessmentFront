@@ -24,6 +24,7 @@ export class RatingChangesComponent implements OnInit {
   skillName!: string;
   startDate!: Date;
   endDate!: Date;
+
   ratingChanges!: Map<string, number[]>;
   chart!: Chart;
   ratingForm!: FormGroup;

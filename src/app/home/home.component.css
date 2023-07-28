@@ -167,7 +167,16 @@ label {
     font-weight: bold;
 }
 
-
+.title {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    font-size: 45px;
+    font-weight: bold;
+}
+.employee-name {
+    color: #ff6600;
+}
 
 
 

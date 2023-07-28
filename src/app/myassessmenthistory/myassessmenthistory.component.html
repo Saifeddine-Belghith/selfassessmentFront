@@ -17,7 +17,7 @@
         <div class="dropdown">
             <button class="dropbtn">My MBO</button>
             <div class="dropdown-content">
-                <a (click)="goToTarget()">New Personal Target</a>
+                <a (click)="goToTarget()">Personal Targets</a>
                 <a (click)="goToClientFeedback()">Client Feedback</a>
             </div>
         </div>
@@ -48,8 +48,8 @@
 </div>
 <ng-container *ngIf="employee && employee.idEmployee === this.coachee.idEmployee">
     <h1 class="title">
-        Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
-            employee.lastName }}</span> in Your assessment history
+        <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
+            employee.lastName }}</span> - Assessment history
     </h1>
     <p class="slogan">Explore your complete assessment history</p>
 </ng-container>
@@ -100,6 +100,5 @@
                     <td class="rating">{{ group.assessments[0].rating }}</td>
                     <td class="date">{{ group.assessments[0].assessmentDate }}</td>
                 </tr>
-
             </ng-container>
         </tbody>
