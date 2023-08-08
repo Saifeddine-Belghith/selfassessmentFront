@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee-details/employee.model';
 import { EmployeeService } from '../employee-details/employee.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-employee-details',
@@ -21,7 +22,7 @@ export class EmployeeDetailsComponent implements OnInit {
   isManager: boolean = false;
   private apiUrl = 'http://10.66.12.54:8081';
 
-  constructor(private route: ActivatedRoute, private employeeService: EmployeeService, private fb: FormBuilder, private router: Router, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService, private employeeService: EmployeeService, private fb: FormBuilder, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
@@ -92,6 +93,9 @@ export class EmployeeDetailsComponent implements OnInit {
     this.loadEmployee();
     this.isEditMode = false;
   }
+  onLogout() {
+    this.authService.logout();
+  }
   goToHome() {
     this.router.navigateByUrl('/home');
   }
@@ -121,6 +125,10 @@ export class EmployeeDetailsComponent implements OnInit {
   goToTarget() {
     console.log('id before' + this.id)
     this.router.navigate(['/personal-target', this.id]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.id]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

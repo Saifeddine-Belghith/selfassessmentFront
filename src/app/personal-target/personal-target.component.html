@@ -4,8 +4,13 @@
     </div>
     <div class="button-container">
         <button><a type="button" (click)="goToHome()">Home</a></button>
-        <button> <a type="button" (click)="goToProfile()">Profile</a></button>
-        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">Profile</button>
+            <div class="dropdown-content">
+                <a (click)="goToProfile()">My Profile</a>
+                <a (click)="goToTargetRole()">My Target Role</a>
+            </div>
+        </div>        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
         <div class="dropdown">
             <button class="dropbtn">My Assessments</button>
             <div class="dropdown-content">
@@ -43,7 +48,7 @@
                 </ng-container>
             </div>
         </div>
-
+<button><a type="button" (click)="onLogout()">Logout</a></button>
     </div>
 </div>
 <div class="container">

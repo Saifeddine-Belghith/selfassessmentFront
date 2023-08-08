@@ -1,0 +1,120 @@
+<div class="header">
+    <div class="logo-container">
+        <img href="#default" class="logo" alt="" src="../assets/images/Logo-color.png" />
+    </div>
+    <div class="button-container">
+        <button><a type="button"  (click)="goToHome()">Home</a></button>
+        <div class="dropdown" >
+            <button class="dropbtn" class="active">Profile</button>
+            <div class="dropdown-content">
+        <a (click)="goToProfile()">My Profile</a>
+        <a class="active"  (click)="goToTargetRole()">My Target Role</a>
+        </div>
+        </div>
+        <!-- <button> <a (click)="goToAssessment()">New Assessment</a></button> -->
+        <div class="dropdown">
+            <button class="dropbtn">My Assessments</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssessment()">New Assessment</a>
+                <a (click)="goToMyAssessmentHistory()">History</a>
+
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" >My MBO</button>
+            <div class="dropdown-content">
+                <a  (click)="goToTarget()">Personal Targets</a>
+                <a (click)="goToClientFeedback()">Client Feedback</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">My Qualification</button>
+            <div class="dropdown-content">
+                <a *ngIf="employee && (employee.isCoach || employee.isCoachee)" type="button"
+                    (click)="goToCompare()">Compare</a>
+                <a (click)="goToMyRating()">Ratings Over Time</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Employees</button>
+            <div class="dropdown-content">
+                <a (click)="goToAssistance()">Assistance</a>
+                <a (click)="goToSearchByPersonalTarget()">Search By Personal Target</a>
+                <ng-container *ngIf="employee && (employee.isCoach || employee.isManager)">
+                    <a (click)="goToSearch()">Search By Skill & Rating</a>
+                    <a (click)="goToPeople()">My Team</a>
+                    <ng-container *ngIf="employee && employee.isManager">
+                        <a (click)="goToSkillsOverview()">Skills Overview</a>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+<button ><a type="button"  (click)="onLogout()">Logout</a></button>
+    </div>
+</div>
+<div class="container">
+    <ng-container *ngIf="idEmployee === coacheeId">
+        <h1 class="title">
+            <span class="employee-name">{{ employee.firstName }} </span> <span class="employee-name">{{
+                employee.lastName }}</span> - Target Role
+        </h1>
+        <p class="slogan">This space is to display the target role defined by your manager and your coach</p>
+    </ng-container>
+    <ng-container *ngIf="idEmployee !== coacheeId">
+        <h1 class="title">
+            Welcome <span class="employee-name">{{ employee.firstName }}</span> <span class="employee-name"> {{
+                employee.lastName }}</span> in <span class="coachee-name"> {{ coacheeFirstName }} </span> <span
+                class="coachee-name">{{ coacheeLastName }}</span>'s Target Role
+        </h1>
+        <p class="slogan">This space is to define target role for your employee</p>
+    </ng-container>
+    <ng-container *ngIf="idEmployee !== coacheeId &&  targetRoles.length === 0 ">
+        <!-- <ng-container *ngIf="targetRoles.length === 0"> -->
+        <div class="input-list" style=" margin-right: 10px;">
+            <div class="container-box" style="margin:auto;">
+                <h1 style="margin-bottom: revert;">Add New Target Role</h1>
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" [(ngModel)]="targetRole.role">
+                        <option *ngFor="let role of profileRoleList" [ngValue]="role.displayName">{{ role.description }}</option>
+                    </select>
+                </div>
+                <div class="add">
+                    <button (click)="assignTargetRole(targetRole)">Define
+                        Role</button>
+                </div>
+            </div>
+        </div>
+        </ng-container>
+    <div *ngIf="targetRoles.length != 0 " class="container-box">
+        <h1  style="text-align: center; margin-bottom: inherit;">Existing Target Role</h1>
+        <table  class="table">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Defined By</th>
+                    <th *ngIf="idEmployee !== coacheeId">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let target of targetRoles">
+                    <td>{{target.role}}</td>
+                    <td>{{ target.definedBy}}</td>
+                    <td *ngIf="idEmployee !== coacheeId" class="add">
+                        <button  (click)="confirmDelete(target)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="targetRoles.length === 0 " class="container-box">
+        <h1 style="text-align: center; margin-bottom: inherit;">No Target Role defined</h1>
+</div>
+    <div class="overlay" *ngIf="showAlert">
+        <div class="alert-box">
+            <h2>Confirmation</h2>
+            <p>Are you sure you want to continue?</p>
+            <div class="button-container">
+                <button (click)="continue()">Continue</button>
+                <button (click)="cancel()">Cancel</button>
+            </div>

@@ -5,6 +5,7 @@ import { Chart, ChartConfiguration, ChartData, BarElement, BarController, Catego
 import { Employee } from '../employee-details/employee.model';
 import { EmployeeService } from '../employee-details/employee.service';
 import { TeamAverageService } from './team-average.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-team-average',
@@ -19,7 +20,7 @@ export class TeamAverageComponent implements OnInit {
   idEmployee!: number;
   private apiUrl = 'http://10.66.12.54:8081';
 
-  constructor(private route: ActivatedRoute, private router: Router, private activatedRoute: ActivatedRoute, private employeeService: EmployeeService, private teamAverageService: TeamAverageService, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private employeeService: EmployeeService, private teamAverageService: TeamAverageService, private http: HttpClient) {
 
   }
 
@@ -73,6 +74,10 @@ export class TeamAverageComponent implements OnInit {
     const chart = new Chart(canvas, chartConfig);
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
   goToHome() {
     this.router.navigateByUrl('/home');
   }
@@ -105,6 +110,10 @@ export class TeamAverageComponent implements OnInit {
   goToTarget() {
     console.log('id before' + this.idEmployee)
     this.router.navigate(['/personal-target', this.idEmployee]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.idEmployee)
+    this.router.navigate(['/target-role', this.idEmployee]);
   }
   goToCompare() { this.router.navigate(['/qualification-comparison']) }
   goToSearch() { this.router.navigate(['/search']) }

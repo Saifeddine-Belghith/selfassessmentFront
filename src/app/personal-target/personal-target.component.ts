@@ -7,6 +7,7 @@ import { EmployeeService } from '../employee-details/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Skill } from '../skill/skill.model';
 import { SkillService } from '../skill/skill.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-personal-target',
@@ -38,7 +39,8 @@ export class PersonalTargetComponent implements OnInit {
   month: number = new Date().getMonth();
 
   constructor(private personalTargetService: PersonalTargetService, private employeeService: EmployeeService,
-    private router: Router, private route: ActivatedRoute, private skillService:SkillService) { }
+    private router: Router, private route: ActivatedRoute, private skillService: SkillService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.coacheeId = parseInt(this.route.snapshot.params['id']);
@@ -205,6 +207,11 @@ export class PersonalTargetComponent implements OnInit {
     this.showAlert = false; // Hide the confirmation alert
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
+  
   goToHome() { this.router.navigateByUrl('/home'); }
 
   goToProfile() {
@@ -228,6 +235,10 @@ export class PersonalTargetComponent implements OnInit {
   goToTarget() {
     console.log('id before ' + this.id)
     this.router.navigate(['/personal-target', this.idEmployee]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.id]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

@@ -15,11 +15,12 @@ import { SearchComponent } from './search/search.component';
 import { ClientfeedbackComponent } from './clientfeedback/clientfeedback.component';
 import { AssistanceComponent } from './assistance/assistance.component';
 import { SearchbypersonaltargetComponent } from './searchbypersonaltarget/searchbypersonaltarget.component';
+import { TargetRoleComponent } from './target-role/target-role.component';
 
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'employees/:id', component: EmployeeDetailsComponent },
   { path: 'assessment', component: AssessmentTableComponent },
   { path: ':id/assessment', component: AssessmentTableComponent },
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'search', component:SearchComponent},
   { path: 'client-feedback/:id', component: ClientfeedbackComponent },
   { path: 'assistance', component: AssistanceComponent },
-  {path:'searchbypersonaltarget', component:SearchbypersonaltargetComponent}
+  { path: 'searchbypersonaltarget', component: SearchbypersonaltargetComponent },
+  { path: 'target-role/:id', component: TargetRoleComponent},
 ];
 
 @NgModule({

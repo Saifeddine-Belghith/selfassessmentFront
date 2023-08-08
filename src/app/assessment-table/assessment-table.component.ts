@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee-details/employee.model';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../login/auth.service';
 
 
 interface AssessmentDTO {
@@ -54,7 +55,8 @@ export class AssessmentTableComponent implements OnInit {
     private skillService: SkillService,
     private employeeService: EmployeeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) { }
 
   async ngOnInit() {
@@ -220,6 +222,9 @@ export class AssessmentTableComponent implements OnInit {
     return this.lastRating;
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
 
   goToHome() { this.router.navigateByUrl('/home'); }
   goToProfile() {
@@ -243,6 +248,10 @@ export class AssessmentTableComponent implements OnInit {
   goToTarget() {
     console.log('id before ' + this.id)
     this.router.navigate(['/personal-target', this.idEmployee]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.idEmployee]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

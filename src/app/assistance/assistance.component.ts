@@ -8,6 +8,7 @@ import { Category } from '../category/category.model';
 import { Observable, catchError, defaultIfEmpty, forkJoin, map, switchMap, throwError } from 'rxjs';
 import { Skill } from '../skill/skill.model';
 import { SkillService } from '../skill/skill.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-assistance',
@@ -36,7 +37,7 @@ export class AssistanceComponent implements OnInit {
   employees: Employee[] = [];
 
   constructor(private employeeService: EmployeeService, private assessmentService: AssessmentService,
-  private router:Router, private categoryService:CategoryService, private skillService: SkillService) { }
+    private router: Router, private authService: AuthService, private categoryService:CategoryService, private skillService: SkillService) { }
 
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
@@ -162,7 +163,9 @@ export class AssistanceComponent implements OnInit {
     window.open(mailtoLink);
   }
 
-
+  onLogout() {
+    this.authService.logout();
+  }
 
   goToHome() { this.router.navigateByUrl('/home'); }
 
@@ -184,6 +187,10 @@ export class AssistanceComponent implements OnInit {
   goToTarget() {
     console.log('id before ' + this.id)
     this.router.navigate(['/personal-target', this.id]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.id]);
   }
   goToSkillsOverview() { this.router.navigate(['/team-levels']) }
   goToCompare() { this.router.navigate(['/qualification-comparison']) }

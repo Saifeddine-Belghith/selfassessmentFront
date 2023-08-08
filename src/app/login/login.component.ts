@@ -11,7 +11,7 @@ import { Employee } from '../employee-details/employee.model';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  idEmployee!: number;
+  idEmployee: number | null = null;
 
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -38,5 +38,13 @@ export class LoginComponent {
         this.router.navigateByUrl(`/home`);
       }
     });
+  }
+  Logout() {
+    // Clear user-related data
+    this.idEmployee = null;
+    localStorage.removeItem('idEmployee');
+
+    // Redirect to the login page
+    this.router.navigateByUrl('/login');
   }
 }

@@ -1,0 +1,345 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.logo-container {
+    margin: auto;
+}
+
+.button-container {
+    /* display: flex; */
+    align-items: center;
+    margin-right: auto;
+}
+
+.button-container button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: rgba(23, 175, 156, 255);
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: rgb(49, 70, 225);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* text: white; */
+    text-decoration: none;
+}
+
+.button-container a {
+    /* color: rgb(234, 226, 226); */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: rgb(70, 86, 139);
+}
+
+.button-container .active {
+    /*  color: rgb(234, 226, 226);*/
+    color: rgb(91, 107, 156);
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.nav-container a {
+    color: rgb(234, 226, 226);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-decoration-color: white;
+}
+
+.dropbtn {
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: rgb(70, 86, 139);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-decoration-color: white;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    min-width: 160px;
+    background-color: rgba(217, 217, 217, 0.801);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(70, 86, 139);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: rgb(70, 86, 139);
+}
+
+.container-box {
+    box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 24%);
+    padding: 50px;
+    margin: 40px;
+}
+
+.title {
+    text-align: center;
+    color: #000;
+    margin-top: 50px;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.slogan {
+    text-align: center;
+    color: #000;
+    font-size: 30px;
+    font-weight: medium;
+}
+
+.employee-name {
+    color: #ff6600;
+}
+
+.coachee-name {
+    color: #3366ff;
+}
+
+.input-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.add {
+    margin-top: 20px;
+}
+
+.add button {
+    padding: 10px 20px;
+    background-color: #273978;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.select {
+    top: 9px;
+    left: 63px;
+    font-size: var(--font-size-9xl);
+    font-family: var(--font-varela-round);
+    color: var(--color-darkslategray);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 267px;
+}
+
+#current-role {
+    margin: 20px;
+}
+
+#target-role {
+    margin: 20px;
+}
+
+.input-list {
+    display: flex;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin: 5px;
+}
+
+input,
+optgroup,
+select,
+textarea {
+    margin: 5px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-align: center;
+}
+
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.table td,
+.table th {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgba(23, 175, 156, 255);
+    color: white;
+}
+
+.table #desc {
+    width: 1px;
+}
+
+.input-group {
+    margin-right: 10px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.alert-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.alert-box h2 {
+    margin-top: 0;
+}
+
+.add button {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #273978;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.add button:hover {
+    background-color: #5b6b9c;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.button-container button {
+    margin-left: 10px;
+}

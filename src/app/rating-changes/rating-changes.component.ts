@@ -10,6 +10,7 @@ import 'chartjs-adapter-date-fns';
 import { Assessment } from '../assessment/assessment.model';
 import { Employee } from '../employee-details/employee.model';
 import { EmployeeService } from '../employee-details/employee.service';
+import { AuthService } from '../login/auth.service';
 
 
 
@@ -43,7 +44,7 @@ export class RatingChangesComponent implements OnInit {
   coacheeLastName: string = '';
 
 
-  constructor(private route: ActivatedRoute, private activatedRoute: ActivatedRoute, private assessmentService: AssessmentService, private router: Router, private skillService: SkillService, private employeeService: EmployeeService) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService, private activatedRoute: ActivatedRoute, private assessmentService: AssessmentService, private router: Router, private skillService: SkillService, private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
@@ -271,7 +272,9 @@ export class RatingChangesComponent implements OnInit {
     console.log('hello from onSubmit ')
 
   }
-
+  onLogout() {
+    this.authService.logout();
+  }
   goToHome() {
     this.router.navigateByUrl('/home');
   }
@@ -301,6 +304,10 @@ export class RatingChangesComponent implements OnInit {
   goToTarget() {
     console.log('id before' + this.employee.idEmployee)
     this.router.navigate(['/personal-target', this.employee.idEmployee]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.idEmployee]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

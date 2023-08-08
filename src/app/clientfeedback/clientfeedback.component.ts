@@ -4,6 +4,7 @@ import { ClientfeedbackService } from './clientfeedback.service';
 import { EmployeeService } from '../employee-details/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientFeedback, ClientFeedbackPlayload, Evaluation } from './clientfeedback.model';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-clientfeedback',
@@ -25,7 +26,7 @@ export class ClientfeedbackComponent implements OnInit {
   
 
   constructor(private clientFeedbackService: ClientfeedbackService, private employeeService: EmployeeService,
-    private route: ActivatedRoute, private router:Router,) { }
+    private route: ActivatedRoute, private authService: AuthService, private router:Router,) { }
 
   ngOnInit(): void {
     this.coacheeId = parseInt(this.route.snapshot.params['id']);
@@ -98,7 +99,9 @@ export class ClientfeedbackComponent implements OnInit {
       }
     )
   }
-
+  onLogout() {
+    this.authService.logout();
+  }
 
   goToHome() { this.router.navigateByUrl('/home'); }
 
@@ -123,6 +126,10 @@ export class ClientfeedbackComponent implements OnInit {
   goToTarget() {
     console.log('id before ' + this.id)
     this.router.navigate(['/personal-target', this.idEmployee]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.idEmployee]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

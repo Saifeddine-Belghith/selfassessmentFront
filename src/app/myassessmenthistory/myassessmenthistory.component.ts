@@ -10,6 +10,7 @@ import { SkillService } from '../skill/skill.service';
 import { CategoryService } from '../category/category.service';
 import { Category } from '../category/category.model';
 import { AssessmentService } from '../assessment/assessment.service';
+import { AuthService } from '../login/auth.service';
 
 
 @Component({
@@ -55,7 +56,8 @@ export class MyassessmenthistoryComponent implements OnInit {
     public skillService: SkillService,
     private router: Router,
     private categoryService: CategoryService,
-    private assessmentService: AssessmentService
+    private assessmentService: AssessmentService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -554,7 +556,9 @@ export class MyassessmenthistoryComponent implements OnInit {
     return this.assessments.filter(assessment => assessment.skill?.category?.idCategory === categoryId);
   }
 
-
+  onLogout() {
+    this.authService.logout();
+  }
   goToHome() { this.router.navigateByUrl('/home'); }
 
   goToProfile() {
@@ -575,6 +579,10 @@ export class MyassessmenthistoryComponent implements OnInit {
   goToTarget() {
     console.log('id before ' + this.id)
     this.router.navigate(['/personal-target', this.id]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.id]);
   }
   goToSkillsOverview() { this.router.navigate(['/team-levels']) }
   goToCompare() { this.router.navigate(['/qualification-comparison']) }

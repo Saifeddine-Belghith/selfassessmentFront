@@ -7,6 +7,7 @@ import { SkillService } from '../skill/skill.service';
 import { SupportedValue, TargetArea, TargetStatus } from '../personal-target/personal-target.model';
 import { PersonalTargetService } from '../personal-target/personal-target.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-search',
@@ -47,7 +48,7 @@ export class SearchComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, private skillService: SkillService,
     private personalTargetService: PersonalTargetService, private route: ActivatedRoute,
-    private router: Router) { 
+    private router: Router, private authService: AuthService,) { 
     this.searchCriteria = [{ skill: '', rating: 0 }];
     }
 
@@ -187,6 +188,9 @@ export class SearchComponent implements OnInit {
     const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
     window.open(mailtoLink);
   }
+  onLogout() {
+    this.authService.logout();
+  }
   goToHome() {
     this.router.navigateByUrl('/home');
   }
@@ -213,6 +217,10 @@ export class SearchComponent implements OnInit {
   goToTarget() {
     console.log('id before' + this.id)
     this.router.navigate(['/personal-target', this.id]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.id]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

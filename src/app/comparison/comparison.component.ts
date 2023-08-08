@@ -12,6 +12,7 @@ import { Observable, catchError, defaultIfEmpty, forkJoin, map, switchMap, throw
 import { AssessmentService } from '../assessment/assessment.service';
 import { ProfileRoleService } from '../profile-role/profile-role.service';
 import { ProfileRole } from '../profile-role/profile-role.model';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-search',
@@ -53,7 +54,8 @@ export class ComparisonComponent implements OnInit {
   constructor(private employeeService: EmployeeService, private router: Router,
     private skillService: SkillService, private personalTargetService: PersonalTargetService,
     private categoryService: CategoryService, private assessmentService: AssessmentService,
-    private profileRoleService: ProfileRoleService) { }
+    private profileRoleService: ProfileRoleService,
+    private authService: AuthService,) { }
 
   ngOnInit(): void {
     this.id = parseInt(localStorage.getItem('idEmployee') || '');
@@ -69,7 +71,7 @@ export class ComparisonComponent implements OnInit {
       console.log("the experience is :", this.experience)
 
       this.experience = this.employee.experienceLevel;
-      this.getConsultantWithSimilarExperience();
+      this.getProfileRoles();
       console.log("is exp", this.experience)
       console.log("id emp", this.id)
       this.getSkills();
@@ -149,7 +151,7 @@ export class ComparisonComponent implements OnInit {
     );
   }
 
-  getConsultantWithSimilarExperience(): void {
+  getProfileRoles(): void {
     this.profileRoleService.getProfileRoles().subscribe(
       profileRoles => {
         this.profileRoleList = profileRoles;
@@ -340,7 +342,9 @@ export class ComparisonComponent implements OnInit {
     );
   }
 
-
+  onLogout() {
+    this.authService.logout();
+  }
 
   goToHome() { this.router.navigateByUrl('/home'); }
 
@@ -362,6 +366,10 @@ export class ComparisonComponent implements OnInit {
   goToTarget() {
     console.log('id before ' + this.id)
     this.router.navigate(['/personal-target', this.id]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.id]);
   }
   goToSkillsOverview() { this.router.navigate(['/team-levels']) }
   goToCompare() { this.router.navigate(['/qualification-comparison']) }

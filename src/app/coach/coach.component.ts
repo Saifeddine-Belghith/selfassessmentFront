@@ -11,6 +11,7 @@ import { Skill } from '../skill/skill.model';
 import { SkillService } from '../skill/skill.service';
 import { SupportedValue, TargetArea, TargetStatus } from '../personal-target/personal-target.model';
 import { PersonalTargetService } from '../personal-target/personal-target.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-coach',
@@ -67,7 +68,7 @@ export class CoachComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router,
     public skillService: SkillService, private assessmentService: AssessmentService,
-    private http: HttpClient, private personalTargetService: PersonalTargetService) {
+    private http: HttpClient, private authService: AuthService, private personalTargetService: PersonalTargetService) {
     this.searchCriteria = [{ skill: '', rating: 0 }];
   }
 
@@ -270,12 +271,19 @@ export class CoachComponent implements OnInit {
   onClientFeedbackSelect(coacheeId: number): void {
     this.router.navigate(['/client-feedback/' + coacheeId]);
   }
+
+  onTargetRoleSelect(coacheeId: number): void {
+    this.router.navigate(['/target-role/' + coacheeId]);
+  }
+
   getSkillName(idSkill: number): string {
     const skill = this.skills.find(skill => skill.idSkill === idSkill);
     return skill ? skill.skillName : 'Unknown skill';
   }
 
-
+  onLogout() {
+    this.authService.logout();
+  }
   goToHome() {
     this.router.navigateByUrl('/home');
   }
@@ -302,6 +310,10 @@ export class CoachComponent implements OnInit {
   goToTarget() {
     console.log('id before' + this.id)
     this.router.navigate(['/personal-target', this.id]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.id]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])

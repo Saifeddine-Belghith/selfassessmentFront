@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../employee-details/employee.model';
 import { EmployeeService } from '../employee-details/employee.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   isManager: boolean = false;
   id!: number;
   private apiUrl = 'http://:8081';
-  constructor(private router: Router, private http: HttpClient, private employeeService: EmployeeService) { }
+  constructor(private router: Router, private authService: AuthService, private http: HttpClient, private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     console.log("is coach", this.isCoach)
@@ -32,6 +33,9 @@ export class HomeComponent implements OnInit {
     console.log("is coach", this.isCoach)
     this.id = parseInt(localStorage.getItem('id') || '');
     console.log("id emp", this.id)
+  }
+  onLogout() {
+    this.authService.logout();
   }
   goToProfile() {
     console.log('id before' + this.idEmployee)
@@ -59,7 +63,10 @@ export class HomeComponent implements OnInit {
     console.log('id before' + this.id)
     this.router.navigate(['/personal-target', this.idEmployee]);
   }
-
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.idEmployee]);
+  }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])
   }

@@ -7,6 +7,7 @@ import { Assessment } from '../assessment/assessment.model';
 import { Employee } from '../employee-details/employee.model';
 import { TargetArea, SupportedValue, TargetStatus } from '../personal-target/personal-target.model';
 import { Skill } from '../skill/skill.model';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-searchbypersonaltarget',
@@ -49,7 +50,7 @@ export class SearchbypersonaltargetComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, private skillService: SkillService,
     private personalTargetService: PersonalTargetService, private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router, private authService: AuthService,) { }
 
   ngOnInit(): void {
     const idEmployee = parseInt(localStorage.getItem('idEmployee') || '');
@@ -148,7 +149,9 @@ export class SearchbypersonaltargetComponent implements OnInit {
     window.open(mailtoLink);
   }
 
-
+  onLogout() {
+    this.authService.logout();
+  }
   goToHome() {
     this.router.navigateByUrl('/home');
   }
@@ -175,6 +178,10 @@ export class SearchbypersonaltargetComponent implements OnInit {
   goToTarget() {
     console.log('id before' + this.id)
     this.router.navigate(['/personal-target', this.id]);
+  }
+  goToTargetRole() {
+    console.log('id before ' + this.id)
+    this.router.navigate(['/target-role', this.id]);
   }
   goToSkillsOverview() {
     this.router.navigate(['/team-levels'])
